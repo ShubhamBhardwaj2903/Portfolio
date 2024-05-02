@@ -1,0 +1,222 @@
+.project {
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.project-text {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.project-sub-text {
+    margin-top: 25px;
+}
+
+.project-text {
+    color: var(--bg-black);
+}
+
+.projects {
+    /* flex-wrap: nowrap; */
+    /* justify-content: start;
+    justify-content: space-evenly; */
+    margin-bottom: 100px;
+    scrollbar-width: none;
+    overflow-x: auto;
+}
+
+.project-title1 {
+    overflow: hidden;
+}
+
+.project-title1 span {
+    display: inline-block;
+    transform: translateY(100%);
+}
+
+.project {
+    width: 280px;
+    height: 600px;
+    background: #000;
+    color: var(--white);
+    border: 1px solid #CC4154;
+    overflow: hidden;
+    margin-right: 2%;
+    flex-shrink: 0;
+}
+
+.project::before,
+.project::after {
+    content: '';
+    /* display: block; */
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.5s ease;
+    /* position: relative;  */
+}
+
+.project:hover::before,
+.project:hover::after {
+    opacity: 1;
+}
+
+.num,
+.title,
+.cta-text,
+.subtext,
+.projectImage {
+    position: relative;
+    z-index: 2;
+}
+
+.projectImage {
+    margin: 10px auto;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.project:hover .projectImage {
+    opacity: 1;
+}
+
+.project1 {
+    border: 1px solid #CC4154;
+    cursor: pointer;
+}
+.project1{
+    opacity: 1;
+}
+.project2 {
+    border: 1px solid #26A0DA;
+    cursor: pointer;
+}
+
+.project3 {
+    border: 1px solid #87592F;
+    cursor: pointer;
+}
+.project1:hover{
+    background: linear-gradient(to bottom, transparent, #D2001D, #CC4154, #FF6277);
+}
+
+.project2:hover{    
+    background: linear-gradient(to bottom, transparent, #0C1357, #26A0DA);
+}
+.project3:hover{
+    background: linear-gradient(to bottom, transparent, #422018, #87592F);
+}
+/* .project1::before,
+.project1::after {
+    background: linear-gradient(to bottom, transparent, #D2001D, #CC4154, #FF6277);
+}
+
+.project2::before,
+.project2::after {
+    background: linear-gradient(to bottom, transparent, #0C1357, #26A0DA);
+}
+
+.project3::before,
+.project3::after {
+    background: linear-gradient(to bottom, transparent, #422018, #87592F);
+} */
+
+.num {
+    font-family: Grifter;
+    font-size: 100px;
+    text-align: right;
+    margin: 20px 30px;
+}
+
+.title {
+    font-family: Grifter;
+    font-size: 40px;
+    text-align: center;
+}
+
+.subtext {
+    text-align: center;
+    margin: 20px 30px;
+    font-size: 15px;
+}
+
+.projectImage {
+    margin: 30px auto 5px;
+    max-width: 100%;
+    display: block;
+}
+
+.cta-text {
+    font-size: 20px;
+    gap: 100px;
+}
+
+@media all and (max-width: 1279px) {}
+
+@media all and (max-width: 767px) {
+    .projects {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 60px;
+    }
+
+    .project {
+        width: 99%;
+        height: 300px;
+        margin-bottom: 0%;
+        border-radius: 10px;
+    }
+
+    .num {
+        font-size: 50px;
+        text-align: left;
+        margin: 20px 30px 5px;
+    }
+    
+    .subtext {
+        text-align: center;
+        margin: 20px 30px;
+        font-size: 15px;
+    }
+    
+    .projectImage {
+        margin: 10px auto 5px;
+        max-width: 100%;
+        opacity: 1;
+    }
+    
+    .cta-text {
+        margin: -125px 10px 0px 530px;
+    }
+    .cta-text p{
+        display: none;
+    }
+    
+    .project1{
+        background: linear-gradient(to bottom, transparent, #D2001D, #CC4154, #FF6277);
+    }
+
+    .project2{
+        background: linear-gradient(to bottom, transparent, #0C1357, #26A0DA);
+    }
+
+    .project3{
+        background: linear-gradient(to bottom, transparent, #422018, #87592F);
+    }
+}
+
+@media all and (max-width: 478px) {
+    .project {
+        width: 99%;
+        height: 250px;
+        margin-bottom: 0%;
+        border-radius: 5px;
+    }
+    .num {
+        display: none;
+    }
+    .title{
+        margin-top: 30px;
+    }
+}

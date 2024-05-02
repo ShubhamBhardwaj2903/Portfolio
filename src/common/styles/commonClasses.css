@@ -1,0 +1,120 @@
+.max-width {
+    max-width: 100%;
+    margin: auto;
+}
+.screen {
+    position: relative;
+    background-color: var(--white);
+    padding: 100px 0px 30px;
+    font-family: Gilroy;
+    font-weight: 500;
+    font-size: 100px;
+    z-index: 3;
+}
+.dark {
+    background-color: var(--bg-black);
+    padding: 100px 0px 30px;
+    color: #fff;
+}
+.sub-text {
+    font-size: 20px;
+    color: #9a9a9a;
+    font-weight: 600;
+    margin-top: 20px;
+}
+.width{
+    width: 80%;
+}
+.flex {
+    display: flex;
+}
+
+.absolute-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+.design{
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh;
+}
+.mobile{
+    background-image: url('/public/assets/mobileDesign.png');
+}
+.laptop{
+    background-image: url('/public/assets/laptopDesign.png');
+}
+
+.footer{
+    font-size: 40px;
+    font-family: 'Grifter',sans-serif;
+    justify-content: space-between;
+    margin-top: 0px;
+}
+.footer-text{
+    justify-content: flex-start;
+    color: white;
+    text-decoration: none;
+}
+.footer-icons{
+    justify-content: flex-end;
+}
+.footer-icons img{
+    margin-left: 20px;
+}
+.footer-details{
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+@media all and (max-width: 1279px) {
+    .screen {
+        padding: 100px 0px 30px;
+        font-size: 45px;
+        font-weight: 600;
+    }
+    .dark {
+        background-color: var(--bg-black);
+        padding: 100px 0px 30px;
+        color: #fff;
+    }
+    .sub-text {
+        font-size: 14px;
+        margin-top: 20px;
+    }
+    .footer{
+        font-size: 35px;
+    }
+    .footer-details{
+        font-size: 14px;
+    }
+}
+
+@media all and (max-width: 767px) {
+
+}
+
+@media all and (min-width : 766px) {
+
+}
+
+@media all and (max-width: 479px){
+    .footer{
+        flex-direction: column;
+    }
+    .footer-icons img{
+        margin: 10px 20px 20px 0px;
+        width: 16px;
+    }
+    .footer-details{
+        font-size: 10px;
+        margin-top: 0;
+    }
+}

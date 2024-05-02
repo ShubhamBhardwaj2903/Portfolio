@@ -1,0 +1,89 @@
+.skills-section-wrapper {
+    position: relative;
+    height: 100vh;
+    background-color: var(--bg-black);
+    color: var(--white);
+    overflow: hidden;
+}
+
+.skills-text {
+    white-space: nowrap;
+    font-family: Gilroy;
+    font-size: 130px;
+    font-weight: 700;
+    animation: marquee 20s linear infinite;
+}
+
+.skills-text1,
+.skills-text2,
+.skills-text3,
+.skills-text4 {
+    font-size: 100px;
+    white-space: nowrap;
+    font-family: Gilroy;
+    font-weight: 700;
+    opacity: 0.3;
+}
+
+.skills-text1{
+    animation: marquee1 30s linear infinite;
+}
+
+.skills-text2{
+    animation: marquee-reverse 30s linear infinite;
+}
+.skills-text3 {
+    animation: marquee-reverse1 30s linear infinite;
+}
+
+.skills-text4 {
+    animation: marquee2 30s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-700%);
+    }
+}
+
+@keyframes marquee1 {
+    0% {
+        transform: translateX(20%);
+    }
+
+    100% {
+        transform: translateX(-700%);
+    }
+}
+@keyframes marquee2 {
+    0% {
+        transform: translateX(60%);
+    }
+
+    100% {
+        transform: translateX(-700%);
+    }
+}
+
+@keyframes marquee-reverse {
+    0% {
+        transform: translateX(-600%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+@keyframes marquee-reverse1 {
+    0% {
+        transform: translateX(-400%);
+    }
+
+    100% {
+        transform: translateX(300%);
+    }
+}

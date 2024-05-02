@@ -1,0 +1,47 @@
+:root{
+    --cursor-size: 32px;
+    --cursor-x: 0px;
+    --cursor-y: 0px;
+
+}
+.main_page{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+.layer{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.dark-layer{
+    background-color: #000;
+}
+.text-container{
+    width: 380px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+}
+.layer_red{
+    background-color: rgb(235, 89, 57);
+    mask: url('E:\Projects\A - Projects\December Projects\animated\public\assets\mask.svg');
+    --webkit-mask: url('E:\Projects\A - Projects\December Projects\animated\public\assets\mask.svg');
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: var(--cursor-x) var(--cursor-y);
+    --webkit-mask-position: var(--cursor-x) var(--cursor-y);
+    mask-size: var(--cursor-size);
+    --webkir-mask-size: var(--cursor-size);
+}
+.text_black{
+    color: #000000 !important;
+}

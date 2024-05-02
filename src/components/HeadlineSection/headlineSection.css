@@ -1,0 +1,27 @@
+.overlap-screen {
+    height: 100vh;
+    font-size: 80px;
+}
+
+.title-texts {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+.title-text {
+    position: absolute;
+    opacity: 0.3;
+    width: 100%;
+    white-space: nowrap;
+    /* left: 10%; */
+}
+
+.title-text-hover {
+    position: absolute;
+    white-space: nowrap;
+    width: 0%;
+    opacity: 1;
+    overflow: hidden;
+    /* left: 10%; */
+}

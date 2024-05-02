@@ -1,0 +1,108 @@
+.exp{
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.exp-text{
+    text-align: center;
+    text-transform: uppercase;
+}
+.exp-sub-text{
+    margin-top: 25px;
+}
+.exp-text{
+    color: var(--bg-black);
+}
+
+.work {
+    margin-top: 75px;
+}
+
+.work-title-text {
+    font-size: 30px;
+    font-family: 'Grifter', sans-serif;
+    margin-right: 20px;
+}
+
+.work-designation {
+    font-size: 16px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.underline {
+    width: 300px;
+    height: 4px;
+    background-color: var(--white);
+    margin: 15px 0px;
+}
+
+.work-duration {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.work-description {
+    font-size: 16px;
+    margin-top: 30px;
+    color: #9a9a9a;
+}
+
+.work-description:hover {
+    color: var(--white);
+    transition: all 0.3s ease-in-out;
+}
+
+.button {
+    width: 200px;
+    height: 50px;
+    font-size: 14px;
+    font-family: 'Grifter', sans-serif;
+    border: 1px solid #c0c0c0;
+    background: transparent;
+    color: #c0c0c0;
+    margin-top: 30px;
+    cursor: pointer;
+}
+.button:hover{
+    background: var(--white);
+    color: var(--bg-black);
+    transition: 0.5s all ease-out;
+}
+.ieee-grss-img{
+    margin-top: 30px;
+    max-width: 100%;
+}
+.exp-title1{
+    overflow: hidden;
+}
+.exp-title1 span{
+    display: inline-block;
+    transform: translateY(100%);
+}
+
+@media all and (max-width: 1279px){
+
+}
+@media all and (max-width: 767px){
+    .work-title-text {
+        font-size: 20px;
+        margin-right: 12px;
+    }
+    .work-designation {
+        font-size: 14px;
+        margin-left: 12px;
+    }    
+    .underline {
+        width: 230px;
+        height: 4px;
+        background-color: var(--white);
+        margin: 15px 0px;
+    }
+    .work-description {
+        font-size: 12px;
+        margin-top: 30px;
+        color: #9a9a9a;
+    }
+}

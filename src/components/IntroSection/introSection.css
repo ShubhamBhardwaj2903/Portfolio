@@ -1,0 +1,42 @@
+.intro{
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.intro-text{
+    text-align: center;
+    text-transform: uppercase;
+}
+.intro-sub-text{
+    margin-top: 25px;
+}
+.intro-text{
+    color: var(--bg-black);
+}
+.intro-desc{
+    margin-top: 40px;
+    font-size: 14px;
+    color: #9a9a9a;
+    font-weight: 500;
+}
+.intro-title1{
+    overflow: hidden;
+}
+.intro-title1 span{
+    display: inline-block;
+    transform: translateY(100%);
+}
+
+
+@media all and (max-width: 1279px){
+
+}
+@media all and (max-width: 767px){
+    .intro-section{
+        flex-direction: column;
+        align-items: center;
+    }
+    image{
+        margin-top: 30px;
+        width: 200px;
+    }
+}
