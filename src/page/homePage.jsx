@@ -13,10 +13,12 @@ import MobileDesignSection from '../components/MobileDesignSection'
 import LaptopDesignSection from '../components/LaptopDesignSection'
 import Carzzy from '../components/Carzzy/carzzy'
 import Ambli from '../components/Ambli AI/ambli'
+import Preloader from '../components/Preloader'
 
 const HomePage = () => {
     return (
         <>
+            <Preloader/>
             <HeroSection/>
             {/* <HeadlineSection/> */}
             {/* <SkillsSection/> */}

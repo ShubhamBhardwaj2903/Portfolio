@@ -17,13 +17,13 @@ const HeroSection = () => {
             },
         })
             .to('.rectangle', { opacity: 0, duration: 1, ease: 'power2.inOut' })
-            .to('.hero-sub-section1', { y: -350, duration: 3, ease: 'power2.inOut' }, '-=3')
-            .to('.hero-sub-section2', { y: -500, duration: 3, ease: 'power2.inOut' }, '-=3')
-            .to('.hero-sub-section3', { y: -425, duration: 3, ease: 'power2.inOut' }, '-=3')
-            .to('.hero-section', { y: 0, duration: 3, scale: 0.7, rotation: -10, ease: 'power2.inOut' }, '-=3')
-            .to('.rectangle', { y: -500, opacity: 0.3, duration: 3, ease: 'power2.inOut' })
+            .to('.hero-sub-section1', { y: -250, duration: 1, ease: 'power2.inOut' }, '-=1')
+            .to('.hero-sub-section2', { y: -300, duration: 1, ease: 'power2.inOut' }, '-=1')
+            .to('.hero-sub-section3', { y: -375, duration: 1, ease: 'power2.inOut' }, '-=1')
+            .to('.hero-section', { y: 0, duration: 1, scale: 0.7, rotation: -10, ease: 'power2.inOut' }, '-=1')
+            .to('.rectangle', { y: -400, opacity: 0.3, duration: 1, ease: 'power2.inOut' }, '-=1')
             .to('.hero-title span', {
-                translateY: '0%', duration: 3, stagger: 2, ease: 'power3.out',
+                translateY: '0%', duration: 0.5, stagger:0.4, ease: 'power3.out',
             });
 
         // gsap.to('.hero-title span', {
@@ -48,6 +48,11 @@ const HeroSection = () => {
             <div className="hero-title">
                 <span>Shubham Bhardwaj</span>
             </div>
+            {/* <div className='resume-button'>
+                <a href="./public/assets/Shubham_Bhardwaj_Resume.pdf" download>
+                    <button>Download Resume</button>
+                </a>
+            </div> */}
             <div className="flex hero-section">
                 <div className="rectangle"></div>
                 <div className="hero-sub-section1 flex-col max-width">
@@ -132,7 +137,7 @@ const HeroSection = () => {
                     </div>
                 </div>
                 <div className="hero-sub-section4 flex-col max-width">
-                <div className='image'>
+                    <div className='image'>
                         <img src='assets/hero1.png' alt="projectImage" />
                     </div>
                     <div className='image'>
