@@ -33,4 +33,12 @@
     src: local('gilroy'), url(./Gilroy-Black.ttf) format("truetype");
 }
 
+@font-face {
+    font-family: 'Grifter';
+    src: url('./grifterbold.otf') format('woff2'), /* Modern Browsers */
+         url('./grifterbold.otf') format('woff');   /* Older Browsers */
+    font-weight: normal;
+    font-style: normal;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');

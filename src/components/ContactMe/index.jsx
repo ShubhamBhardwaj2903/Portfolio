@@ -25,7 +25,7 @@ const ContactMe = () => {
 
     return (
         <div className="contact-me-section-wrapper dark screen max-width flex flex-col absolute-center">
-            <div className="contact-me-section">
+            <div className="contact-me-section pad">
                 <div className="contact-me-section-title heading">
                     <div className="contact-title1"><span>Don’t be shy, say Hi !!!</span> </div>
 

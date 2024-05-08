@@ -25,7 +25,7 @@ const ExperienceSection = () => {
 
     return (
         <div className="exp-wrapper dark screen max-width flex flex-col absolute-center">
-            <div className="exp-section width">
+            <div className="exp-section width pad">
                 <div className="exp-texts">
                     <div className="exp-title">
                         <div className="exp-title1"> <span>Through the Lens</span> </div>

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './projectSection.css'
+import { Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +26,7 @@ const ProjectSection = () => {
 
     return (
         <div className="project-wrapper dark screen max-width flex flex-col absolute-center">
-            <div className="project-section width">
+            <div className="project-section width pad">
                 <div className="project-texts">
                     <div className="project-title">
                         <div className="project-title1"> <span>In a World of Pixels,</span> </div>
@@ -49,9 +50,9 @@ const ProjectSection = () => {
                     </div>
                     <div className="project project2">
                         <div className="num">02</div>
-                        <div className="title">FEEDLY</div>
-                        <div className="subtext">“Give back to   the society, one grain at a time”</div>
-                        <img className="projectImage" src='assets/image 79.png' alt='Project_Image'></img>
+                        <div className="title">AMBLI AI</div>
+                        <div className="subtext">“An AI-powered Search Platform”</div>
+                        <img className="projectImage" src='assets/image 80.png' alt='Project_Image'></img>
                         <div className="cta-text flex absolute-center">
                             <p>Witness<br/> the Magic</p>
                             <img src="assets/nextButton.svg" alt='next_icon'></img>

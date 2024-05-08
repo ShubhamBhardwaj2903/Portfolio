@@ -54,7 +54,7 @@ const Services = () => {
 
     return (
         <div className="services-wrapper screen max-width flex flex-col absolute-center">
-            <div className="services-section width ">
+            <div className="services-section width pad">
                 <div className="services-texts">
                     <div className="services-title">
                         <div className="services-title1"> <span>Designing Tomorrow's</span> </div>

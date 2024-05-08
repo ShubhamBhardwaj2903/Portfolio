@@ -11,6 +11,8 @@ import ExperienceSection from '../components/ExperienceSection'
 import ContactMe from '../components/ContactMe'
 import MobileDesignSection from '../components/MobileDesignSection'
 import LaptopDesignSection from '../components/LaptopDesignSection'
+import Carzzy from '../components/Carzzy/carzzy'
+import Ambli from '../components/Ambli AI/ambli'
 
 const HomePage = () => {
     return (
@@ -26,6 +28,8 @@ const HomePage = () => {
             <LaptopDesignSection/>
             <ExperienceSection/>
             <ContactMe/>
+            <Carzzy/>
+            {<Ambli/> }
         </>
     )
 }
