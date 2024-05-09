@@ -6,7 +6,7 @@
 .screen {
     position: relative;
     background-color: var(--white);
-    /* padding: 100px 0px 30px; */
+    padding: 100px 0px 30px;
     font-family: Gilroy;
     font-weight: 500;
     font-size: 100px;

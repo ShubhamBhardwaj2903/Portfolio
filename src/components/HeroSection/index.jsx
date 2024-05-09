@@ -11,17 +11,18 @@ const HeroSection = () => {
         gsap.timeline({
             scrollTrigger: {
                 trigger: '.scroller',
-                start: 'top 90%',
-                end: 'top -400%',
-                scrub: true
+                start: 'top 100%',
+                end: 'top 0%',
+                scrub: true,
+                // markers: true
             },
         })
             .to('.rectangle', { opacity: 0, duration: 1, ease: 'power2.inOut' })
-            .to('.hero-sub-section1', { y: -250, duration: 1, ease: 'power2.inOut' }, '-=1')
-            .to('.hero-sub-section2', { y: -300, duration: 1, ease: 'power2.inOut' }, '-=1')
-            .to('.hero-sub-section3', { y: -375, duration: 1, ease: 'power2.inOut' }, '-=1')
+            .to('.hero-sub-section1', { y: -100, duration: 1, ease: 'power2.inOut' }, '-=1')
+            .to('.hero-sub-section2', { y: -50, duration: 1, ease: 'power2.inOut' }, '-=1')
+            .to('.hero-sub-section3', { y: -400, duration: 1, ease: 'power2.inOut' }, '-=1')
             .to('.hero-section', { y: 0, duration: 1, scale: 0.7, rotation: -10, ease: 'power2.inOut' }, '-=1')
-            .to('.rectangle', { y: -400, opacity: 0.3, duration: 1, ease: 'power2.inOut' }, '-=1')
+            .to('.rectangle', { y: -100, opacity: 0.3, duration: 1, ease: 'power2.inOut' }, '-=1')
             .to('.hero-title span', {
                 translateY: '0%', duration: 0.5, stagger:0.4, ease: 'power3.out',
             });

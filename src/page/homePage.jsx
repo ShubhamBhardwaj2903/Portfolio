@@ -14,24 +14,26 @@ import LaptopDesignSection from '../components/LaptopDesignSection'
 import Carzzy from '../components/Carzzy/carzzy'
 import Ambli from '../components/Ambli AI/ambli'
 import Preloader from '../components/Preloader'
+import Navbar from '../components/Navbar'
 
 const HomePage = () => {
     return (
         <>
-            <Preloader/>
-            <HeroSection/>
+            {/* <Navbar/> */}
+            {/* <Preloader/>
+            <HeroSection/> */}
             {/* <HeadlineSection/> */}
             {/* <SkillsSection/> */}
             {/* <TextMask/> */}
-            <Services/>
+            {/* <Services/>
             <IntroSection/>
             <MobileDesignSection/>
             <ProjectSection/>
             <LaptopDesignSection/>
             <ExperienceSection/>
-            <ContactMe/>
+            <ContactMe/> */}
             <Carzzy/>
-            {<Ambli/> }
+            {/* <Ambli/>   */}
         </>
     )
 }

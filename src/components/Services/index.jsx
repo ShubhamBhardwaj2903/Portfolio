@@ -11,8 +11,8 @@ const Services = () => {
         gsap.to('.services-title1 span', {
           scrollTrigger: {
             trigger: '.services-title1', 
-            start: 'top 50%', 
-            end: '+=400', 
+            start: 'bottom 20%', 
+            end: 'top 10%', 
             scrub: true, 
           },
           translateY: '0%', 
@@ -25,7 +25,7 @@ const Services = () => {
             scrollTrigger: {
               trigger: '.services', 
               start: 'top 70%', 
-              end: '+=400', 
+              end: 'top 10%', 
               scrub: true, 
             },
             // opacity: 0, y: 50, duration: 3, stagger: 0.8,

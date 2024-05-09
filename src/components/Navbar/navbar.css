@@ -1,0 +1,57 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    padding: 20px;
+    z-index: 1000;
+  }
+  
+  .navbar.open {
+    height: 100vh;
+  }
+  
+  .navbar-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align button to the right */
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  
+  .navbar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+  }
+  
+  .navbar.open .navbar-menu {
+    display: block;
+  }
+  
+  .navbar-menu li {
+    margin-bottom: 10px;
+  }
+  
+  .navbar-menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  .hamburger-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px; /* Adjust the margin as needed */
+  }
+  
+  /* Add transitions for smoother animation */
+  .navbar-menu, .navbar-button {
+    transition: transform 0.3s ease;
+  }
+  

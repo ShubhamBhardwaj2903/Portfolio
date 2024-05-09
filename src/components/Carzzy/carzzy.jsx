@@ -1,11 +1,39 @@
 import React, { useEffect } from 'react';
-import gsap from 'gsap';
+import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-// import './contactMe.css'
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Carzzy = () => {
+  useEffect(() => {
+    // GSAP animation code here
+    // gsap.to('.design-section-title', {
+    //   opacity: 0,
+    //   y: 50,
+    //   duration: 1,
+    //   scrollTrigger: {
+    //     trigger: '.design-section-title',
+    //     start: 'top 80%', // Adjust as needed
+    //     end: 'bottom top',
+    //     toggleActions: 'play none none reverse',
+    //   },
+    // });
+
+    gsap.from('.design-text1', {
+      scrollTrigger: {
+        trigger: '.design-section-title', 
+        start: 'top 80%', 
+        end: 'top 10%', 
+        scrub: true, 
+        markers: true
+      },
+      y: 200, 
+      duration: 3,
+      stagger: 0.2,
+      ease: 'sine.inOut',
+    });
+
+  }, []);
 
   return (
     <div className="design-section-wrapper screen max-width">
