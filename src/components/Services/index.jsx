@@ -8,17 +8,31 @@ gsap.registerPlugin(ScrollTrigger);
 const Services = () => {
     useEffect(() => {
 
-        gsap.to('.services-title1 span', {
-          scrollTrigger: {
-            trigger: '.services-title1', 
-            start: 'bottom 20%', 
-            end: 'top 10%', 
-            scrub: true, 
-          },
-          translateY: '0%', 
-          duration: 1,
-          stagger: 0.2,
-          ease: 'power3.out',
+        // gsap.to('.services-title1 span', {
+        //   scrollTrigger: {
+        //     trigger: '.services-title1', 
+        //     start: 'bottom 20%', 
+        //     end: 'top 10%', 
+        //     scrub: true, 
+        //   },
+        //   translateY: '0%', 
+        //   duration: 1,
+        //   stagger: 0.2,
+        //   ease: 'power3.out',
+        // });
+
+        gsap.from('.services-title1 span', {
+            scrollTrigger: {
+                trigger: '.services-title', 
+                start: 'top 50%', 
+                end: '+=400', 
+                scrub: true,
+                markers: true
+            },
+            translateY: '0%',
+            duration: 5,
+            stagger: 0.5,
+            ease: 'power3.out',
         });
 
         gsap.to('.service1', {
