@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './navbar.css'; // Import CSS file for styling
+import './navbar.css'; 
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,41 +9,60 @@ const Navbar = () => {
     };
 
     return (
-        // <nav className={`navbar ${isOpen ? 'open' : ''}`}>
-        //   <button className="navbar-button" onClick={toggleNavbar}>
-        //     <img src="/assets/hamburger.svg" alt="Menu Icon" className="hamburger-icon" />
-        //   </button>
-        //   <ul className="navbar-menu">
-        //     <li><a href="#home">Home</a></li>
-        //     <li><a href="#about">About</a></li>
-        //     <li><a href="#services">Services</a></li>
-        //     <li><a href="#portfolio">Portfolio</a></li>
-        //     <li><a href="#contact">Contact</a></li>
-        //   </ul>
-        // </nav>
-        <>
-            <div className="Container">
-                <div className="navbar">
-                    <div className="site-logo">Plastic</div>
-                    <div className="menu-toggle">
-                        <div className="menu-toggle-btn">
-                        <span></span>
-                        </div>
+        <div className="container">
+            <div className={`navbar ${isOpen ? 'open' : ''}`}>
+                <div className={`site-logo ${isOpen ? 'white' : ''}`} onClick={toggleNavbar}>Shubham</div>
+                <div className="menu-toggle">
+                    <div className="menu-toggle-btn" onClick={toggleNavbar}>hello
+                        {/* <img src="/img1.png" alt="Menu" /> */}
                     </div>
                 </div>
+            </div>
 
+            {isOpen && (
                 <div className="nav-container">
                     <div className="nav">
                         <div className="col flex">
-                            <div className="nav-logo">
-                                
+                            <div className="nav-logo">c/</div>
+                            <div className="nav-socials">
+                                <a href="#">LinkedIn</a>
+                                <a href="#">LinkedIn</a>
+                                <a href="#">LinkedIn</a>
+                                <a href="#">LinkedIn</a>
+                                <a href="#">LinkedIn</a>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <div className="nav-link">
+                                <a href ="#">Work</a>
+                            </div>
+                            <div className="nav-link">
+                                <a href ="#">Services</a>
+                            </div>
+                            <div className="nav-link">
+                                <a href ="#">About</a>
+                            </div>
+                            <div className="nav-link">
+                                <a href ="#">Manifesto</a>
+                            </div>
+                            <div className="nav-link">
+                                <a href ="#">Contact</a>
                             </div>
                         </div>
                     </div>
+                    <div className="nav-footer">
+                        <div className="links">
+                            <a href = "#">Privacy Policy</a>
+                            <a href = "#">Cookie Policy</a>
+                            <a href = "#">Terms & Condition</a>
+                        </div>
+                        <div className="contact">
+                            <a href="#">bhardwajsb03@gmai.com</a>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
-        </>
+            )}
+        </div>
     );
 };
 

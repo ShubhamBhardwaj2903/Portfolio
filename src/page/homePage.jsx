@@ -15,14 +15,16 @@ import Carzzy from '../components/Carzzy/carzzy'
 import Ambli from '../components/Ambli AI/ambli'
 import Preloader from '../components/Preloader'
 import Navbar from '../components/Navbar'
+import Header from '../components/Header'
 
 const HomePage = () => {
     return (
         <>
-            {/* <Navbar/> */}
-            {/* <Preloader/>
-            <HeroSection/> */}
-            {/* <HeadlineSection/> */}
+            <Navbar/> 
+            {/* <Header/> */}
+            {/* <Preloader/> */}
+            {/* <HeroSection/> */}
+            {/* <HeadlineSection/>
             {/* <SkillsSection/> */}
             {/* <TextMask/> */}
             {/* <Services/>
@@ -32,7 +34,7 @@ const HomePage = () => {
             <LaptopDesignSection/>
             <ExperienceSection/>
             <ContactMe/> */}
-            <Carzzy/>
+            {/* <Carzzy/> */}
             {/* <Ambli/>   */}
         </>
     )

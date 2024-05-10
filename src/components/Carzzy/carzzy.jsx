@@ -6,42 +6,30 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Carzzy = () => {
   useEffect(() => {
-    // GSAP animation code here
-    // gsap.to('.design-section-title', {
-    //   opacity: 0,
-    //   y: 50,
-    //   duration: 1,
-    //   scrollTrigger: {
-    //     trigger: '.design-section-title',
-    //     start: 'top 80%', // Adjust as needed
-    //     end: 'bottom top',
-    //     toggleActions: 'play none none reverse',
-    //   },
-    // });
 
-    gsap.from('.design-text1', {
-      scrollTrigger: {
-        trigger: '.design-section-title', 
-        start: 'top 80%', 
-        end: 'top 10%', 
-        scrub: true, 
-        markers: true
-      },
-      y: 200, 
-      duration: 3,
-      stagger: 0.2,
-      ease: 'sine.inOut',
-    });
+    gsap.to('.design-section-title', { y: 100, duration: 1, ease: 'power3.inOut', });
+    gsap.to('.design_hero_image', { scale: 0.85, duration: 1, ease: 'power3.inOut', });
+    // gsap.from('.process-texts', 
+    // { 
+    //   scrollTrigger: {
+    //     trigger: '.process-texts', // Element that triggers the animation
+    //     start: 'top 80%', // Start the animation when the trigger reaches 80% of the viewport height
+    //     end: 'top 10%', // End the animation when the trigger reaches 50% of the viewport height
+    //     scrub: true, // Smoothly animate when scrolling
+    //     markers: true, // Show markers for debugging
+    //   },
+    //   y: 100, duration: 1, ease: 'power3.inOut', });
 
   }, []);
 
+
   return (
-    <div className="design-section-wrapper screen max-width">
+    <div className="design-section-wrapper screen max-width" style={{ padding: 0 }}>
       <div className="design-section flex absolute-center" style={{ background: 'linear-gradient(to bottom, #D2001D 0%, #CC4154 56%, #FF6277 100%)' }}>
         <div className="design-section-title">
           <div className="design-num">01</div>
           <div className="design-title">CARZZY</div>
-          <div className="design-subtitle">"Discover, Book, and Drive Your Car Rental Made Easy!</div>
+          <div className="design-subtitle">"Discover, Book, and Drive Your Car Rental Made Easy!"</div>
         </div>
         <div className='design_hero_image'>
           <img src='assets/carzzy_hero_section.png' alt="projectImage" />
@@ -81,7 +69,7 @@ const Carzzy = () => {
 
         <div className="design-text1">Design Process</div>
         <div className="process flex absolute-center">
-          <div className="process-num">1</div>
+          <div className="process-num" style={{ padding: 11 }}>1</div>
           <div className="process-texts">
             <div className="process-text1">Research Phase</div>
             <div className="process-text2">So, first things first – I dove headfirst into the research pool. I chatted with
