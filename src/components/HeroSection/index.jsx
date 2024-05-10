@@ -17,29 +17,30 @@ const HeroSection = () => {
                 // markers: true
             },
         })
-            .to('.rectangle', { opacity: 0, duration: 1, ease: 'power2.inOut' })
-            .to('.hero-sub-section1', { y: -100, duration: 1, ease: 'power2.inOut' }, '-=1')
-            .to('.hero-sub-section2', { y: -50, duration: 1, ease: 'power2.inOut' }, '-=1')
-            .to('.hero-sub-section3', { y: -400, duration: 1, ease: 'power2.inOut' }, '-=1')
-            .to('.hero-section', { y: 0, duration: 1, scale: 0.7, rotation: -10, ease: 'power2.inOut' }, '-=1')
+            // .to('.rectangle', { opacity: 0, duration: 1, ease: 'power2.inOut' })
+            // .to('.hero-sub-section1', { y: -100, duration: 1, ease: 'power2.inOut' }, '-=1')
+            // .to('.hero-sub-section2', { y: -50, duration: 1, ease: 'power2.inOut' }, '-=1')
+            // .to('.hero-sub-section3', { y: -400, duration: 1, ease: 'power2.inOut' }, '-=1')
+            // .to('.hero-section', { y: 0, duration: 1, scale: 0.7, rotation: -10, ease: 'power2.inOut' }, '-=1')
             .to('.rectangle', { y: -100, opacity: 0.3, duration: 1, ease: 'power2.inOut' }, '-=1')
             .to('.hero-title span', {
-                translateY: '0%', duration: 0.5, stagger:0.4, ease: 'power3.out',
+                translateY: '0%', duration: 0.5, stagger: 0.4, ease: 'power3.out',
             });
 
-        // gsap.to('.hero-title span', {
-        //     scrollTrigger: {
-        //         trigger: '.rectangle',
-        //         start: 'top 0%',
-        //         end: '+=400',
-        //         scrub: true,
-        //         markers: true
-        //     },
-        //     translateY: '0%',
-        //     duration: 3,
-        //     stagger: 0.2,
-        //     ease: 'power3.out',
-        // });
+        const tl = gsap.timeline({ repeat: -1 });
+
+        // Animation for moving each sub-section in different directions
+
+        tl.to(".hero-sub-section1", { y: "-70%", duration: 4 });
+        tl.to(".hero-sub-section2", { y: "50%", duration: 4, delay: -4 });
+        tl.to(".hero-sub-section3", { y: "-60%", duration: 4, delay: -4 });
+        tl.to(".hero-sub-section4", { y: "50%", duration: 4, delay: -4 });
+
+        tl.to(".hero-sub-section1", { y: "30%", duration: 4 });
+        tl.to(".hero-sub-section2", { y: "-100%", duration: 4, delay: -4 });
+        tl.to(".hero-sub-section3", { y: "40%", duration: 4, delay: -4 });
+        tl.to(".hero-sub-section4", { y: "-50%", duration: 4, delay: -4 });
+
 
     }, []);
 
@@ -54,7 +55,7 @@ const HeroSection = () => {
                     <button>Download Resume</button>
                 </a>
             </div> */}
-            <div className="flex hero-section" style={{position: "relative"}}>
+            <div className="flex hero-section" >
                 <div className="rectangle"></div>
                 <div className="hero-sub-section1 flex-col max-width">
                     <div className='image'>
