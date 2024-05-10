@@ -20,20 +20,20 @@ import Header from '../components/Header'
 const HomePage = () => {
     return (
         <>
-            <Navbar/> 
+            {/* <Navbar/>  */}
             {/* <Header/> */}
             {/* <Preloader/> */}
-            {/* <HeroSection/> */}
+            <HeroSection/>
             {/* <HeadlineSection/>
             {/* <SkillsSection/> */}
             {/* <TextMask/> */}
-            {/* <Services/>
+            <Services/>
             <IntroSection/>
             <MobileDesignSection/>
             <ProjectSection/>
             <LaptopDesignSection/>
             <ExperienceSection/>
-            <ContactMe/> */}
+            <ContactMe/>
             {/* <Carzzy/> */}
             {/* <Ambli/>   */}
         </>

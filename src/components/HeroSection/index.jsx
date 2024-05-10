@@ -54,7 +54,7 @@ const HeroSection = () => {
                     <button>Download Resume</button>
                 </a>
             </div> */}
-            <div className="flex hero-section">
+            <div className="flex hero-section" style={{position: "relative"}}>
                 <div className="rectangle"></div>
                 <div className="hero-sub-section1 flex-col max-width">
                     <div className='image'>

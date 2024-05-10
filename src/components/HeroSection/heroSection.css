@@ -94,7 +94,7 @@
         }
 }
 
-@media all and (max-width:767px){
+/* @media all and (max-width:767px){
     .hero-section{
         margin: -50px;
     }
@@ -110,5 +110,5 @@
     .hero-sub-section3, .hero-sub-section4{
         display: none;
     }
-}
+} */
 
