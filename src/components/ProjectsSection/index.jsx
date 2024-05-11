@@ -44,21 +44,22 @@ const ProjectSection = () => {
                             Your Car Rental Made Easy!"</div>
                         <img className="projectImage" src='assets/image 79.png' alt='Project_Image'></img>
                         <div className="cta-text flex absolute-center">
-                            <p>Witness<br/> the Magic</p>
+                            <p>Witness<br /> the Magic</p>
                             <img src="assets/nextButton.svg" alt='next_icon'></img>
                         </div>
                     </div>
-                    <div className="project project2">
-                        <div className="num">02</div>
-                        <div className="title">AMBLI AI</div>
-                        <div className="subtext">“An AI-powered Search Platform”</div>
-                        <img className="projectImage" src='assets/image 80.png' alt='Project_Image'></img>
-                        <div className="cta-text flex absolute-center">
-                            <p>Witness<br/> the Magic</p>
-                            <img src="assets/nextButton.svg" alt='next_icon'></img>
+                    
+                        <div className="project project2">
+                            <div className="num">02</div>
+                            <div className="title">AMBLI AI</div>
+                            <div className="subtext">“An AI-powered Search Platform”</div>
+                            <img className="projectImage" src='assets/image 80.png' alt='Project_Image'></img>
+                            <div className="cta-text flex absolute-center">
+                                <p>Witness<br /> the Magic</p>
+                                <img src="assets/nextButton.svg" alt='next_icon'></img>
+                            </div>
                         </div>
-                    </div>
-                    <div className="project project3">
+                    {/* <div className="project project3">
                         <div className="num">03</div>
                         <div className="title">FASHIONISTA</div>
                         <div className="subtext">“Find The Best Fashion Style for you”</div>
@@ -67,8 +68,20 @@ const ProjectSection = () => {
                             <p>Witness<br/> the Magic</p>
                             <img src="assets/nextButton.svg" alt='next_icon'></img>
                         </div>
-                    </div>
-                    <div className="project">
+                    </div> */}
+                    <a href="https://cred-clone-shubham-bhardwaj.onrender.com/" target='_blank' style={{textDecoration: "none"}}>
+                        <div className="project project4">
+                            <div className="num">03</div>
+                            <div className="title">CRED</div>
+                            <div className="subtext">"Clone website of CRED using ReactJS"</div>
+                            <img className="projectImage" src='assets/image 79.png' alt='Project_Image'></img>
+                            <div className="cta-text flex absolute-center">
+                                <p>Witness<br /> the Magic</p>
+                                <img src="assets/nextButton.svg" alt='next_icon'></img>
+                            </div>
+                        </div>
+                    </a>
+                    {/* <div className="project">
                         <div className="num">01</div>
                         <div className="title">CARZZY</div>
                         <div className="subtext">"Discover, Book, and Drive
@@ -89,18 +102,7 @@ const ProjectSection = () => {
                             <p>Witness<br/> the Magic</p>
                             <img src="assets/nextButton.svg" alt='next_icon'></img>
                         </div>
-                    </div>
-                    <div className="project">
-                        <div className="num">01</div>
-                        <div className="title">CARZZY</div>
-                        <div className="subtext">"Discover, Book, and Drive
-                            Your Car Rental Made Easy!</div>
-                        <img className="projectImage" src='assets/image 79.png' alt='Project_Image'></img>
-                        <div className="cta-text flex absolute-center">
-                            <p>Witness<br/> the Magic</p>
-                            <img src="assets/nextButton.svg" alt='next_icon'></img>
-                        </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

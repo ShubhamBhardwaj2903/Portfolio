@@ -8,7 +8,7 @@ import Services from '../components/Services'
 import IntroSection from '../components/IntroSection'
 import ProjectSection from '../components/ProjectsSection'
 import ExperienceSection from '../components/ExperienceSection'
-import ContactMe from '../components/ContactMe'
+import ContactMe, { ContactUs } from '../components/ContactMe'
 import MobileDesignSection from '../components/MobileDesignSection'
 import LaptopDesignSection from '../components/LaptopDesignSection'
 import Carzzy from '../components/Carzzy/carzzy'
@@ -23,17 +23,18 @@ const HomePage = () => {
             {/* <Navbar/>  */}
             {/* <Header/> */}
             {/* <Preloader/> */}
-            <HeroSection/>
+            {/* <HeroSection/> */}
             {/* <HeadlineSection/>
             {/* <SkillsSection/> */}
             {/* <TextMask/> */}
-            <Services/>
+            {/* <Services/>
             <IntroSection/>
             <MobileDesignSection/>
             <ProjectSection/>
             <LaptopDesignSection/>
-            <ExperienceSection/>
-            <ContactMe/>
+            <ExperienceSection/> */}
+            {/* <ContactMe/> */}
+            <ContactUs/>
             {/* <Carzzy/> */}
             {/* <Ambli/>   */}
         </>

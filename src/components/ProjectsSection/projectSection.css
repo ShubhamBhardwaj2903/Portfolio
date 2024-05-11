@@ -89,7 +89,8 @@
     opacity: 1;
 }
 .project2 {
-    border: 1px solid #26A0DA;
+    border: 1px solid #8c75ff;
+    /* border: 1px solid #26A0DA; */
     cursor: pointer;
 }
 
@@ -97,15 +98,25 @@
     border: 1px solid #87592F;
     cursor: pointer;
 }
+.project4 {
+    border: 1px solid #1ED760;
+    cursor: pointer;
+}
 .project1:hover{
     background: linear-gradient(to bottom, transparent, #D2001D, #CC4154, #FF6277);
 }
 
-.project2:hover{    
+/* .project2:hover{    
     background: linear-gradient(to bottom, transparent, #0C1357, #26A0DA);
+} */
+.project2:hover{    
+    background: linear-gradient(to bottom, transparent, #110A34, #3D3372);
 }
 .project3:hover{
     background: linear-gradient(to bottom, transparent, #422018, #87592F);
+}
+.project4:hover{
+    background: linear-gradient(to bottom, transparent, #006123, #1ED760);
 }
 /* .project1::before,
 .project1::after {
