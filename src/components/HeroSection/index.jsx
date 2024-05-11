@@ -31,15 +31,15 @@ const HeroSection = () => {
 
         // Animation for moving each sub-section in different directions
 
-        // tl.to(".hero-sub-section1", { y: "-70%", duration: 4 });
-        // tl.to(".hero-sub-section2", { y: "50%", duration: 4, delay: -4 });
-        // tl.to(".hero-sub-section3", { y: "-60%", duration: 4, delay: -4 });
-        // tl.to(".hero-sub-section4", { y: "50%", duration: 4, delay: -4 });
+        tl.to(".hero-sub-section1", { y: "-70%", duration: 4 });
+        tl.to(".hero-sub-section2", { y: "50%", duration: 4, delay: -4 });
+        tl.to(".hero-sub-section3", { y: "-60%", duration: 4, delay: -4 });
+        tl.to(".hero-sub-section4", { y: "50%", duration: 4, delay: -4 });
 
-        // tl.to(".hero-sub-section1", { y: "30%", duration: 4 });
-        // tl.to(".hero-sub-section2", { y: "-100%", duration: 4, delay: -4 });
-        // tl.to(".hero-sub-section3", { y: "40%", duration: 4, delay: -4 });
-        // tl.to(".hero-sub-section4", { y: "-50%", duration: 4, delay: -4 });
+        tl.to(".hero-sub-section1", { y: "30%", duration: 4 });
+        tl.to(".hero-sub-section2", { y: "-100%", duration: 4, delay: -4 });
+        tl.to(".hero-sub-section3", { y: "40%", duration: 4, delay: -4 });
+        tl.to(".hero-sub-section4", { y: "-50%", duration: 4, delay: -4 });
 
 
     }, []);

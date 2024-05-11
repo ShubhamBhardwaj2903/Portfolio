@@ -1,6 +1,6 @@
 .contact-me-section-wrapper {
     position: relative;
-    margin-top: 80px;
+    margin-top:120px;
 }
 
 .contact-me {
@@ -44,6 +44,7 @@
     font-family: 'Grifter', sans-serif;
     font-size: 16px;
     color: var(--bg-black);
+    cursor: pointer;
 }
 .contact-me-section-title{
     overflow: hidden;

@@ -90,10 +90,10 @@ const ExperienceSection = () => {
                         </ul>
                     </div>
                     <div style={{ margin: 0, padding: 0 }}>
-  <a href="https://www.vovance.com/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", margin: 0, padding: 0, textDecoration: "none" }}>
-    <button className="button">Download LOR</button>
-  </a>
-</div>
+                        <a href="https://www.vovance.com/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", margin: 0, padding: 0, textDecoration: "none" }}>
+                            <button className="button">Download LOR</button>
+                        </a>
+                    </div>
 
                 </div>
                 <div className="work max-width">
@@ -116,7 +116,7 @@ const ExperienceSection = () => {
                         <button className="button">View Event</button>
                     </a>
                     <img className="ieee-grss-img" src="assets/ieee-grss.png" />
-                    
+
                 </div>
             </div>
         </div>

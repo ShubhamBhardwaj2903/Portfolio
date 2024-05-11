@@ -53,5 +53,7 @@
 
 }
 @media all and (max-width: 767px){
-
+    .services-title{
+        font-size: 20px;
+    }
 }

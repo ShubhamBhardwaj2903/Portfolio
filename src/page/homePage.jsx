@@ -22,19 +22,18 @@ const HomePage = () => {
         <>
             {/* <Navbar/>  */}
             {/* <Header/> */}
-            {/* <Preloader/> */}
-            {/* <HeroSection/> */}
+            <Preloader/>
+            <HeroSection/>
             {/* <HeadlineSection/>
             {/* <SkillsSection/> */}
             {/* <TextMask/> */}
-            {/* <Services/>
+            <Services/>
             <IntroSection/>
             <MobileDesignSection/>
             <ProjectSection/>
             <LaptopDesignSection/>
-            <ExperienceSection/> */}
-            {/* <ContactMe/> */}
-            <ContactUs/>
+            <ExperienceSection/>
+            <ContactMe/>
             {/* <Carzzy/> */}
             {/* <Ambli/>   */}
         </>
