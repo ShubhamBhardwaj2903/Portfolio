@@ -55,11 +55,7 @@
 }
 
 .mobile {
-    /* background-image: url('/public/assets/mobileDesign.png'); */
-    max-width: 10px;
-    position: relative;
-    height: auto;
-    z-index: 30;
+    background-image: url('/public/assets/mobileDesign.png');
 }
 
 .laptop {
@@ -185,10 +181,12 @@
 
 
 .footer {
+    position: relative;
     font-size: 40px;
     font-family: 'Grifter', sans-serif;
     justify-content: space-between;
     margin-top: 0px;
+    z-index: 300;
 }
 
 .footer-text {

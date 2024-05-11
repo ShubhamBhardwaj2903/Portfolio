@@ -16,6 +16,7 @@ import Ambli from '../components/Ambli AI/ambli'
 import Preloader from '../components/Preloader'
 import Navbar from '../components/Navbar'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 const HomePage = () => {
     return (
@@ -34,6 +35,7 @@ const HomePage = () => {
             <LaptopDesignSection/>
             <ExperienceSection/>
             <ContactMe/>
+            <Footer/>
             {/* <Carzzy/> */}
             {/* <Ambli/>   */}
         </>
