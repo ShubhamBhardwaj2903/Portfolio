@@ -160,9 +160,7 @@
 
 .design-images img {
     width: 100%;
-    /* Make images span full width of container */
     height: auto;
-    /* Maintain aspect ratio */
 }
 
 .images {

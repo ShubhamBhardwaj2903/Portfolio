@@ -29,7 +29,15 @@
     display: flex;
     align-items: center;
 }
-
+.work-description ul {
+    list-style-type: square; /* or any other value like circle, square, etc. */
+  }
+    
+  .work-description ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
 .underline {
     width: 300px;
     height: 4px;
@@ -47,6 +55,7 @@
     font-size: 16px;
     margin-top: 30px;
     color: #9a9a9a;
+    margin-bottom: -40px;
 }
 
 .work-description:hover {
@@ -62,7 +71,6 @@
     border: 1px solid #c0c0c0;
     background: transparent;
     color: #c0c0c0;
-    margin-top: 30px;
     cursor: pointer;
 }
 .button:hover{
@@ -82,9 +90,6 @@
     transform: translateY(100%);
 }
 
-@media all and (max-width: 1279px){
-
-}
 @media all and (max-width: 767px){
     .work-title-text {
         font-size: 20px;

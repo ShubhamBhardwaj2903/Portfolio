@@ -44,8 +44,8 @@ const IntroSection = () => {
                         <div className="intro-title1"> <span>Be Boring</span> </div>
                     </div>
                     <div className="intro-sub-text sub-text">But Definitely The Person Isn’t</div>
-                    <div className="intro-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                    <div className="intro-desc">A product designer and front end developer from Mumbai with 7 months experience,
+                    studied electronics and telecommunication engineering from KJSIT.
                         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </div>
                 </div>
@@ -54,5 +54,6 @@ const IntroSection = () => {
         </div>
     )
 }
-
+// A Product Designer and Front-end developer from Mumbai with 7 months experience, 
+                    // studied electronics and telecommunication engineering from KJSIT.
 export default IntroSection
