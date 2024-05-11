@@ -215,6 +215,9 @@
     .project3{
         background: linear-gradient(to bottom, transparent, #422018, #87592F);
     }
+    .project4{
+        background: linear-gradient(to bottom, transparent, #006123, #1ED760);
+    }
 }
 
 @media all and (max-width: 478px) {
@@ -222,7 +225,6 @@
         width: 99%;
         height: 250px;
         margin-bottom: 0%;
-        border-radius: 5px;
     }
     .num {
         display: none;
