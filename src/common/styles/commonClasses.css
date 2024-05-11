@@ -55,7 +55,11 @@
 }
 
 .mobile {
-    background-image: url('/public/assets/mobileDesign.png');
+    /* background-image: url('/public/assets/mobileDesign.png'); */
+    max-width: 10px;
+    position: relative;
+    height: auto;
+    z-index: 30;
 }
 
 .laptop {
