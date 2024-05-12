@@ -25,8 +25,16 @@
 
 .menu-toggle-btn{
   cursor: pointer;
+  position: absolute;
+  /* top: 50%;
+  left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  background-color: #fff;
+  border-radius: 50%;
+  /* z-index: 40;  */
 }
-
 
 .nav-container{
   position: fixed;
