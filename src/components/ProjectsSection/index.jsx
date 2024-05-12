@@ -74,7 +74,7 @@ const ProjectSection = () => {
                             <div className="num">03</div>
                             <div className="title">CRED</div>
                             <div className="subtext">"Clone website of CRED using ReactJS"</div>
-                            <img className="projectImage" src='assets/image 79.png' alt='Project_Image'></img>
+                            <img className="projectImage" src='assets/cred.png' alt='Project_Image'></img>
                             <div className="cta-text flex absolute-center">
                                 <p>Witness<br /> the Magic</p>
                                 <img src="assets/nextButton.svg" alt='next_icon'></img>
