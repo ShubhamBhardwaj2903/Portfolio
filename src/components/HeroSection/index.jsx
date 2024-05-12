@@ -27,7 +27,7 @@ const HeroSection = () => {
                 translateY: '0%', duration: 0.5, stagger: 0.4, ease: 'power3.out',
             });
 
-        const tl = gsap.timeline({ repeat: -1 });
+            const tl = gsap.timeline({ onComplete: reverseAnimation });
 
         // Animation for moving each sub-section in different directions
 
@@ -36,12 +36,14 @@ const HeroSection = () => {
         tl.to(".hero-sub-section3", { y: "-60%", duration: 8, delay: -8 });
         tl.to(".hero-sub-section4", { y: "50%", duration: 8, delay: -8 });
 
-        tl.to(".hero-sub-section1", { y: "30%", duration: 8 });
-        tl.to(".hero-sub-section2", { y: "-100%", duration: 8, delay: -8 });
-        tl.to(".hero-sub-section3", { y: "80%", duration: 8, delay: -8 });
-        tl.to(".hero-sub-section4", { y: "-50%", duration: 8, delay: -8 });
+        // tl.to(".hero-sub-section1", { y: "30%", duration: 8 });
+        // tl.to(".hero-sub-section2", { y: "-100%", duration: 8, delay: -8 });
+        // tl.to(".hero-sub-section3", { y: "80%", duration: 8, delay: -8 });
+        // tl.to(".hero-sub-section4", { y: "-50%", duration: 8, delay: -8 });
 
-
+        function reverseAnimation() {
+            tl.reverse();
+        }
     }, []);
 
     return (
