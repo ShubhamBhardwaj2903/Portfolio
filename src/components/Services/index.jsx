@@ -21,19 +21,19 @@ const Services = () => {
         //   ease: 'power3.out',
         // });
 
-        gsap.from('.services-title1 span', {
-            scrollTrigger: {
-                trigger: '.services-title', 
-                start: 'top 50%', 
-                end: '+=400', 
-                scrub: true,
-                markers: true
-            },
-            translateY: '0%',
-            duration: 5,
-            stagger: 0.5,
-            ease: 'power3.out',
-        });
+        // gsap.from('.services-title1 span', {
+        //     scrollTrigger: {
+        //         trigger: '.services-title', 
+        //         start: 'top 50%', 
+        //         end: '+=400', 
+        //         scrub: true,
+        //         markers: true
+        //     },
+        //     translateY: '0%',
+        //     duration: 5,
+        //     stagger: 0.5,
+        //     ease: 'power3.out',
+        // });
 
         gsap.to('.service1', {
             scrollTrigger: {
