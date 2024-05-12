@@ -21,9 +21,14 @@ const Navbar = () => {
         }
     };
 
+    const navbarStyle = {
+        backgroundColor: isOpen ? '#000' : '#fff',
+        color: isOpen ? '#fff' : '#000'
+    };
+
     return (
         <div className="container">
-            <div className={`navbar ${isOpen ? 'open' : ''}`}>
+            <div className={`navbar ${isOpen ? 'open' : ''}`} style={navbarStyle}>
 
                 <div className={`site-logo ${isOpen ? 'white' : ''}`} >Shubham</div>
                 <div className="menu-toggle">
