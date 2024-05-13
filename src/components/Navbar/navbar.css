@@ -8,19 +8,28 @@
 
 .navbar {
   position: fixed;
-  width: 90%;
+  width: 93%;
   display: flex;
-  justify-content: space-between;
+  justify-content:end;
   align-items: center;
-  padding: 20px 50px;
+  padding: 50px;
   z-index: 101;
 }
-
+.resume-btn{
+  position: fixed;
+  width: 93%;
+  display: flex;
+  justify-content:end;
+  align-items: center;
+  padding: 50px;
+  z-index: 101;
+}
 .site-logo {
   font-size: 24px;
   font-family: Grifter;
   color: #000;
   cursor: pointer;
+  display: none;
 }
 
 .menu-toggle-btn{
@@ -62,14 +71,19 @@
   font-weight: 400;
   font-size: 45px;
   font-family: Grifter;
-  text-decoration: line-through;
+  /* text-decoration: line-through; */
 }
 .nav-socials{
   display: flex;
   flex-direction: column;
   font-family: Grifter;
   text-decoration: none;
-
+  margin-top: 50px;
+  font-family: Gilroy;
+}
+.nav-socials a{
+  text-decoration: none;
+  color: #fff;
 }
 .nav-link{
   position: relative;
@@ -112,21 +126,43 @@
   padding: 0 1em;
 }
 
-@media (max-width:900px){
-  .nav{
+/* @media (max-width: 900px) {
+  .nav {
     flex-direction: column-reverse;
   }
-  .nav-logo{
+  .nav-logo {
     display: none;
   }
-  .nav-socials{
+  .nav-socials {
     flex-direction: row;
     margin-top: 4em;
   }
-  .nav-socials a{
+  .nav-socials a {
     padding: 0 0.4em;
   }
-  .nav-footer{
+  .nav-footer {
     display: none;
   }
+} */
+
+@media all and (max-width: 767px){
+  .navbar {
+    width: 80%;
+    padding: 50px;
+    z-index: 101;
+  }
+  .nav{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+  }
+  .nav-footer{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    margin-top: 100px;
+  }
+  /* .site-logo{
+    display: initial;
+  } */
 }
