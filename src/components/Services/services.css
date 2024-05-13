@@ -22,10 +22,6 @@
     overflow: hidden;
 }
 
-.service-icon img {
-    max-width: 100%;
-}
-
 .service-text {
     text-align: center;
     overflow: hidden;
@@ -66,8 +62,21 @@
 
 @media all and (max-width: 1279px) {}
 
-/* @media all and (max-width: 767px){
-    .services-title{
-        font-size: 20px;
+@media all and (max-width: 767px){
+    .service-icon {
+        background-color: #f3f3f3;
+        padding: 10px 20px;
+        border-radius: 10px;
+        width: 80px;
+        height: 80px;
     }
-} */
+    .service-icon img {
+        max-width: 60%;
+      }
+    .services {
+        justify-content: space-between;
+        margin-top: 50px;
+        flex-wrap: wrap;
+        overflow: hidden;
+    }
+}

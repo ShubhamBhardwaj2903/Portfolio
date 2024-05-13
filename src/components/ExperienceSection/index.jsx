@@ -12,7 +12,7 @@ const ExperienceSection = () => {
         gsap.to('.exp-title1 span', {
             scrollTrigger: {
                 trigger: '.exp-title',
-                start: 'top 50%',
+                start: 'top 70%',
                 end: '+=400',
                 scrub: true,
             },

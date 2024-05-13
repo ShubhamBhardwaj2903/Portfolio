@@ -8,18 +8,18 @@ gsap.registerPlugin(ScrollTrigger);
 const Services = () => {
     useEffect(() => {
 
-        // gsap.to('.services-title1 span', {
-        //   scrollTrigger: {
-        //     trigger: '.services-title1', 
-        //     start: 'bottom 20%', 
-        //     end: 'top 10%', 
-        //     scrub: true, 
-        //   },
-        //   translateY: '0%', 
-        //   duration: 1,
-        //   stagger: 0.2,
-        //   ease: 'power3.out',
-        // });
+        gsap.to('.services-title1 span', {
+          scrollTrigger: {
+            trigger: '.services-title1 span', 
+            start: 'top 80%', 
+            end: 'top 10%', 
+            scrub: true, 
+          },
+          translateY: '0%', 
+          duration: 1,
+          stagger: 0.2,
+          ease: 'power3.out',
+        });
 
         // gsap.from('.services-title1 span', {
         //     scrollTrigger: {
@@ -38,7 +38,7 @@ const Services = () => {
         gsap.to('.service1', {
             scrollTrigger: {
               trigger: '.services', 
-              start: 'top 70%', 
+              start: 'top 90%', 
               end: 'top 10%', 
               scrub: true, 
             },
@@ -101,12 +101,12 @@ const Services = () => {
                         </div>
                         <div className="service-text sub-text">Wireframing</div>
                     </div>
-                    <div className="service1">
+                    {/* <div className="service1">
                         <div className="flex service-icon absolute-center">
                             <img src='assets/laptop.svg' alt='Web Designs' />
                         </div>
                         <div className="service-text sub-text">DESIGN</div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

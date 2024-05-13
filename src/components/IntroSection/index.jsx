@@ -12,7 +12,7 @@ const IntroSection = () => {
         gsap.to('.intro-title1 span', {
             scrollTrigger: {
                 trigger: '.intro-title',
-                start: 'top 50%',
+                start: 'top 70%',
                 end: '+=400',
                 scrub: true,
             },

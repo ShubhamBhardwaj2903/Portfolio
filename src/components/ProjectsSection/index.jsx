@@ -13,7 +13,7 @@ const ProjectSection = () => {
         gsap.to('.project-title1 span', {
             scrollTrigger: {
                 trigger: '.project-title',
-                start: 'top 50%',
+                start: 'top 70%',
                 end: '+=400',
                 scrub: true,
             },
