@@ -19,7 +19,6 @@ const HomePage = () => {
     return (
         <>
             <Navbar /> 
-            {/* <Header/> */}
             <Preloader />
             <HeroSection />
             <Services />
