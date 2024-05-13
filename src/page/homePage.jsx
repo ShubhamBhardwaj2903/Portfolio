@@ -1,6 +1,4 @@
-// eslint-disable-next-line no-unused-vars
 import React from 'react';
-import { useEffect } from 'react';
 import HeroSection from '../components/HeroSection';
 import Services from '../components/Services';
 import IntroSection from '../components/IntroSection';
@@ -11,7 +9,6 @@ import MobileDesignSection from '../components/MobileDesignSection';
 import LaptopDesignSection from '../components/LaptopDesignSection';
 import Preloader from '../components/Preloader';
 import Navbar from '../components/Navbar';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const HomePage = () => {
