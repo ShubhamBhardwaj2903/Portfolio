@@ -18,8 +18,11 @@ const Navbar = () => {
             </div>
 
             <div className="resume-btn">
-                <img src='assets/resume.png' alt='Resume'/> 
+                <a href="/assets/Shubham-Bhardwaj-Resume.pdf" download="resume.pdf">
+                    <img src='assets/resume.png' alt='Resume' />
+                </a>
             </div>
+
 
             {isOpen && (
                 <div className="nav-container">

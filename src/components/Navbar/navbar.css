@@ -20,6 +20,7 @@
   bottom: 50px; 
   right: 50px; 
   z-index: 101;
+  cursor: pointer;
 }
 
 .site-logo {
@@ -58,12 +59,6 @@
 .white {
   color: white;
 }
-/* .flex{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-} */
 .nav-logo{
   margin-top: 100px;
   font-weight: 400;
@@ -123,25 +118,6 @@
   font-size: 12px;
   padding: 0 1em;
 }
-
-/* @media (max-width: 900px) {
-  .nav {
-    flex-direction: column-reverse;
-  }
-  .nav-logo {
-    display: none;
-  }
-  .nav-socials {
-    flex-direction: row;
-    margin-top: 4em;
-  }
-  .nav-socials a {
-    padding: 0 0.4em;
-  }
-  .nav-footer {
-    display: none;
-  }
-} */
 
 @media all and (max-width: 767px){
   .navbar {
