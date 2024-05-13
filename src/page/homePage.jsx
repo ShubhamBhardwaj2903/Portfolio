@@ -15,13 +15,6 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const HomePage = () => {
-    // useEffect(() => {
-    //     document.body.style.overflow = 'hidden';
-
-    //     return () => {
-    //         document.body.style.overflow = 'visible';
-    //     };
-    // }, []);
 
     return (
         <>
