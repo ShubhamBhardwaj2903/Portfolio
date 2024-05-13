@@ -1,15 +1,18 @@
-.exp{
+.exp {
     justify-content: space-between;
     margin-top: 50px;
 }
-.exp-text{
+
+.exp-text {
     text-align: center;
     text-transform: uppercase;
 }
-.exp-sub-text{
+
+.exp-sub-text {
     margin-top: 25px;
 }
-.exp-text{
+
+.exp-text {
     color: var(--bg-black);
 }
 
@@ -29,15 +32,17 @@
     display: flex;
     align-items: center;
 }
+
 .work-description ul {
-    list-style-type: square; /* or any other value like circle, square, etc. */
-  }
-    
-  .work-description ul li {
+    list-style-type: square;
+    /* or any other value like circle, square, etc. */
+}
+
+.work-description ul li {
     font-size: 16px;
     margin-bottom: 10px;
-  }
-  
+}
+
 .underline {
     width: 300px;
     height: 4px;
@@ -56,6 +61,7 @@
     margin-top: 30px;
     color: #9a9a9a;
     margin-bottom: -40px;
+    text-align: justify;
 }
 
 .work-description:hover {
@@ -73,46 +79,56 @@
     color: #c0c0c0;
     cursor: pointer;
 }
-.button:hover{
+
+.button:hover {
     background: var(--white);
     color: var(--bg-black);
     transition: 0.5s all ease-out;
 }
-.ieee-grss-img{
+
+.ieee-grss-img {
     margin-top: 30px;
     max-width: 100%;
 }
-.exp-title1{
+
+.exp-title1 {
     overflow: hidden;
 }
-.exp-title1 span{
+
+.exp-title1 span {
     display: inline-block;
     transform: translateY(100%);
 }
 
-@media all and (max-width: 1260px){
+@media all and (max-width: 1260px) {
     .work-description {
         margin-bottom: 0px;
     }
 }
-@media all and (max-width: 767px){
+
+@media all and (max-width: 767px) {
     .work-description {
         margin-bottom: 0px;
+        text-align:left;
     }
+
     .work-title-text {
         font-size: 20px;
         margin-right: 12px;
     }
+
     .work-designation {
         font-size: 14px;
         margin-left: 12px;
-    }    
+    }
+
     .underline {
         width: 230px;
         height: 4px;
         background-color: var(--white);
         margin: 15px 0px;
     }
+
     .work-description {
         font-size: 12px;
         margin-top: 30px;
