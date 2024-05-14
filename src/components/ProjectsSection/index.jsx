@@ -37,6 +37,7 @@ const ProjectSection = () => {
                     <div className="project-sub-text sub-text">Innovative Designs, Seamless Experiences</div>
                 </div>
                 <div className="projects flex">
+                    <Link to='/carzzy'>
                     <div className="project project1">
                         <div className="num">01</div>
                         <div className="title">CARZZY</div>
@@ -48,6 +49,7 @@ const ProjectSection = () => {
                             <img src="assets/nextButton.svg" alt='next_icon'></img>
                         </div>
                     </div>
+                    </Link>
                     
                         <div className="project project2">
                             <div className="num">02</div>

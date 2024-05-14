@@ -10,6 +10,7 @@ import LaptopDesignSection from '../components/LaptopDesignSection';
 import Preloader from '../components/Preloader';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import Carzzy from '../components/Carzzy/carzzy';
 
 const HomePage = () => {
 
@@ -26,6 +27,7 @@ const HomePage = () => {
             <ExperienceSection />
             <ContactMe />
             <Footer />
+            <Carzzy/>
         </>
     );
 };
