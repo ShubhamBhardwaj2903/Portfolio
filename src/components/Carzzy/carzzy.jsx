@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,6 +27,7 @@ const Carzzy = () => {
 
   return (
     <div className="design-section-wrapper screen max-width" style={{ padding: 0 }}>
+      <Navbar/>
       <div className="design-section flex absolute-center" style={{ background: 'linear-gradient(to bottom, #D2001D 0%, #CC4154 56%, #FF6277 100%)' }}>
         <div className="design-section-title">
           <div className="design-num">01</div>
@@ -120,6 +123,7 @@ const Carzzy = () => {
         <a href="link2" target="_blank" rel="noopener noreferrer" class="button1">Next Project</a>
       </div>
 
+<Footer/>
     </div>
   )
 }
