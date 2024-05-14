@@ -6,7 +6,7 @@ import IntroSection from './components/IntroSection';
 import ExperienceSection from './components/ExperienceSection';
 import ContactMe from './components/ContactMe'; 
 import Carzzy from './components/Carzzy/carzzy';
-// import Ambli  from './components/Ambli AI'; 
+import Ambli  from './components/Ambli/ambli'; 
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
         <Route path="/contact" element={<ContactMe />} /> */}
 
         <Route path="/carzzy" element={<Carzzy/>} />
-        {/* <Route path="/ambli" element={<Ambli />} /> */}
+        <Route path="/ambli" element={<Ambli />} />
       </Routes>
     </Router>
   );
