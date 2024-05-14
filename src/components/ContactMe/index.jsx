@@ -20,6 +20,8 @@ const ContactMe = () => {
             .then(
                 () => {
                     console.log('SUCCESS!');
+                    // alert('Message sent! Shubham will contact you shortly.');
+                    alert('Boom! Message sent. Shubham will reach out quicker than you can say Supercalifragilisticexpialidocious');
                 },
                 (error) => {
                     console.log('FAILED...', error.text);
