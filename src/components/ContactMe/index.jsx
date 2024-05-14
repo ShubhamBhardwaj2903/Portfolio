@@ -20,8 +20,8 @@ const ContactMe = () => {
             .then(
                 () => {
                     console.log('SUCCESS!');
-                    // alert('Message sent! Shubham will contact you shortly.');
-                    alert('Boom! Message sent. Shubham will reach out quicker than you can say Supercalifragilisticexpialidocious');
+                    alert('Message sent! Shubham will contact you shortly.');
+                    form.current.reset(); 
                 },
                 (error) => {
                     console.log('FAILED...', error.text);
@@ -30,7 +30,6 @@ const ContactMe = () => {
     };
 
     useEffect(() => {
-
         gsap.to('.contact-title1 span', {
             scrollTrigger: {
                 trigger: '.contact-me-section-title',
@@ -50,7 +49,6 @@ const ContactMe = () => {
             <div className="contact-me-section pad" >
                 <div className="contact-me-section-title heading">
                     <div className="contact-title1"><span>Don’t be shy, say Hi !!!</span> </div>
-
                 </div>
                 <div className="contact-me-section-sub-text sub-text">My Keyboard Is Lonely, And So Am I</div>
                 <form className="contact-details flex flex-col absolute-center" ref={form} onSubmit={sendEmail}>
