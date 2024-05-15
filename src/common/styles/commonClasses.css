@@ -241,7 +241,9 @@
         width: calc(50% - 10px);
         margin-bottom: 10px;
     }
-
+    .mobile {
+        background-image: url('/public/assets/mobileDesignSmall.png');
+    }
 }
 
 @media all and (max-width: 479px) {
