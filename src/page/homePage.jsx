@@ -10,14 +10,13 @@ import LaptopDesignSection from '../components/LaptopDesignSection';
 import Preloader from '../components/Preloader';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Carzzy from '../components/Carzzy/carzzy';
 
 const HomePage = () => {
 
     return (
         <>
             <Navbar /> 
-            {/* <Preloader /> */}
+            <Preloader />
             <HeroSection />
             <Services />
             <IntroSection />
