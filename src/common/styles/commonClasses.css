@@ -47,15 +47,16 @@
 }
 
 .design {
+    position: relative;
     background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 50vh;
+    z-index: 20;
 }
 
 .mobile {
-    background-image: url('/public/assets/mobileDesign.png');
+    /* background-image: url('/public/assets/mobileDesign.png'); */
 }
 
 .laptop {

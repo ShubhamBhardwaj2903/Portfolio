@@ -17,7 +17,7 @@ const HomePage = () => {
     return (
         <>
             <Navbar /> 
-            <Preloader />
+            {/* <Preloader /> */}
             <HeroSection />
             <Services />
             <IntroSection />
@@ -27,7 +27,6 @@ const HomePage = () => {
             <ExperienceSection />
             <ContactMe />
             <Footer />
-            <Carzzy/>
         </>
     );
 };
