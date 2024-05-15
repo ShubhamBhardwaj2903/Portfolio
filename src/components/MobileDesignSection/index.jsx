@@ -2,8 +2,7 @@ import React from 'react'
 
 const MobileDesignSection = () => {
     return (
-        <div className='mobile design screen'>
-            {/* <img src='assets/mobileDesign.png' alt='Mobile Design Screen'/> */}
+        <div className='mobile design screen' style={{padding: 400}}>
         </div>
     )
 }

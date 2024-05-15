@@ -56,11 +56,11 @@
 }
 
 .mobile {
-    background-image: url('/public/assets/mobileDesign.png');
+    background-image: url('/public/assets/mobileDesignSmall.png');
 }
 
 .laptop {
-    background-image: url('/public/assets/laptopDesign.png');
+    background-image: url('/public/assets/lapotpDesigns.png');
 }
 
 .project-navigation {
@@ -240,9 +240,6 @@
     .images img {
         width: calc(50% - 10px);
         margin-bottom: 10px;
-    }
-    .mobile {
-        background-image: url('/public/assets/mobileDesignSmall.png');
     }
 }
 
