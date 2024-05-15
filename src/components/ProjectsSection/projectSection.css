@@ -1,5 +1,6 @@
 .project {
     justify-content: space-between;
+    text-decoration: none;
     margin-top: 50px;
 }
 
@@ -7,7 +8,6 @@
     text-align: center;
     text-transform: uppercase;
 }
-
 .project-sub-text {
     margin-top: 25px;
 }
@@ -22,6 +22,7 @@
     justify-content: space-evenly; */
     margin-bottom: 100px;
     scrollbar-width: none;
+    text-decoration: none;
     overflow-x: auto;
 }
 
@@ -155,6 +156,7 @@
 .projectImage {
     margin: 30px auto 5px;
     max-width: 100%;
+    height: 200px;
     display: block;
 }
 
@@ -203,13 +205,13 @@
     .cta-text p{
         display: none;
     }
-    
     .project1{
         background: linear-gradient(to bottom, transparent, #D2001D, #CC4154, #FF6277);
     }
 
     .project2{
-        background: linear-gradient(to bottom, transparent, #0C1357, #26A0DA);
+    background: linear-gradient(to bottom, transparent, #110A34, #3D3372);
+    /* background: linear-gradient(to bottom, transparent, #0C1357, #26A0DA); */
     }
 
     .project3{
