@@ -165,18 +165,13 @@
 
 .images {
     white-space: nowrap;
-    /* Prevent line breaks */
 }
 
 .images img {
     display: inline-block;
-    /* Ensure images are displayed inline */
     vertical-align: middle;
-    /* Align images vertically */
     width: calc(20% - 10px);
-    /* Adjust width of each image */
     margin-right: 10px;
-    /* Add some spacing between images */
 }
 
 
