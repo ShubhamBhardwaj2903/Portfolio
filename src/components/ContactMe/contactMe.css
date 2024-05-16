@@ -29,7 +29,7 @@
     margin-bottom: 30px;
     text-align: center;
     background-color: transparent;
-    font-family: Montserrat;
+    font-family: Gilroy ;
     font-size: 16px;
 }
 .contact-name::placeholder, .contact-email::placeholder, .contact-message::placeholder {
@@ -45,6 +45,7 @@
     font-size: 16px;
     color: var(--bg-black);
     cursor: pointer;
+    width: 710px;
 }
 .contact-me-section-title{
     overflow: hidden;
@@ -59,6 +60,9 @@
         width: 100%;
         font-size: 12px;
         padding: 5px 10px;
+    }
+    .contact-button{
+        width: 105%;
     }
     .contact-message{
         height: 100px;
