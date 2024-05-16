@@ -15,7 +15,7 @@ import FigmaPrototype from '../components/FigmaProjects';
 const HomePage = () => {
     return (
         <>
-            {/* <Navbar />
+            <Navbar />
             <Preloader />
             <section id="hero">
                 <HeroSection />
@@ -37,9 +37,9 @@ const HomePage = () => {
             <section id="contact">
                 <ContactMe />
             </section>
-            <Footer /> */}
+            <Footer />
 
-            <FigmaPrototype/>
+            {/* <FigmaPrototype/> */}
         </>
     );
 };
