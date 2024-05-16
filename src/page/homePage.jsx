@@ -18,10 +18,10 @@ const HomePage = () => {
             <Navbar /> 
             <Preloader />
             <HeroSection />
-            <Services />
+            {/* <Services />
             <IntroSection />
             <MobileDesignSection />
-            <ProjectSection />
+            <ProjectSection /> */}
             <LaptopDesignSection />
             <ExperienceSection />
             <ContactMe />
