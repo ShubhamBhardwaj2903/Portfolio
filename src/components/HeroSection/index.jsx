@@ -52,11 +52,6 @@ const HeroSection = () => {
             <div className="hero-title">
                 <span>Shubham Bhardwaj</span>
             </div>
-            {/* <div className='resume-button'>
-                <a href="./public/assets/Shubham_Bhardwaj_Resume.pdf" download>
-                    <button>Download Resume</button>
-                </a>
-            </div> */}
             <div className="flex hero-section" >
                 <div className="rectangle"></div>
                 <div className="hero-sub-section1 flex-col max-width">

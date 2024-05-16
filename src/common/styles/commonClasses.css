@@ -55,12 +55,31 @@
     z-index: 20;
 }
 
-.mobile {
-    background-image: url('/public/assets/mobileDesignSmall.png');
+.window-peek-section {
+    width: 100%;
+    padding: 0; 
+  }
+  
+  .window-peek-images{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    width: 100%;
+    height: 50vh; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  
+.mobile{
+    background-image: url('/public/assets/mobileDesignSmall.png'); 
 }
 
 .laptop {
-    /* background-image: url('/public/assets/lapotpDesigns.png'); */
+    background-image: url('/public/assets/lapotpDesigns.png');
 }
 
 .project-navigation {
@@ -243,7 +262,7 @@
         margin-bottom: 10px;
     }
     .mobile {
-        background-image: url('/public/assets/mobileDesignSmall.png');
+        /* background-image: url('/public/assets/mobileDesignSmall.png'); */
     }
 }
 
