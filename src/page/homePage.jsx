@@ -12,19 +12,30 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
 const HomePage = () => {
-
     return (
         <>
-            <Navbar /> 
+            <Navbar />
             <Preloader />
-            <HeroSection />
-            <Services />
-            <IntroSection />
+            <section id="hero">
+                <HeroSection />
+            </section>
+            <section id="services">
+                <Services />
+            </section>
+            <section id="intro">
+                <IntroSection />
+            </section>
             <MobileDesignSection />
-            <ProjectSection />
+            <section id="projects">
+                <ProjectSection />
+            </section>
             <LaptopDesignSection />
-            <ExperienceSection />
-            <ContactMe />
+            <section id="experience">
+                <ExperienceSection />
+            </section>
+            <section id="contact">
+                <ContactMe />
+            </section>
             <Footer />
         </>
     );

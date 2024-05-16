@@ -38,34 +38,37 @@ const Navbar = () => {
                         </div> */}
                         <div className="col">
                             <div className="nav-link">
-                                <Link to="/services">Services</Link>
+                                <a href="#services" onClick={toggleNavbar}>Services</a>
                             </div>
                             <div className="nav-link">
-                                <Link to="/intro">About</Link>
+                                <a href="#intro" onClick={toggleNavbar}>About</a>
                             </div>
                             <div className="nav-link">
-                                <Link to="/projects">Projects</Link>
+                                <a href="#projects" onClick={toggleNavbar}>Projects</a>
                             </div>
                             <div className="nav-link">
-                                <Link to="/experience">Experience </Link>
+                                <a href="#experience" onClick={toggleNavbar}>Experience</a>
                             </div>
                             <div className="nav-link">
-                                <Link to="/contact">Contact</Link>
+                                <a href="#contact" onClick={toggleNavbar}>Contact</a>
                             </div>
                         </div>
+
                     </div>
                     <div className="nav-footer">
-                        <Link to="https://www.linkedin.com/in/shubham-bhardwaj-ui-ux-designer/" target="_blank">
-                            <img src="assets/linkedin.svg" alt="LinkedIn" />
-                        </Link>
-                        <Link to="https://join.skype.com/invite/ypX10Y4KidFH" target="_blank">
-                            <img src="assets/skype.svg" alt="Skype" />
-                        </Link>
-                        <Link to="https://www.instagram.com/shubhambhardwaj257" target="_blank">
-                            <img src="assets/instagram.svg" alt="Instagram" />
-                        </Link>
+                        <div className="links">
+                            <Link to="https://www.linkedin.com/in/shubham-bhardwaj-ui-ux-designer/" target="_blank">
+                                <img src="assets/linkedin.svg" alt="LinkedIn" />
+                            </Link>
+                            <Link to="https://join.skype.com/invite/ypX10Y4KidFH" target="_blank">
+                                <img src="assets/skype.svg" alt="Skype" />
+                            </Link>
+                            <Link to="https://www.instagram.com/shubhambhardwaj257" target="_blank">
+                                <img src="assets/instagram.svg" alt="Instagram" />
+                            </Link>
+                        </div>
                         <div className="contact">
-                            <a href="#">bhardwajsb03@gmai.com</a>
+                            <p>bhardwajsb03@gmai.com</p>
                         </div>
                     </div>
                 </div>
