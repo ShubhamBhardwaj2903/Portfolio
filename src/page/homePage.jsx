@@ -16,16 +16,16 @@ const HomePage = () => {
     return (
         <>
             <Navbar /> 
-            {/* <Preloader /> */}
-            {/* <HeroSection /> */}
-            {/* <Services /> */}
+            <Preloader />
+            <HeroSection />
+            <Services />
             <IntroSection />
             <MobileDesignSection />
             <ProjectSection />
-            {/* <LaptopDesignSection /> */}
-            {/* <ExperienceSection /> */}
-            {/* <ContactMe /> */}
-            {/* <Footer /> */}
+            <LaptopDesignSection />
+            <ExperienceSection />
+            <ContactMe />
+            <Footer />
         </>
     );
 };
