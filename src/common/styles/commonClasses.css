@@ -1,4 +1,4 @@
-.max-width {
+/* .max-width {
     max-width: 100%;
     margin: auto;
 }
@@ -11,7 +11,7 @@
     font-weight: 500;
     font-size: 100px;
     z-index: 3;
-}
+} */
 
 .dark {
     background-color: var(--bg-black);
