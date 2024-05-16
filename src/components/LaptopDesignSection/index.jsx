@@ -1,10 +1,12 @@
 import React from 'react'
 
-const LaptopDesignSection = () => {
+const MobileDesignSection = () => {
     return (
-        <div className='laptop design screen' style={{padding: 400}}>
+        <div className="window-peek-section screen max-width" style={{ padding: 0 }}>
+            <div className='laptop window-peek-images flex flex-col'>
+            </div>
         </div>
-      )
+    )
 }
 
-export default LaptopDesignSection
+export default MobileDesignSection

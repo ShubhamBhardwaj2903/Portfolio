@@ -1,5 +1,4 @@
 import React from 'react'
-import './mobileDesignSection.css'
 
 const MobileDesignSection = () => {
     return (
@@ -11,6 +10,3 @@ const MobileDesignSection = () => {
 }
 
 export default MobileDesignSection
-
-
-
