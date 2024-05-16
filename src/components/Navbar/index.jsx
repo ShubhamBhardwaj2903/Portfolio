@@ -47,7 +47,7 @@ const Navbar = () => {
                                 <Link to="/projects">Projects</Link>
                             </div>
                             <div className="nav-link">
-                                <Link to ="/experience">Experience </Link>
+                                <Link to="/experience">Experience </Link>
                             </div>
                             <div className="nav-link">
                                 <Link to="/contact">Contact</Link>
@@ -55,11 +55,15 @@ const Navbar = () => {
                         </div>
                     </div>
                     <div className="nav-footer">
-                        <div className="links">
-                            <a href="#">LinkedIn</a>
-                            <a href="#">Skype</a>
-                            <a href="#">Instagram</a>
-                        </div>
+                        <Link to="https://www.linkedin.com/in/shubham-bhardwaj-ui-ux-designer/" target="_blank">
+                            <img src="assets/linkedin.svg" alt="LinkedIn" />
+                        </Link>
+                        <Link to="https://join.skype.com/invite/ypX10Y4KidFH" target="_blank">
+                            <img src="assets/skype.svg" alt="Skype" />
+                        </Link>
+                        <Link to="https://www.instagram.com/shubhambhardwaj257" target="_blank">
+                            <img src="assets/instagram.svg" alt="Instagram" />
+                        </Link>
                         <div className="contact">
                             <a href="#">bhardwajsb03@gmai.com</a>
                         </div>

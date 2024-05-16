@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // import "./common/styles/commonClasses.css";
 
 const Footer = () => {
@@ -7,9 +8,15 @@ const Footer = () => {
       <div className="flex footer width">
         <div className="footer-text"><a href="https://shubham2903.netlify.app/" target="_blank" rel="noopener noreferrer" style={{ color: 'white', textDecoration: 'none' }}>Shubham.</a></div>
         <div className="footer-icons">
-          <a href="https://www.linkedin.com/in/shubham-bhardwaj-ui-ux-designer/" target="_blank" rel="noopener noreferrer"><img src="assets/linkedin.svg" alt="LinkedIn" /></a>
-          <a href="https://join.skype.com/invite/ypX10Y4KidFH" target="_blank" rel="noopener noreferrer"><img src="assets/skype.svg" alt="Skype" /></a>
-          <a href="https://www.instagram.com/shubhambhardwaj257" target="_blank" rel="noopener noreferrer"><img src="assets/instagram.svg" alt="Instagram" /></a>
+          <Link to="https://www.linkedin.com/in/shubham-bhardwaj-ui-ux-designer/" target="_blank">
+            <img src="assets/linkedin.svg" alt="LinkedIn" />
+          </Link>
+          <Link to="https://join.skype.com/invite/ypX10Y4KidFH" target="_blank">
+            <img src="assets/skype.svg" alt="Skype"/>
+          </Link>
+          <Link to="https://www.instagram.com/shubhambhardwaj257" target="_blank">
+            <img src="assets/instagram.svg" alt="Instagram"/>
+          </Link>
         </div>
       </div>
       <div className="footer-details width">
