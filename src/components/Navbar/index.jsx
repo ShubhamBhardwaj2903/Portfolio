@@ -68,7 +68,7 @@ const Navbar = () => {
                             </Link>
                         </div>
                         <div className="contact">
-                            <p>bhardwajsb03@gmai.com</p>
+                            <p>bhardwajsb03@gmail.com</p>
                         </div>
                     </div>
                 </div>

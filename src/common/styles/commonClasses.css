@@ -30,9 +30,6 @@
     width: 80%;
     margin: auto;
 }
-.pad{
-    /* padding: 100px 0px 50px; */
-}
 .flex {
     display: flex;
 }
@@ -133,14 +130,17 @@
 }
 
 .design-text1 {
-    font-family: 'Grifter', sans-serif;
-    font-size: 25px;
-    margin: 32px 0px;
+    /* font-family: Grifter; */
+    font-size: 20px;
+    font-weight: 700;
+    margin: 48px 0px 15px;
 }
 
 .design-text2 {
-    font-size: 16px;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: justify;
+    color: #9a9a9a;
 }
 
 .process-texts {

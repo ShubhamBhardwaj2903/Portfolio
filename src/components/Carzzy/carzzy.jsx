@@ -3,6 +3,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import '../../components/Navbar/navbar.css';
+
 import { Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -27,7 +29,7 @@ const Carzzy = () => {
 
 
   return (
-    <div className="design-section-wrapper screen max-width" style={{ padding: 0 }}>
+    <div className="design-section-wrapper screen max-width" style={{ padding: 0}}>
       <Navbar/>
       <div className="design-section flex absolute-center" style={{ background: 'linear-gradient(to bottom, #D2001D 0%, #CC4154 56%, #FF6277 100%)' }}>
         <div className="design-section-title">
@@ -42,11 +44,11 @@ const Carzzy = () => {
 
       <div className="width ">
         <div className="design-text1">Exploring the Problem</div>
-        <div className="design-text2">You know, as someone who's been through the hassle of booking rides and renting
+        <div className="design-text2">As someone who's been through the hassle of booking rides and renting
           cars online, I can tell you firsthand – it's far from smooth sailing. The interfaces
           are clunky, the pricing is often a mystery until the last minute, and don't even get
           me started on the lack of options for customization. It's like trying to navigate
-          through a maze blindfolded! <br /><br /> So here's the thing: there's a real need for a
+          through a maze blindfolded! So here's the thing: there's a real need for a
           platform that gets it – that understands the frustrations of users like me and puts
           simplicity, transparency, and choice front and center. Because let's face it, booking
           a ride or renting a car should be as easy as ordering pizza on a Friday night. And
@@ -54,21 +56,21 @@ const Carzzy = () => {
           – both literally and figuratively.</div>
         <div className="design-text1">What does Carzzy do</div>
         <div className="design-text2">Alright, let me give you the lowdown on Carzzy – your new best friend for all
-          things transportation. <br /><br /> Picture this: a sleek, user-friendly app that puts the power of booking rides
-          and renting cars right in the palm of your hand. <br /><br /> With Carzzy, you're in the driver's seat. Whether you
+          things transportation. Picture this: a sleek, user-friendly app that puts the power of booking rides
+          and renting cars right in the palm of your hand. With Carzzy, you're in the driver's seat. Whether you
           need a quick ride to the airport or a stylish set of wheels for a weekend getaway, we've got you covered. And
-          the best part? It's all done with just a few taps on your smartphone. <br /><br /> But Carzzy isn't just about
+          the best part? It's all done with just a few taps on your smartphone. But Carzzy isn't just about
           convenience – it's about choice. We've curated a diverse fleet of vehicles to suit every need and budget, from
-          compact cars to luxury SUVs. And with transparent pricing and customizable options, you'll never be left guessing.<br /><br />
+          compact cars to luxury SUVs. And with transparent pricing and customizable options, you'll never be left guessing.
           So say goodbye to the days of frustrating booking experiences and hello to the future of transportation. Welcome to
           Carzzy – where every journey is smooth, seamless, and downright enjoyable.</div>
         <div className="design-text1">Goals</div>
         <div className="images">
           <img src='assets/goal1.png' alt='User Satisfaction' />
-          <img src='assets/goal1.png' alt='User Satisfaction' />
-          <img src='assets/goal1.png' alt='User Satisfaction' />
-          <img src='assets/goal1.png' alt='User Satisfaction' />
-          <img src='assets/goal1.png' alt='User Satisfaction' />
+          <img src='assets/goal2.png' alt='User Satisfaction' />
+          <img src='assets/goal3.png' alt='User Satisfaction' />
+          <img src='assets/goal4.png' alt='User Satisfaction' />
+          <img src='assets/goal5.png' alt='User Satisfaction' />
         </div>
 
         <div className="design-text1">Design Process</div>
