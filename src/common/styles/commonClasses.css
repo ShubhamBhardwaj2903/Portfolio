@@ -63,7 +63,7 @@
     align-items: center; 
     justify-content: center; 
     width: 100%;
-    height: 50vh; 
+    height: 70vh; 
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -72,7 +72,8 @@
   }
   
 .mobile{
-    background-image: url('/public/assets/mobileDesignSmall.png'); 
+    background-image: url('/public/assets/mobileDesignsLarge.png'); 
+
 }
 
 .laptop {
@@ -119,7 +120,9 @@
     font-family: 'Grifter', sans-serif;
     font-size: 100px;
 }
-
+.num1{
+    padding: 11px;
+}
 .design-title {
     font-size: 45px;
     margin: 10px 0px;
@@ -127,6 +130,9 @@
 
 .design-subtitle {
     font-size: 16px;
+}
+.design-details{
+    width: 50%;
 }
 
 .design-text1 {
@@ -155,7 +161,8 @@
 
 .process-text2 {
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
+    color: #9a9a9a;
 }
 
 .design_hero_image {
@@ -230,7 +237,9 @@
         font-size: 45px;
         font-weight: 600;
     }
-
+    .process-num{
+        padding: 0;
+    }
     .dark {
         background-color: var(--bg-black);
         /* padding: 100px 0px 30px; */
@@ -256,13 +265,18 @@
     .images {
         white-space: normal;
     }
-
+    .design-details{
+        width: 80%;
+    }
+    .num1{
+        padding: 10px;
+    }
     .images img {
         width: calc(50% - 10px);
         margin-bottom: 10px;
     }
     .mobile {
-        /* background-image: url('/public/assets/mobileDesignSmall.png'); */
+        background-image: url('/public/assets/mobileDesignSmall.png');
     }
 }
 
@@ -272,7 +286,9 @@
         flex-direction: column;
         /* margin: 50px; */
     }
-
+    .num1{
+        padding: 7px;
+    }
     .design-section-title {
         margin: 50px 0px 0px;
     }
@@ -296,16 +312,21 @@
     }
 
     .design_hero_image {
-        width: 300px;
+        width: 400px;
         /* margin: 50px; */
         max-width: 100%;
         overflow: hidden;
+        margin-top: 120px;
     }
 
     .design_hero_image img {
         width: 100%;
         height: auto;
         display: block;
+    }
+    .button1{
+        margin-top: 50px;
+        font-size: 12px;
     }
 
     .footer {

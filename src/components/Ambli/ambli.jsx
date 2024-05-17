@@ -134,7 +134,7 @@ const Ambli = () => {
       </div>
 
       <div class="project-navigation">
-        <Link to="/carzzy" target="_blank" className="button1">Previous Project</Link>
+        <Link to="/carzzy" className="button1">Previous Project</Link>
         <Link to="https://cred-clone-shubham-bhardwaj.onrender.com" target="_blank" className="button1">Next Project</Link>
       </div>
 

@@ -37,7 +37,7 @@ const ProjectSection = () => {
                     <div className="project-sub-text sub-text">Innovative Designs, Seamless Experiences</div>
                 </div>
                 <div className="projects flex">
-                    <Link to='/carzzy' target="_blank" className="project project1">
+                    <Link to='/carzzy' className="project project1">
                         <div className="num">01</div>
                         <div className="title">CARZZY</div>
                         <div className="subtext">"Discover, Book, and Drive
@@ -49,7 +49,7 @@ const ProjectSection = () => {
                         </div>
                     </Link>
 
-                    <Link to='/ambli' target="_blank" className="project project2">
+                    <Link to='/ambli' className="project project2">
                         <div className="num">02</div>
                         <div className="title">AMBLI AI</div>
                         <div className="subtext">“An AI-powered Search Platform”</div>

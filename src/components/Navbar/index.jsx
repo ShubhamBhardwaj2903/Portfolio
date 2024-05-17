@@ -67,7 +67,7 @@ const Navbar = () => {
                                 <img src="assets/instagram.svg" alt="Instagram" />
                             </Link>
                         </div>
-                        <div className="contact">
+                        <div className="email">
                             <p>bhardwajsb03@gmail.com</p>
                         </div>
                     </div>

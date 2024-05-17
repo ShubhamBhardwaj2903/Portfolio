@@ -42,7 +42,7 @@ const Carzzy = () => {
         </div>
       </div>
 
-      <div className="width ">
+      <div className="width design-details">
         <div className="design-text1">Exploring the Problem</div>
         <div className="design-text2">As someone who's been through the hassle of booking rides and renting
           cars online, I can tell you firsthand – it's far from smooth sailing. The interfaces
@@ -75,7 +75,7 @@ const Carzzy = () => {
 
         <div className="design-text1">Design Process</div>
         <div className="process flex absolute-center">
-          <div className="process-num" style={{ padding: 11 }}>1</div>
+          <div className="process-num num1" >1</div>
           <div className="process-texts">
             <div className="process-text1">Research Phase</div>
             <div className="process-text2">So, first things first – I dove headfirst into the research pool. I chatted with
@@ -122,8 +122,8 @@ const Carzzy = () => {
       </div>
 
       <div class="project-navigation">
-        <a href="link1" target="_blank" rel="noopener noreferrer" class="button1">Previous Project</a>
-        <a href="link2" target="_blank" rel="noopener noreferrer" class="button1">Next Project</a>
+        <a href="link1" target="_blank" rel="noopener noreferrer" class="button1" style={{visibility: 'hidden'}}>Previous Project</a>
+        <Link to='/ambli' rel="noopener noreferrer" class="button1">Next Project</Link>
       </div>
 
 <Footer/>
