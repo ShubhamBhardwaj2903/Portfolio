@@ -70,7 +70,7 @@ const ExperienceSection = () => {
                         </ul>
                     </div>
 
-                    <a href="https://www.vovance.com/" target="_blank" rel="noopener noreferrer">
+                    <a href="/assets/VOVANCE_INTERNSHIP COMPLETION LETTER_SHUBHAM BHARDWAJ.pdf" download="Shubham LOA.pdf">
                         <button className="button">Download LOA</button>
                     </a>
                 </div>
