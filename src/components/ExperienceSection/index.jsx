@@ -51,7 +51,7 @@ const ExperienceSection = () => {
                     </div>
 
                     <a href="https://ambli.ai/" target="_blank" rel="noopener noreferrer">
-                        <button className="button">Visit Website</button>
+                        <button className="button">Download LOA</button>
                     </a>
                 </div>
                 <div className="work max-width">
@@ -71,7 +71,7 @@ const ExperienceSection = () => {
                     </div>
 
                     <a href="https://www.vovance.com/" target="_blank" rel="noopener noreferrer">
-                        <button className="button">Visit Website</button>
+                        <button className="button">Download LOA</button>
                     </a>
                 </div>
                 <div className="work max-width">
@@ -91,7 +91,7 @@ const ExperienceSection = () => {
                     </div>
                     <div style={{ margin: 0, padding: 0 }}>
                         <a href="https://www.vovance.com/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", margin: 0, padding: 0, textDecoration: "none" }}>
-                            <button className="button">Download LOR</button>
+                            <button className="button">Download LOA</button>
                         </a>
                     </div>
 
