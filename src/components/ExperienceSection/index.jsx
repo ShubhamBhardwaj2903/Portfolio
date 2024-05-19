@@ -50,7 +50,7 @@ const ExperienceSection = () => {
                         </ul>
                     </div>
 
-                    <a href="https://ambli.ai/" target="_blank" rel="noopener noreferrer">
+                    <a href="/assets/LOA-Ambli.pdf" download="Shubham Ambli LOA.pdf">
                         <button className="button">Download LOA</button>
                     </a>
                 </div>
@@ -70,7 +70,7 @@ const ExperienceSection = () => {
                         </ul>
                     </div>
 
-                    <a href="/assets/VOVANCE_INTERNSHIP COMPLETION LETTER_SHUBHAM BHARDWAJ.pdf" download="Shubham LOA.pdf">
+                    <a href="/assets/LOA-Vovance.pdf" download="Shubham Vovance LOA.pdf">
                         <button className="button">Download LOA</button>
                     </a>
                 </div>
@@ -90,9 +90,9 @@ const ExperienceSection = () => {
                         </ul>
                     </div>
                     <div style={{ margin: 0, padding: 0 }}>
-                        <a href="https://www.vovance.com/" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", margin: 0, padding: 0, textDecoration: "none" }}>
-                            <button className="button">Download LOA</button>
-                        </a>
+                    <a href="/assets/VOVANCE Ambli_INTERNSHIP COMPLETION LETTER_SHUBHAM BHARDWAJ.pdf" download="Shubham LOA.pdf">
+                        <button className="button">Download LOA</button>
+                    </a>
                     </div>
 
                 </div>
