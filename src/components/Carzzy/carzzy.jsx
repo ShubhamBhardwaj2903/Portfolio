@@ -10,6 +10,11 @@ import { Link } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 
 const Carzzy = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   useEffect(() => {
 
     gsap.to('.design-section-title', { y: 100, duration: 1, ease: 'power3.inOut', });

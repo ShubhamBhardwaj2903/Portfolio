@@ -44,9 +44,14 @@ const IntroSection = () => {
                         <div className="intro-title1"> <span>Be Boring</span> </div>
                     </div>
                     <div className="intro-sub-text sub-text">But Definitely The Person Isn’t</div>
-                    <div className="intro-desc">A product designer and front end developer from Mumbai with 7 months experience,
-                    studied electronics and telecommunication engineering from KJSIT.
-                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    <div className="intro-desc">I'm a product designer and front-end developer 
+                    based in Mumbai. I like taking complex ideas and turning them into designs that are 
+                    intuitive and user-friendly. 
+
+                    I've been fortunate to work on a wide range of projects for different clients, delivering over 
+                    20 solutions that really made a difference for users and businesses. I'm all about 
+                    learning and teamwork, which has been key to launching successful products and leaving 
+                    clients happy with the results.
                     </div>
                 </div>
                 <img className="image" src="assets/image.svg" alt="Shubham Bhardwaj" />
@@ -55,5 +60,5 @@ const IntroSection = () => {
     )
 }
 // A Product Designer and Front-end developer from Mumbai with 7 months experience, 
-                    // studied electronics and telecommunication engineering from KJSIT.
+// studied electronics and telecommunication engineering from KJSIT.
 export default IntroSection

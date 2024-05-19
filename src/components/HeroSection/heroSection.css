@@ -72,8 +72,11 @@
     .hero-title{
         font-size: 60px;
     }
-    .hero-section {
+    /* .hero-section {
         margin: -350px;
+    } */
+    .hero-section {
+        scale: 0.69;
     }
 }
 @media all and (max-width: 512px){
@@ -83,21 +86,4 @@
     }
 
 }
-/* @media all and (max-width:767px){
-    .hero-section{
-        margin: -50px;
-    }
-    .hero-sub-section1{
-        margin: -60px 0px 10px -300px;
-    }
-    .hero-sub-section2{
-        margin: 0px 10px 10px;
-    }
-}
-
-@media all and (max-width:519px){
-    .hero-sub-section3, .hero-sub-section4{
-        display: none;
-    }
-} */
 
