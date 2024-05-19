@@ -13,11 +13,11 @@ const Ambli = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   gsap.to('.design-section-title', { y: 100, duration: 1, ease: 'power3.inOut', });
-  //   gsap.to('.design_hero_image', { scale: 0.85, duration: 1, ease: 'power3.inOut', });
-  // }, []);
+    gsap.to('.design-section-title', { y: 100, duration: 1, ease: 'power3.inOut', });
+    gsap.to('.design_hero_image', { scale: 0.85, duration: 1, ease: 'power3.inOut', });
+  }, []);
 
   return (
     <div className="design-section-wrapper screen max-width" style={{ padding: 0 }}>
