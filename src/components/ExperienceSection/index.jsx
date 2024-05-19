@@ -90,7 +90,7 @@ const ExperienceSection = () => {
                         </ul>
                     </div>
                     <div style={{ margin: 0, padding: 0 }}>
-                    <a href="/assets/VOVANCE Ambli_INTERNSHIP COMPLETION LETTER_SHUBHAM BHARDWAJ.pdf" download="Shubham LOA.pdf">
+                    <a href="/assets/LOR-VF.pdf" download="Shubham Viral Fission LOA.pdf">
                         <button className="button">Download LOA</button>
                     </a>
                     </div>
@@ -112,10 +112,11 @@ const ExperienceSection = () => {
                             <li>Initiated and facilitated the smooth establishment of the GRSS chapter at the college, showcasing proactive leadership, dedication, and strong coordination abilities.</li>
                         </ul>
                     </div>
-                    <a href="https://www.vovance.com/" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/posts/shubham-bhardwaj-ui-ux-designer_stemeducation-technologyinnovation-educationforfuture-activity-7142415824400687105-ER4i?utm_source=share&utm_medium=member_desktop" 
+                    target="_blank" rel="noopener noreferrer">
                         <button className="button">View Event</button>
                     </a>
-                    <img className="ieee-grss-img" src="assets/ieee-grss.png" />
+                    <img className="ieee-grss-img" src="assets/ieee-grss.png" alt='Event_Image' />
 
                 </div>
             </div>
