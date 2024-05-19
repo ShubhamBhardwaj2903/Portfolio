@@ -31,7 +31,7 @@ const ExperienceSection = () => {
                         <div className="exp-title1"> <span>Through the Lens</span> </div>
                         <div className="exp-title1"> <span>of Experience</span> </div>
                     </div>
-                    <div className="exp-sub-text sub-text">Trust Me It’s Hectic - But In a Good Way</div>
+                    {/* <div className="exp-sub-text sub-text">Trust Me It’s Hectic - But In a Good Way</div> */}
                 </div>
                 <div className="work">
                     <div className="flex work-title">
