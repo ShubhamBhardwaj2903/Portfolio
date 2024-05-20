@@ -91,7 +91,7 @@ const ExperienceSection = () => {
                     </div>
                     <div style={{ margin: 0, padding: 0 }}>
                     <a href="/assets/LOR-VF.pdf" download="Shubham Viral Fission LOA.pdf">
-                        <button className="button">Download LOA</button>
+                        <button className="button">Download LOR</button>
                     </a>
                     </div>
 
