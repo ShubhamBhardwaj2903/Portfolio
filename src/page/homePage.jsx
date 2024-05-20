@@ -10,7 +10,6 @@ import LaptopDesignSection from '../components/LaptopDesignSection';
 import Preloader from '../components/Preloader';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import FigmaPrototype from '../components/FigmaProjects';
 
 const HomePage = () => {
     return (
