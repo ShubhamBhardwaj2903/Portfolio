@@ -38,7 +38,6 @@ const HomePage = () => {
             </section>
             <Footer />
 
-            {/* <FigmaPrototype/> */}
         </>
     );
 };
