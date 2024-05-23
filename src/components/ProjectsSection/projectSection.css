@@ -8,6 +8,7 @@
     text-align: center;
     text-transform: uppercase;
 }
+
 .project-sub-text {
     margin-top: 25px;
 }
@@ -86,41 +87,51 @@
     border: 1px solid #CC4154;
     cursor: pointer;
 }
-.project1{
+
+.project1 {
     opacity: 1;
 }
+
 .project2 {
     border: 1px solid #26A0DA;
     cursor: pointer;
 }
+
 .project3 {
     border: 1px solid #8c75ff;
     cursor: pointer;
 }
+
 .project4 {
     border: 1px solid #1ED760;
     cursor: pointer;
 }
+
 .project5 {
     border: 1px solid #87592F;
     cursor: pointer;
 }
-.project1:hover{
+
+.project1:hover {
     background: linear-gradient(to bottom, transparent, #D2001D, #CC4154, #FF6277);
 }
 
-.project2:hover{    
+.project2:hover {
     background: linear-gradient(to bottom, transparent, #0C1357, #26A0DA);
 }
-.project3:hover{    
+
+.project3:hover {
     background: linear-gradient(to bottom, transparent, #110A34, #3D3372);
 }
-.project5:hover{
+
+.project5:hover {
     background: linear-gradient(to bottom, transparent, #422018, #87592F);
 }
-.project4:hover{
+
+.project4:hover {
     background: linear-gradient(to bottom, transparent, #006123, #1ED760);
 }
+
 /* .project1::before,
 .project1::after {
     background: linear-gradient(to bottom, transparent, #D2001D, #CC4154, #FF6277);
@@ -188,38 +199,44 @@
         text-align: left;
         margin: 20px 30px 5px;
     }
-    
+
     .subtext {
         text-align: center;
         margin: 20px 30px;
         font-size: 15px;
     }
-    
+
     .projectImage {
         margin: 10px auto 5px;
         max-width: 100%;
         opacity: 1;
     }
-    
+
     .cta-text {
         margin: -125px 10px 0px 530px;
     }
-    .cta-text p{
+
+    .cta-text p {
         display: none;
     }
-    .project1{
+
+    .project1 {
         background: linear-gradient(to bottom, transparent, #D2001D, #CC4154, #FF6277);
     }
 
-    .project3{
-    background: linear-gradient(to bottom, transparent, #110A34, #3D3372);
-    /* background: linear-gradient(to bottom, transparent, #0C1357, #26A0DA); */
+    .project2 {
+        background: linear-gradient(to bottom, transparent, #0C1357, #26A0DA);
     }
 
-    .project5{
+    .project3 {
+        background: linear-gradient(to bottom, transparent, #110A34, #3D3372);
+    }
+
+    .project5 {
         background: linear-gradient(to bottom, transparent, #422018, #87592F);
     }
-    .project3{
+
+    .project3 {
         background: linear-gradient(to bottom, transparent, #006123, #1ED760);
     }
 }
@@ -230,10 +247,12 @@
         height: 250px;
         margin-bottom: 0%;
     }
+
     .num {
         display: none;
     }
-    .title{
+
+    .title {
         margin-top: 30px;
     }
 }
