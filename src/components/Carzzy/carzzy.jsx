@@ -128,7 +128,7 @@ const Carzzy = () => {
 
       <div class="project-navigation">
         <a href="link1" target="_blank" rel="noopener noreferrer" class="button1" style={{visibility: 'hidden'}}>Previous Project</a>
-        <Link to='/ambli' rel="noopener noreferrer" class="button1">Next Project</Link>
+        <Link to='/vovance' rel="noopener noreferrer" class="button1">Next Project</Link>
       </div>
 
 <Footer/>

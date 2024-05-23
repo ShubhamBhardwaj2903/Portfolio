@@ -33,7 +33,7 @@ const Ambli = () => {
         </div>
       </div>
 
-      <div className="width ">
+      <div className="width design-details">
         <div className="design-text1">Exploring the Problem</div>
         <div className="design-text2">Ever wondered what goes on behind the scenes of a game-changing AI-powered search platform? Well, wonder no more – because we're about to peel back the curtain and take you on a journey through the creation of Ambli.
 
@@ -138,7 +138,7 @@ const Ambli = () => {
       </div>
 
       <div class="project-navigation">
-        <Link to="/carzzy" className="button1">Previous Project</Link>
+        <Link to="/vovance" className="button1">Previous Project</Link>
         <Link to="https://cred-clone-shubham-bhardwaj.onrender.com" target="_blank" className="button1">Next Project</Link>
       </div>
 

@@ -33,7 +33,7 @@ const Vovance = () => {
                 </div>
             </div>
 
-            <div className="width ">
+            <div className="width design-details">
                 <div className="design-text1">Case Study: Redesigning Vovance’s Website</div>
                 <div className="design-text2">Hey there! I’m excited to share a project I recently
                     worked on that I’m particularly proud of—redesigning the website for Vovance. Let
@@ -104,7 +104,7 @@ const Vovance = () => {
 
             <div class="project-navigation">
                 <Link to="/carzzy" className="button1">Previous Project</Link>
-                <Link to="/ambli" target="_blank" className="button1">Next Project</Link>
+                <Link to="/ambli" className="button1">Next Project</Link>
             </div>
 
             <Footer />
