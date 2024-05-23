@@ -49,7 +49,7 @@ const ProjectSection = () => {
                         </div>
                     </Link>
 
-                    <Link to='/ambli' className="project project2">
+                    <Link to='/vovance' className="project project2">
                         <div className="num">02</div>
                         <div className="title">Vovance</div>
                         <div className="subtext">"Redesign Website Case Study”</div>

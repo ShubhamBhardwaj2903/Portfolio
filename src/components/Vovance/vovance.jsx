@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Ambli = () => {
+const Vovance = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -149,4 +149,4 @@ const Ambli = () => {
   )
 }
 
-export default Ambli
+export default Vovance
