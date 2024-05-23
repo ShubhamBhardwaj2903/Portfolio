@@ -59,6 +59,17 @@ const ProjectSection = () => {
                             <img src="assets/nextButton.svg" alt='next_icon'></img>
                         </div>
                     </Link>
+
+                    <Link to='/ambli' className="project project2">
+                        <div className="num">03</div>
+                        <div className="title">AMBLI AI</div>
+                        <div className="subtext">“An AI-powered Search Platform”</div>
+                        <img className="projectImage" src='assets/image 80.png' alt='Project_Image'></img>
+                        <div className="cta-text flex absolute-center">
+                            <p>Witness<br /> the Magic</p>
+                            <img src="assets/nextButton.svg" alt='next_icon'></img>
+                        </div>
+                    </Link>
                     {/* <div className="project project3">
                         <div className="num">03</div>
                         <div className="title">FASHIONISTA</div>
@@ -71,7 +82,7 @@ const ProjectSection = () => {
                     </div> */}
                     <a href="https://cred-clone-shubham-bhardwaj.onrender.com/" target='_blank' style={{ textDecoration: "none" }}>
                         <div className="project project4">
-                            <div className="num">03</div>
+                            <div className="num">04</div>
                             <div className="title">CRED</div>
                             <div className="subtext">"Clone website of CRED using ReactJS"</div>
                             <img className="projectImage" src='assets/cred.png' alt='Project_Image'></img>
