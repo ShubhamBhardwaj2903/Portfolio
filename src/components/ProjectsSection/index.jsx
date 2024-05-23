@@ -51,8 +51,8 @@ const ProjectSection = () => {
 
                     <Link to='/ambli' className="project project2">
                         <div className="num">02</div>
-                        <div className="title">Vovance Website Redesign</div>
-                        <div className="subtext">"Bringing Modern Design and Functionality to Vovance”</div>
+                        <div className="title">Vovance</div>
+                        <div className="subtext">"Redesign Website Case Study”</div>
                         <img className="projectImage" src='assets/image 80.png' alt='Project_Image'></img>
                         <div className="cta-text flex absolute-center">
                             <p>Witness<br /> the Magic</p>
