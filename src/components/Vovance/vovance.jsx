@@ -94,17 +94,17 @@ const Vovance = () => {
 
             </div>
             <div className='design-images flex flex-col'>
-                <img src="assets/ambli1.png" alt='LandingPage' />
-                <img src="assets/ambli2.png" alt='LandingPage' />
-                <img src="assets/ambli3.png" alt='LandingPage' />
-                <img src="assets/ambli4.png" alt='LandingPage' />
-                <img src="assets/ambli5.png" alt='LandingPage' />
-                <img src="assets/ambli6.png" alt='LandingPage' />
+                <img src="assets/vovance1.png" alt='LandingPage' />
+                <img src="assets/vovance2.png" alt='LandingPage' />
+                <img src="assets/vovance3.png" alt='LandingPage' />
+                <img src="assets/vovance4.png" alt='LandingPage' />
+                <img src="assets/vovance5.png" alt='LandingPage' />
+                {/* <img src="assets/vovance6.png" alt='LandingPage' /> */}
             </div>
 
             <div class="project-navigation">
                 <Link to="/carzzy" className="button1">Previous Project</Link>
-                <Link to="https://cred-clone-shubham-bhardwaj.onrender.com" target="_blank" className="button1">Next Project</Link>
+                <Link to="/ambli" target="_blank" className="button1">Next Project</Link>
             </div>
 
             <Footer />
