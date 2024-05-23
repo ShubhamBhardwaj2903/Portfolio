@@ -189,14 +189,9 @@
     width: 100%;
     height: auto;
 }
-.design-points ul {
-    list-style-type: square;
-    font-size: 14px;
-    color: #9a9a9a;
-}
 
-.design-points ul li {
-    font-size: 16px;
+.design-text2 ul li {
+    font-size: 14px;
     margin-bottom: 10px;
 }
 .images {
