@@ -14,7 +14,7 @@ const Carzzy = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
+
   useEffect(() => {
 
     gsap.to('.design-section-title', { y: 100, duration: 1, ease: 'power3.inOut', });
@@ -34,9 +34,9 @@ const Carzzy = () => {
 
 
   return (
-    <div className="design-section-wrapper screen max-width" style={{ padding: 0}}>
-      <Navbar/>
-      <div className="design-section flex absolute-center" style={{ background: 'linear-gradient(to bottom, #D2001D 0%, #CC4154 56%, #FF6277 100%)' }}>
+    <div className="design-section-wrapper screen max-width" style={{ padding: 0 }}>
+      <Navbar />
+      {/* <div className="design-section flex absolute-center" style={{ background: 'linear-gradient(to bottom, #D2001D 0%, #CC4154 56%, #FF6277 100%)' }}>
         <div className="design-section-title">
           <div className="design-num">01</div>
           <div className="design-title">CARZZY</div>
@@ -89,6 +89,7 @@ const Carzzy = () => {
               them tick.</div>
           </div>
         </div>
+        
         <div className="process flex absolute-center">
           <div className="process-num">2</div>
           <div className="process-texts">
@@ -117,7 +118,12 @@ const Carzzy = () => {
             <div className="process-text2">I refined the visual designs, incorporating brand elements, color schemes, and typography. High-fidelity mockups were crafted to provide a pixel-perfect representation of the final product, ready for development handoff.</div>
           </div>
         </div>
+      </div> */}
+
+      <div className="details">
+        <img src='assets/carzzy_details.png' alt='Carzzy_Details'></img>
       </div>
+
       <div className='design-images flex flex-col'>
         <img src="assets/carzzy1.png" alt='LandingPage' />
         <img src="assets/carzzy2.png" alt='LandingPage' />
@@ -126,12 +132,13 @@ const Carzzy = () => {
         <img src="assets/carzzy5.png" alt='LandingPage' />
       </div>
 
+
       <div class="project-navigation">
-        <a href="link1" target="_blank" rel="noopener noreferrer" class="button1" style={{visibility: 'hidden'}}>Previous Project</a>
+        <a href="link1" target="_blank" rel="noopener noreferrer" class="button1" style={{ visibility: 'hidden' }}>Previous Project</a>
         <Link to='/vovance' rel="noopener noreferrer" class="button1">Next Project</Link>
       </div>
 
-<Footer/>
+      <Footer />
     </div>
   )
 }
