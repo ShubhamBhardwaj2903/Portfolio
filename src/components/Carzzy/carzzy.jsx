@@ -120,16 +120,24 @@ const Carzzy = () => {
         </div>
       </div> */}
 
-      <div className="details">
+      {/* <div className="details carzzy">
         <img src='assets/carzzy_details.png' alt='Carzzy_Details'></img>
+      </div> */}
+
+      <div className='details carzzy flex flex-col'>
+        <img src="assets/carzzy_details1.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_details2.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_details3.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_details4.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_details5.png" alt='Carzzy_Details' />
       </div>
 
       <div className='design-images flex flex-col'>
-        <img src="assets/carzzy1.png" alt='LandingPage' />
-        <img src="assets/carzzy2.png" alt='LandingPage' />
-        <img src="assets/carzzy3.png" alt='LandingPage' />
-        <img src="assets/carzzy4.png" alt='LandingPage' />
-        <img src="assets/carzzy5.png" alt='LandingPage' />
+        <img src="assets/carzzy1.png" alt='Design_Details' />
+        <img src="assets/carzzy2.png" alt='Design_Details' />
+        <img src="assets/carzzy3.png" alt='Design_Details' />
+        <img src="assets/carzzy4.png" alt='Design_Details' />
+        <img src="assets/carzzy5.png" alt='Design_Details' />
       </div>
 
 
