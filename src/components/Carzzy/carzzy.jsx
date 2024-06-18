@@ -124,12 +124,23 @@ const Carzzy = () => {
         <img src='assets/carzzy_details.png' alt='Carzzy_Details'></img>
       </div> */}
 
-      <div className='details carzzy flex flex-col'>
+      <div className='details case_study flex flex-col'>
         <img src="assets/carzzy_details1.png" alt='Carzzy_Details' />
         <img src="assets/carzzy_details2.png" alt='Carzzy_Details' />
         <img src="assets/carzzy_details3.png" alt='Carzzy_Details' />
         <img src="assets/carzzy_details4.png" alt='Carzzy_Details' />
         <img src="assets/carzzy_details5.png" alt='Carzzy_Details' />
+      </div>
+
+      <div className='details case_study_mobile flex flex-col' >
+        <img src="assets/carzzy_mob1.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_mob2.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_mob3.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_mob4.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_mob5.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_mob6.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_mob7.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_mob8.png" alt='Carzzy_Details' />
       </div>
 
       <div className='design-images flex flex-col'>
