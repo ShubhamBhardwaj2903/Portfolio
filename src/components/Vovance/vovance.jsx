@@ -22,7 +22,7 @@ const Vovance = () => {
     return (
         <div className="design-section-wrapper screen max-width" style={{ padding: 0 }}>
             <Navbar />
-            <div className="design-section flex absolute-center" style={{ background: 'linear-gradient(to bottom, #0C1357, #26A0DA)' }}>
+            {/* <div className="design-section flex absolute-center" style={{ background: 'linear-gradient(to bottom, #0C1357, #26A0DA)' }}>
                 <div className="design-section-title">
                     <div className="design-num">03</div>
                     <div className="design-title">VOVANCE</div>
@@ -92,7 +92,31 @@ const Vovance = () => {
                     </ul>
                 </div>
 
+            </div> */}
+
+            <div className='details case_study flex flex-col'>
+                <img src="assets/vovance_details1.png" alt='vovance_Details' />
+                <img src="assets/vovance_details2.png" alt='vovance_Details' />
+                <img src="assets/vovance_details3.png" alt='vovance_Details' />
+                <img src="assets/vovance_details4.png" alt='vovance_Details' />
+                <img src="assets/vovance_details5.png" alt='vovance_Details' />
+                <img src="assets/vovance_details6.png" alt='vovance_Details' />
+                <img src="assets/vovance_details7.png" alt='vovance_Details' />
+                <img src="assets/vovance_details8.png" alt='vovance_Details' />
+                <img src="assets/vovance_details9.png" alt='vovance_Details' />
             </div>
+
+            {/* <div className='details case_study_mobile flex flex-col' >
+                <img src="assets/vovance_mob1.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob2.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob3.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob4.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob5.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob6.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob7.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob8.png" alt='vovance_Details' />
+            </div> */}
+
             <div className='design-images flex flex-col'>
                 <img src="assets/vovance1.png" alt='LandingPage' />
                 <img src="assets/vovance2.png" alt='LandingPage' />
