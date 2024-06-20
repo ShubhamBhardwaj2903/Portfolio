@@ -106,7 +106,7 @@ const Vovance = () => {
                 <img src="assets/vovance_details9.png" alt='vovance_Details' />
             </div>
 
-            {/* <div className='details case_study_mobile flex flex-col' >
+            <div className='details case_study_mobile flex flex-col' >
                 <img src="assets/vovance_mob1.png" alt='vovance_Details' />
                 <img src="assets/vovance_mob2.png" alt='vovance_Details' />
                 <img src="assets/vovance_mob3.png" alt='vovance_Details' />
@@ -115,7 +115,13 @@ const Vovance = () => {
                 <img src="assets/vovance_mob6.png" alt='vovance_Details' />
                 <img src="assets/vovance_mob7.png" alt='vovance_Details' />
                 <img src="assets/vovance_mob8.png" alt='vovance_Details' />
-            </div> */}
+                <img src="assets/vovance_mob9.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob10.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob11.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob12.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob13.png" alt='vovance_Details' />
+                <img src="assets/vovance_mob14.png" alt='vovance_Details' />
+            </div>
 
             <div className='design-images flex flex-col'>
                 <img src="assets/vovance1.png" alt='LandingPage' />
