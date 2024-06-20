@@ -104,6 +104,7 @@ const Vovance = () => {
                 <img src="assets/vovance_details7.png" alt='vovance_Details' />
                 <img src="assets/vovance_details8.png" alt='vovance_Details' />
                 <img src="assets/vovance_details9.png" alt='vovance_Details' />
+                <img src="assets/vovance_details10.png" alt='vovance_Details' />
             </div>
 
             <div className='details case_study_mobile flex flex-col' >
