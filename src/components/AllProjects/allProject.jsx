@@ -17,20 +17,43 @@ const AllProjects = () => {
           <div className="text2" style={{ fontSize: 14, opacity: 0.5 }}>(Scroll on the design to see more)</div>
         </div>
         <div className="design_box flex flex-col" >
-          <div className="design_img">
+          <div className="design_img" style={{border: 'solid 2px #fff'}}>
             <img src="assets/CasaLuxe.png" alt="Furniture_Store_Design" />
           </div>
         </div>
       </div>
 
-      <div className="design_section" style={{ padding: '0px 100px 50px 100px' }}>
+      <div className="design_section" style={{ padding: '0px 100px 50px 100px'}}>
         <div className="heading flex-col" style={{ margin: '24px 0 ' }}>
-          <div className="text1" style={{ fontSize: 64 }}>Furniture Store Design</div>
-          <div className="text2" style={{ fontSize: 14, opacity: 0.5 }}>(Scroll on the design to see more)</div>
+          <div className="text1" style={{ fontSize: 64 }}>Digital Agency Designs</div>
+          <div className="text2" style={{ fontSize: 14, opacity: 0.5 }}>(Scroll on the designs to see more)</div>
+        </div>
+        <div className="design_box flex flex-col" style={{ paddingBottom: 50 }}>
+          <div className="design_img" style={{border: 'solid 2px #fff'}}>
+            <img src="assets/DigitalAgency.png" alt="Digital_Agency_Design" />
+          </div>
         </div>
         <div className="design_box flex flex-col" >
-          <div className="design_img">
-            <img src="assets/CasaLuxe.png" alt="Furniture_Store_Design" />
+          <div className="design_img" style={{border: 'solid 2px #fff'}}>
+            <img src="assets/DigitalAgency2.png" alt="Digital_Agency_Design"  />
+          </div>
+        </div>
+
+      </div>
+
+      <div className="design_section" style={{ padding: '0px 100px 50px 100px'}}>
+        <div className="heading flex-col" style={{ margin: '24px 0 ' }}>
+          <div className="text1" style={{ fontSize: 64 }}>Designs</div>
+          <div className="text2" style={{ fontSize: 14, opacity: 0.5 }}>(Scroll on the designs to see more)</div>
+        </div>
+        <div className="design_box flex flex-col" style={{ paddingBottom: 50 }}>
+          <div className="design_img" style={{border: 'solid 2px #fff'}}>
+            <img src="assets/Zenith.png" alt="Bento_Box_Design" />
+          </div>
+        </div>
+        <div className="design_box flex flex-col" >
+          <div className="design_img" style={{border: 'solid 2px #fff'}}>
+            <img src="assets/Meditation.png" alt="Meditation_Design"  />
           </div>
         </div>
       </div>
