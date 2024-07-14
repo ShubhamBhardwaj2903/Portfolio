@@ -59,8 +59,9 @@ const AllProjects = () => {
       </div>
 
       <div class="project-navigation">
-        <a href="link1" target="_blank" rel="noopener noreferrer" class="button1" style={{ visibility: 'hidden' }}>Previous Project</a>
-        <Link to='/vovance' rel="noopener noreferrer" class="button1">Next Project</Link>
+        {/* <a href="link1" target="_blank" rel="noopener noreferrer" class="button1" >Previous Project</a> */}
+        <Link to='/ambli' rel="noopener noreferrer" class="button1" >Previos Project</Link>
+        <Link to='/vovance' rel="noopener noreferrer" class="button1" style={{ visibility: 'hidden' }}>Next Project</Link>
       </div>
 
       <Footer />
