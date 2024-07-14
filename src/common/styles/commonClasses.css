@@ -52,6 +52,28 @@
     z-index: 20;
 }
 
+/* All Project Designs */
+
+.design_box {
+    height: 70vh;
+    overflow-y: hidden; 
+  }
+  
+  .design_img {
+    height: 500%;
+    overflow-y: auto; 
+    -ms-overflow-style: none; 
+    scrollbar-width: none;  
+  }
+  
+  .design_img::-webkit-scrollbar {
+    display: none;  
+  }
+  .design_img img {
+    display: block;
+    width: 100%;
+  }
+  
 .window-peek-section {
     width: 100%;
     padding: 0; 

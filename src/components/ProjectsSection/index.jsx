@@ -85,7 +85,7 @@ const ProjectSection = () => {
 
                     <Link to='/allProject' className="project project5">
                         <div className="num">05</div>
-                        <div className="title">OTHER DESIGNS</div>
+                        <div className="title">DESIGNS</div>
                         <div className="subtext">“Find The Best Fashion Style for you”</div>
                         <img className="projectImage" src='assets/image 79.png' alt='Project_Image'></img>
                         <div className="cta-text flex absolute-center">
