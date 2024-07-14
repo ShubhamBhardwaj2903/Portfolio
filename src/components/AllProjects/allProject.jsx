@@ -60,8 +60,9 @@ const AllProjects = () => {
 
       <div class="project-navigation">
         {/* <a href="link1" target="_blank" rel="noopener noreferrer" class="button1" >Previous Project</a> */}
-        <Link to='/ambli' rel="noopener noreferrer" class="button1" >Previos Project</Link>
-        <Link to='/vovance' rel="noopener noreferrer" class="button1" style={{ visibility: 'hidden' }}>Next Project</Link>
+        <Link to='/ambli' rel="noopener noreferrer" class="button1" >Previous Project</Link>
+        <Link to="https://cred-clone-shubham-bhardwaj.onrender.com" target="_blank" className="button1">Next Project</Link>
+        {/* <Link to='/vovance' rel="noopener noreferrer" class="button1" style={{ visibility: 'hidden' }}>Next Project</Link> */}
       </div>
 
       <Footer />
