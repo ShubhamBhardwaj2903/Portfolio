@@ -40,8 +40,7 @@ const ProjectSection = () => {
                     <Link to='/carzzy' className="project project1">
                         <div className="num">01</div>
                         <div className="title">CARZZY</div>
-                        <div className="subtext">"Discover, Book, and Drive
-                            Your Car Rental Made Easy!"</div>
+                        <div className="subtext">"App for Car Rentals and Ride Booking"</div>
                         <img className="projectImage" src='assets/image 79.png' alt='Project_Image'></img>
                         <div className="cta-text flex absolute-center">
                             <p>Witness<br /> the Magic</p>
@@ -49,37 +48,28 @@ const ProjectSection = () => {
                         </div>
                     </Link>
 
-                    <Link to='/vovance' className="project project2">
+                    {/* <Link to='/vovance' className="project project2">
                         <div className="num">02</div>
-                        <div className="title">Vovance</div>
+                        <div className="title">VOVANCE</div>
                         <div className="subtext">"Redesign Website Case Study”</div>
                         <img className="projectImage" src='assets/vovanceCard.png' alt='Project_Image'></img>
                         <div className="cta-text flex absolute-center">
                             <p>Witness<br /> the Magic</p>
                             <img src="assets/nextButton.svg" alt='next_icon'></img>
                         </div>
-                    </Link>
+                    </Link> */}
 
                     <Link to='/ambli' className="project project3">
                         <div className="num">03</div>
                         <div className="title">AMBLI AI</div>
-                        <div className="subtext">“An AI-powered Search Platform”</div>
+                        <div className="subtext">“Lead designer for an AI-powered Search Platform”</div>
                         <img className="projectImage" src='assets/image 80.png' alt='Project_Image'></img>
                         <div className="cta-text flex absolute-center">
                             <p>Witness<br /> the Magic</p>
                             <img src="assets/nextButton.svg" alt='next_icon'></img>
                         </div>
                     </Link>
-                    {/* <div className="project project5">
-                        <div className="num">03</div>
-                        <div className="title">FASHIONISTA</div>
-                        <div className="subtext">“Find The Best Fashion Style for you”</div>
-                        <img className="projectImage" src='assets/image 79.png' alt='Project_Image'></img>
-                        <div className="cta-text flex absolute-center">
-                            <p>Witness<br/> the Magic</p>
-                            <img src="assets/nextButton.svg" alt='next_icon'></img>
-                        </div>
-                    </div> */}
+
                     <a href="https://cred-clone-shubham-bhardwaj.onrender.com/" target='_blank' style={{ textDecoration: "none" }}>
                         <div className="project project4">
                             <div className="num">04</div>
@@ -92,6 +82,17 @@ const ProjectSection = () => {
                             </div>
                         </div>
                     </a>
+
+                    <Link to='/allProject' className="project project5">
+                        <div className="num">05</div>
+                        <div className="title">OTHER DESIGNS</div>
+                        <div className="subtext">“Find The Best Fashion Style for you”</div>
+                        <img className="projectImage" src='assets/image 79.png' alt='Project_Image'></img>
+                        <div className="cta-text flex absolute-center">
+                            <p>Witness<br/> the Magic</p>
+                            <img src="assets/nextButton.svg" alt='next_icon'></img>
+                        </div>
+                    </Link>
                     {/* <div className="project">
                         <div className="num">01</div>
                         <div className="title">CARZZY</div>

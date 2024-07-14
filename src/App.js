@@ -4,6 +4,7 @@ import HomePage from './page/homePage';
 import Carzzy from './components/Carzzy/carzzy';
 import Ambli  from './components/Ambli/ambli'; 
 import Vovance from './components/Vovance/vovance';
+import AllProjects from './components/AllProjects/allProject';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Route path="/carzzy" element={<Carzzy/>} />
         <Route path="/ambli" element={<Ambli />} />
         <Route path="/vovance" element={<Vovance />} />
+        <Route path="/allProject" element={<AllProjects />} />
       </Routes>
     </Router>
   );

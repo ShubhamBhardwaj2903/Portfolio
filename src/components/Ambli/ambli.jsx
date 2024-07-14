@@ -22,7 +22,7 @@ const Ambli = () => {
   return (
     <div className="design-section-wrapper screen max-width" style={{ padding: 0 }}>
       <Navbar />
-      <div className="design-section flex absolute-center" style={{ background: 'linear-gradient(to bottom, #00050B 0%, #080227 19%, #110A34 51%, #231B4D 77%, #3D3372 100%)' }}>
+      {/* <div className="design-section flex absolute-center" style={{ background: 'linear-gradient(to bottom, #00050B 0%, #080227 19%, #110A34 51%, #231B4D 77%, #3D3372 100%)' }}>
         <div className="design-section-title">
           <div className="design-num">02</div>
           <div className="design-title">AMBLI AI</div>
@@ -31,9 +31,9 @@ const Ambli = () => {
         <div className='design_hero_image'>
           <img src='assets/ambli_hero_section.png' alt="projectImage" />
         </div>
-      </div>
+      </div> */}
 
-      <div className="width design-details">
+      {/* <div className="width design-details">
         <div className="design-text1">Exploring the Problem</div>
         <div className="design-text2">Ever wondered what goes on behind the scenes of a game-changing AI-powered search platform? Well, wonder no more – because we're about to peel back the curtain and take you on a journey through the creation of Ambli.
 
@@ -127,7 +127,16 @@ const Ambli = () => {
             </div>
           </div>
         </div>
+      </div> */}
+
+      <div className='details case_study flex flex-col'>
+        <img src="assets/ambli.png" alt='Carzzy_Details' />
+        {/* <img src="assets/carzzy_details2.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_details3.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_details4.png" alt='Carzzy_Details' />
+        <img src="assets/carzzy_details5.png" alt='Carzzy_Details' /> */}
       </div>
+
       <div className='design-images flex flex-col'>
         <img src="assets/ambli1.png" alt='LandingPage' />
         <img src="assets/ambli2.png" alt='LandingPage' />
