@@ -18,7 +18,7 @@ const AllProjects = () => {
         </div>
         <div className="design_box flex flex-col" >
           <div className="design_img" style={{border: 'solid 2px #fff'}}>
-            <img src="assets/CasaLuxe.png" alt="Furniture_Store_Design" />
+            <img src="assets/CasaLuxe1.png" alt="Furniture_Store_Design" />
           </div>
         </div>
       </div>
