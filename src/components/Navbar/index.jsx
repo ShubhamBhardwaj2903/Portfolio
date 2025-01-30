@@ -19,7 +19,7 @@ const Navbar = () => {
             </div>
 
             <div className="resume-btn">
-                <a href="/assets/Shubham-Bhardwaj-Resume.pdf" download="resume.pdf">
+                <a href="/assets/Shubham-Bhardwaj-Resume.pdf" download="Shubham_Bhardwaj_Product_Designer_Resume.pdf">
                     <img src='assets/resume.png' alt='Resume' />
                 </a>
             </div>

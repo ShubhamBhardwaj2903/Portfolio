@@ -35,6 +35,27 @@ const ExperienceSection = () => {
                 </div>
                 <div className="work">
                     <div className="flex work-title">
+                        <div className="work-title-text">AlignBooks</div>
+                        <img src="/assets/arrow.svg" alt="arrow" />
+                        <div className="work-designation">Lead Product Designer</div>
+                    </div>
+                    <hr className="underline" />
+                    <div className="work-duration">August 2024 - Present</div>
+                    <div className="work-description">
+                        <ul>
+                            <li>Leading the design of the AlignBooks website and dashboard to enhance user experience and align with modern design trends.</li>
+                            <li>Designing interactive dashboards that provide actionable insights, improving usability for MSMEs.</li>
+                            <li>Collaborating with cross-functional teams, including developers, product managers, and marketing, to align design solutions with business goals.</li>
+                            <li>Conducting stakeholder meetings to gather insights, align design strategies with business objectives, and present design solutions.</li>
+                        </ul>
+                    </div>
+
+                    <a href="http://alignbooks.com/">
+                        <button className="button">View Website</button>
+                    </a>
+                </div>
+                <div className="work">
+                    <div className="flex work-title">
                         <div className="work-title-text">Ambli AI</div>
                         <img src="/assets/arrow.svg" alt="arrow" />
                         <div className="work-designation">Product Designer</div>
