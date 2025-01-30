@@ -57,7 +57,7 @@ const Navbar = () => {
                     </div>
                     <div className="nav-footer">
                         <div className="links">
-                            <Link to="https://www.linkedin.com/in/shubham-bhardwaj-ui-ux-designer/" target="_blank">
+                            <Link to="https://www.linkedin.com/in/shubham-bhardwaj-designer/" target="_blank">
                                 <img src="assets/linkedin.svg" alt="LinkedIn" />
                             </Link>
                             <Link to="https://join.skype.com/invite/ypX10Y4KidFH" target="_blank">

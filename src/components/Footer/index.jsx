@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="flex footer width">
         <div className="footer-text"><a href="https://shubham2903.netlify.app/" target="_blank" rel="noopener noreferrer" style={{ color: 'white', textDecoration: 'none' }}>Shubham.</a></div>
         <div className="footer-icons">
-          <Link to="https://www.linkedin.com/in/shubham-bhardwaj-ui-ux-designer/" target="_blank">
+          <Link to="https://www.linkedin.com/in/shubham-bhardwaj-designer/" target="_blank">
             <img src="assets/linkedin.svg" alt="LinkedIn" />
           </Link>
           <Link to="https://join.skype.com/invite/ypX10Y4KidFH" target="_blank">
