@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlignCart — Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=New+Amsterdam&family=Pinyon+Script&family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red: #dc3545;
+      --red-dim: #b02030;
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --off-white: #f5f4f0;
+      --gray-100: #f0efeb;
+      --gray-200: #e0dfd9;
+      --gray-400: #a0a09a;
+      --gray-600: #606060;
+      --accent: #c8a97e;
+      --accent-light: #f0e8da;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Urbanist', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      font-size: 16px;
+      line-height: 1.7;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      width: 10px;
+      height: 10px;
+      background: var(--red);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: normal;
+    }
+
+    .cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(220, 53, 69, 0.5);
+      border-radius: 50%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, width 0.25s, height 0.25s;
+    }
+
+    body:hover .cursor {
+      opacity: 1;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--red);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      font-family: 'Urbanist', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: clamp(8rem, 20vw, 18rem);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.04);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-eyebrow-line {
+      width: 40px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .hero-eyebrow span {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .hero-title {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title-italic {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(3rem, 8vw, 7rem);
+      color: var(--accent);
+      display: block;
+      line-height: 1.1;
+      margin-left: 0.5rem;
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-desc {
+      max-width: 480px;
+      font-size: 16px;
+      color: var(--gray-400);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    .hero-meta-item {
+      text-align: right;
+    }
+
+    .hero-meta-item .label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-600);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .hero-meta-item .value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* Sections layout */
+    .section {
+      padding: 6rem 4rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      position: relative;
+    }
+
+    .section-alt {
+      background: var(--off-white);
+      color: var(--black);
+    }
+
+    .section-number {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: 11rem;
+      color: rgba(255, 255, 255, 0.03);
+      position: absolute;
+      top: -1rem;
+      right: 3rem;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .section-alt .section-number {
+      color: rgba(0, 0, 0, 0.05);
+    }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    .section-eyebrow span {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .section-alt .section-eyebrow span {
+      color: var(--red);
+    }
+
+    .section-title {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.05;
+      letter-spacing: 0.01em;
+      margin-bottom: 0.25rem;
+    }
+
+    .section-title-script {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--accent);
+      display: block;
+      margin-top: -0.2rem;
+    }
+
+    .section-alt .section-title-script {
+      color: var(--red-dim);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 2.5rem;
+    }
+
+    .body-text {
+      font-size: 15.5px;
+      line-height: 1.85;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .body-text p+p {
+      margin-top: 1rem;
+    }
+
+    .section-alt .body-text {
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-left: 3px solid var(--red);
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+      background: rgba(220, 53, 69, 0.04);
+    }
+
+    .pull-quote p {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 2rem;
+      line-height: 1.4;
+      color: var(--accent);
+    }
+
+    .section-alt .pull-quote {
+      background: rgba(220, 53, 69, 0.06);
+    }
+
+    .section-alt .pull-quote p {
+      color: var(--red-dim);
+    }
+
+    /* Screen placeholder grid */
+    .screen-showcase {
+      margin-top: 2rem;
+    }
+
+    .screen-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .screen-frame {
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .screen-frame:hover {
+      transform: translateY(-4px);
+      border-color: rgba(220, 53, 69, 0.3);
+    }
+
+    .screen-frame.sm {
+      width: 160px;
+      height: 300px;
+    }
+
+    .screen-frame.md {
+      width: 185px;
+      height: 340px;
+    }
+
+    .screen-frame.lg {
+      width: 210px;
+      height: 380px;
+    }
+
+    .section-alt .screen-frame {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .section-alt .screen-frame:hover {
+      border-color: rgba(220, 53, 69, 0.4);
+    }
+
+    .screen-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 1rem;
+    }
+
+    .screen-icon-area {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section-alt .screen-icon-area {
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .screen-placeholder .screen-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.25);
+      text-align: center;
+    }
+
+    .section-alt .screen-placeholder .screen-label {
+      color: rgba(0, 0, 0, 0.25);
+    }
+
+    .screen-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.15);
+    }
+
+    .section-alt .screen-hint {
+      color: rgba(0, 0, 0, 0.18);
+    }
+
+    .add-screen-btn {
+      width: 100%;
+      border: 1px dashed rgba(220, 53, 69, 0.3);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(220, 53, 69, 0.5);
+      margin-top: 12px;
+      cursor: default;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .add-screen-btn:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .add-screen-btn svg {
+      opacity: 0.5;
+    }
+
+    .add-screen-btn:hover svg {
+      opacity: 1;
+    }
+
+    /* Stats */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+
+    .stat-cell {
+      background: var(--black);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-cell::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .stat-cell:hover::after {
+      transform: scaleX(1);
+    }
+
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-600);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-value {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: 3.5rem;
+      line-height: 1;
+      color: var(--white);
+      letter-spacing: 0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-note {
+      font-size: 13px;
+      color: var(--gray-600);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    /* Process timeline */
+    .process-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 2.5rem;
+      position: relative;
+    }
+
+    .process-row::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .process-step {
+      padding: 0 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .process-dot-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .process-dot {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: 1.4rem;
+      color: var(--red);
+      position: relative;
+      z-index: 1;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .process-step:hover .process-dot {
+      background: var(--red);
+      color: var(--white);
+      border-color: var(--red);
+    }
+
+    .process-step-week {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .process-step-name {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+    }
+
+    .process-step-detail {
+      font-size: 12.5px;
+      color: var(--gray-400);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    /* Challenges */
+    .challenges-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 2.5rem;
+    }
+
+    .challenge-card {
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.02);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .challenge-card:hover {
+      border-color: rgba(220, 53, 69, 0.25);
+    }
+
+    .challenge-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--red);
+      transition: height 0.4s ease;
+    }
+
+    .challenge-card:hover::before {
+      height: 100%;
+    }
+
+    .challenge-num {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: 3.5rem;
+      color: rgba(255, 255, 255, 0.04);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .challenge-title {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.75rem;
+      color: var(--white);
+    }
+
+    .challenge-body {
+      font-size: 14px;
+      color: var(--gray-400);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* Decisions */
+    .decisions-list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .decision-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      align-items: start;
+      transition: padding-left 0.3s ease;
+    }
+
+    .decision-item:hover {
+      padding-left: 0.5rem;
+    }
+
+    .decision-item:first-child {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .section-alt .decision-item {
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .section-alt .decision-item:first-child {
+      border-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .decision-title {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      padding-top: 2px;
+    }
+
+    .section-alt .decision-title {
+      color: var(--black);
+    }
+
+    .decision-body {
+      font-size: 14.5px;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    .section-alt .decision-body {
+      color: rgba(0, 0, 0, 0.55);
+    }
+
+    /* Flow chips */
+    .flow-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 1.5rem 0;
+    }
+
+    .flow-chip {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      letter-spacing: 0.03em;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .flow-chip:hover {
+      background: rgba(220, 53, 69, 0.1);
+      border-color: rgba(220, 53, 69, 0.4);
+    }
+
+    .flow-arrow {
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 18px;
+    }
+
+    /* Learnings */
+    .learnings-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 2rem;
+    }
+
+    .learning-card {
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 16px;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.03);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+
+    .learning-card:hover {
+      border-color: rgba(220, 53, 69, 0.3);
+    }
+
+    .learning-num {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 4rem;
+      color: var(--red);
+      opacity: 0.15;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .learning-title {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: 1.4rem;
+      color: var(--black);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .learning-body {
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.55);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* Role badges */
+    .role-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 1.5rem;
+    }
+
+    .role-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .role-badge:hover {
+      border-color: var(--red);
+      color: var(--white);
+    }
+
+    .role-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    /* Outcome stats in light section */
+    .outcome-stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 2.5rem;
+    }
+
+    .outcome-card {
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 16px;
+      padding: 2rem;
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s;
+    }
+
+    .outcome-card:hover {
+      box-shadow: 0 8px 32px rgba(220, 53, 69, 0.1);
+    }
+
+    .outcome-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .outcome-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .outcome-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-600);
+      margin-bottom: 0.75rem;
+    }
+
+    .outcome-value {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: 3.5rem;
+      line-height: 1;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+
+    .outcome-note {
+      font-size: 13px;
+      color: var(--gray-600);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    /* Insight list */
+    .insight-list {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .insight-list li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .insight-list li::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      margin-top: 10px;
+      flex-shrink: 0;
+    }
+
+    /* Screen section label strip */
+    .screen-section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(220, 53, 69, 0.1);
+      border: 1px solid rgba(220, 53, 69, 0.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 3rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .footer-left {
+      font-family: 'New Amsterdam', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-left span {
+      color: var(--red);
+    }
+
+    .footer-right {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.2);
+      font-weight: 300;
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.1s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.3s;
+    }
+
+    .delay-4 {
+      animation-delay: 0.5s;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      nav {
+        padding: 1.25rem 2rem;
+      }
+
+      .hero {
+        padding: 0 2rem 4rem;
+      }
+
+      .section {
+        padding: 4rem 2rem;
+      }
+
+      .hero-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+      }
+
+      .hero-meta {
+        flex-direction: row;
+        gap: 1.5rem;
+      }
+
+      .hero-meta-item {
+        text-align: left;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .process-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+
+      .process-row::before {
+        display: none;
+      }
+
+      .challenges-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-row {
+        grid-template-columns: 1fr;
+      }
+
+      .outcome-stat-row {
+        grid-template-columns: 1fr;
+      }
+
+      .learnings-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .decision-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      footer {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-logo" href="#">Align<span>Cart</span></a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#research">Research</a>
+      <a href="#process">Process</a>
+      <a href="#design">Design</a>
+      <a href="#outcomes">Outcomes</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg-text">ALIGNCART</div>
+
+    <div class="hero-eyebrow fade-up">
+      <div class="hero-eyebrow-line"></div>
+      <span>Product Design Case Study · 2025</span>
+    </div>
+
+    <h1 class="hero-title fade-up delay-1">
+      ALIGN<br>CART
+      <span class="hero-title-italic">Your store, in one app.</span>
+    </h1>
+
+    <div class="hero-bottom fade-up delay-2">
+      <p class="hero-desc">A zero-commission B2C shopping app giving local retailers and shopkeepers their own branded
+        storefront — fully synced with AlignBooks ERP, designed and shipped in 1.5 months.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="label">Timeline</div>
+          <div class="value">1.5 Months</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="label">Platform</div>
+          <div class="value">iOS + Android</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="label">Role</div>
+          <div class="value">Sole Designer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 Overview -->
+  <section class="section" id="overview">
+    <div class="section-number">01</div>
+    <div class="section-inner">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-dot"></div><span>01 — Overview</span>
+      </div>
+      <h2 class="section-title">What is<br><span class="section-title-script">AlignCart?</span></h2>
+
+      <div class="two-col">
+        <div>
+          <div class="body-text">
+            <p>AlignCart is a B2C mobile shopping app built for local retailers, shopkeepers, and small business owners
+              across India. It gives them their own branded storefront where their customers can browse, order, and pay
+              — without the retailer paying any platform commission or setup fee.</p>
+            <p>The app lives inside the AlignBooks ERP ecosystem. Products, inventory, orders, and billing are fully
+              synced — so a shopkeeper managing their business in AlignBooks gets a customer-facing app at no extra
+              cost.</p>
+            <p>No middlemen. No commission cuts like Blinkit or Swiggy Instamart. 100% of revenue goes directly to the
+              seller.</p>
+          </div>
+
+          <div class="role-badges">
+            <div class="role-badge">
+              <div class="role-dot"></div>User Research
+            </div>
+            <div class="role-badge">
+              <div class="role-dot"></div>Competitive Analysis
+            </div>
+            <div class="role-badge">
+              <div class="role-dot"></div>Wireframing
+            </div>
+            <div class="role-badge">
+              <div class="role-dot"></div>Figma Prototyping
+            </div>
+            <div class="role-badge">
+              <div class="role-dot"></div>Dev Handoff
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="pull-quote">
+            <p>"Everything your business needs — in one simple ERP. And now, in one simple app for your customers."</p>
+          </div>
+
+          <div class="stat-row" style="border-radius: 12px; margin-top: 1rem;">
+            <div class="stat-cell">
+              <div class="stat-label">Team</div>
+              <div class="stat-value" style="font-size:2.2rem;">3</div>
+              <div class="stat-note">1 Designer<br>2 Developers</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">Screens</div>
+              <div class="stat-value" style="font-size:2.2rem;">23</div>
+              <div class="stat-note">Across 6 user journeys</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">Shipped</div>
+              <div class="stat-value" style="font-size:2.2rem;">✓</div>
+              <div class="stat-note">App Store & Play Store</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero screens placeholder -->
+      <div class="screen-showcase" style="margin-top: 3rem;">
+        <div class="screen-section-label">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <rect x="1" y="1" width="4" height="4" rx="0.5" fill="currentColor" />
+            <rect x="7" y="1" width="4" height="4" rx="0.5" fill="currentColor" />
+            <rect x="1" y="7" width="4" height="4" rx="0.5" fill="currentColor" />
+            <rect x="7" y="7" width="4" height="4" rx="0.5" fill="currentColor" />
+          </svg>
+          Onboarding + Home Screens
+        </div>
+        <div class="screen-row">
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <rect x="2" y="2" width="12" height="12" rx="2" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                  <line x1="5" y1="8" x2="11" y2="8" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                </svg></div>
+              <span class="screen-label">Login</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="5" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                  <line x1="8" y1="5" x2="8" y2="8" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                </svg></div>
+              <span class="screen-label">OTP — Initial</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="5" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                  <path d="M5.5 8l2 2 3-3" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-linecap="round" />
+                </svg></div>
+              <span class="screen-label">OTP — Filled</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame lg">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"><svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <rect x="2" y="2" width="5" height="5" rx="0.5" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                  <rect x="9" y="2" width="5" height="5" rx="0.5" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                  <rect x="2" y="9" width="5" height="5" rx="0.5" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                  <rect x="9" y="9" width="5" height="5" rx="0.5" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+                </svg></div>
+              <span class="screen-label">Home</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame lg">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div>
+              <span class="screen-label">Categories</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+        </div>
+        <div class="add-screen-btn">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <line x1="7" y1="2" x2="7" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            <line x1="2" y1="7" x2="12" y2="7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+          Replace placeholders with your Figma exports
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 Problem -->
+  <section class="section" id="problem">
+    <div class="section-number">02</div>
+    <div class="section-inner">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-dot"></div><span>02 — Problem</span>
+      </div>
+      <h2 class="section-title">The gap quick commerce<br><span class="section-title-script">left behind</span></h2>
+
+      <div class="two-col">
+        <div class="body-text">
+          <p>Quick commerce platforms have made ordering groceries and daily essentials fast and convenient — but at a
+            steep cost for the seller. Retailers list their products alongside hundreds of competitors, pay heavy
+            commissions per order, and have zero ownership of the customer relationship.</p>
+          <p>Local shops — especially kirana stores, specialty retailers, and B2B suppliers — needed a way to reach
+            their own customers digitally without giving up margin or brand identity.</p>
+          <p>Existing solutions either required expensive custom app development or locked sellers into generic
+            marketplace experiences where their product gets buried alongside thousands of others.</p>
+        </div>
+
+        <div>
+          <ul class="insight-list">
+            <li>Quick commerce platforms charge significant commissions per order, directly eating into retailer margins
+            </li>
+            <li>Retailers have no ownership of customer data or relationships on third-party platforms</li>
+            <li>Products are competing for visibility on the same platform as thousands of other sellers</li>
+            <li>Custom app development was out of reach financially for most local businesses</li>
+            <li>WhatsApp ordering — the common workaround — is unscalable and hard to manage</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 Research -->
+  <section class="section section-alt" id="research">
+    <div class="section-number" style="color: rgba(0,0,0,0.04);">03</div>
+    <div class="section-inner">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-dot"></div><span>03 — Research</span>
+      </div>
+      <h2 class="section-title" style="color: var(--black);">Understanding<br><span class="section-title-script">the
+          users</span></h2>
+
+      <div class="two-col">
+        <div>
+          <div class="body-text" style="color: rgba(0,0,0,0.6);">
+            <p>AlignCart serves two distinct users: the <strong
+                style="font-weight:600; color: var(--black);">vendor</strong> (the retailer who sets up and manages
+              their store via AlignBooks) and the <strong
+                style="font-weight:600; color: var(--black);">customer</strong> (who shops through the branded app).
+              Research focused on both ends of this relationship.</p>
+            <p>Competitive analysis of Blinkit, Zepto, and JioMart revealed how heavy their interfaces are — optimised
+              for browsing and impulse buying, not for repeat, relationship-based purchases from a known store.</p>
+          </div>
+
+          <div class="pull-quote">
+            <p>"Customers of local stores valued familiarity over discovery — they knew what they wanted and from whom."
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <ul class="insight-list" style="margin-top: 0;">
+            <li style="color: rgba(0,0,0,0.6);">Shopkeepers using AlignBooks had no customer-facing channel — they
+              relied on WhatsApp ordering, which was impossible to scale</li>
+            <li style="color: rgba(0,0,0,0.6);">Customers of local shops prioritise familiarity and trust over discovery
+              — they shop from a store they already know</li>
+            <li style="color: rgba(0,0,0,0.6);">The app needed to feel like <em>their shop's app</em>, not a generic
+              marketplace with competing products</li>
+            <li style="color: rgba(0,0,0,0.6);">Many target shopkeepers were not tech-savvy — every action needed to be
+              obvious without needing explanation</li>
+            <li style="color: rgba(0,0,0,0.6);">Mid-range Android devices and variable connectivity made a lightweight,
+              performant build a design priority</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Process -->
+  <section class="section" id="process">
+    <div class="section-number">04</div>
+    <div class="section-inner">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-dot"></div><span>04 — Process</span>
+      </div>
+      <h2 class="section-title">From brief to build<br><span class="section-title-script">in 6 weeks</span></h2>
+
+      <div class="process-row">
+        <div class="process-step">
+          <div class="process-dot-wrap">
+            <div class="process-dot">1</div>
+          </div>
+          <div class="process-step-week">Week 1</div>
+          <div class="process-step-name">Discover</div>
+          <div class="process-step-detail">User interviews, competitive analysis, feature scoping with the team</div>
+        </div>
+        <div class="process-step">
+          <div class="process-dot-wrap">
+            <div class="process-dot">2</div>
+          </div>
+          <div class="process-step-week">Week 2</div>
+          <div class="process-step-name">Define</div>
+          <div class="process-step-detail">User flows, information architecture, lo-fi wireframes for all core screens
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-dot-wrap">
+            <div class="process-dot">3</div>
+          </div>
+          <div class="process-step-week">Weeks 3–4</div>
+          <div class="process-step-name">Design</div>
+          <div class="process-step-detail">High-fidelity Figma screens, component library, developer handoff</div>
+        </div>
+        <div class="process-step">
+          <div class="process-dot-wrap">
+            <div class="process-dot">4</div>
+          </div>
+          <div class="process-step-week">Weeks 5–6</div>
+          <div class="process-step-name">Deliver</div>
+          <div class="process-step-detail">Developer sync, QA reviews, iteration, App Store & Play Store launch</div>
+        </div>
+      </div>
+
+      <div class="body-text" style="margin-top: 2.5rem; max-width: 700px;">
+        <p>The tight timeline meant making confident decisions quickly and establishing a design system early so
+          developers could build in parallel. I prioritised screens on the critical user path — login, home, product
+          discovery, cart, and checkout — before moving to secondary flows like wallet, profile, and saved addresses.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 Challenges -->
+  <section class="section" id="challenges">
+    <div class="section-number">05</div>
+    <div class="section-inner">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-dot"></div><span>05 — Challenges</span>
+      </div>
+      <h2 class="section-title">The problems<br><span class="section-title-script">worth solving</span></h2>
+
+      <div class="challenges-grid">
+        <div class="challenge-card">
+          <div class="challenge-num">01</div>
+          <div class="challenge-title">Designing for Non-Tech Users</div>
+          <div class="challenge-body">Shopkeepers range widely in digital literacy. Every action needed to be obvious
+            without explanation — icons with labels, clear confirmation states, forgiving error handling, and zero
+            ambiguous UI patterns throughout the product.</div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">02</div>
+          <div class="challenge-title">Fitting Features Without Clutter</div>
+          <div class="challenge-body">Cart, coupons, delivery scheduling, address management, wallet, and payment — all
+            within a clean, focused checkout flow. Information hierarchy was the core challenge: what do users need
+            right now, and what can stay hidden until needed?</div>
+        </div>
+        <div class="challenge-card">
+          <div class="challenge-num">03</div>
+          <div class="challenge-title">Lightweight & Performant</div>
+          <div class="challenge-body">Many target users are on mid-range Android devices with variable connectivity.
+            Design decisions had to actively support a lightweight build — thoughtful loading states, minimal heavy
+            assets, and no features that would bloat the app size unnecessarily.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 Design Decisions -->
+  <section class="section section-alt" id="design">
+    <div class="section-number" style="color: rgba(0,0,0,0.04);">06</div>
+    <div class="section-inner">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-dot"></div><span>06 — Design Decisions</span>
+      </div>
+      <h2 class="section-title" style="color: var(--black);">What we built<br><span class="section-title-script">and
+          why</span></h2>
+
+      <div class="decisions-list">
+        <div class="decision-item">
+          <div class="decision-title">OTP-First Login</div>
+          <div class="decision-body">Phone + OTP removes the password friction that causes drop-off among less
+            tech-savvy users. One field, one action, in. The familiar pattern is trusted by millions of Indian users
+            across UPI and banking apps.</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-title">Category-First Home</div>
+          <div class="decision-body">Rather than pushing algorithmically sorted products, the home screen leads with
+            categories. Users of local shops know what they want — the design facilitates intent rather than
+            manufacturing impulse.</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-title">Persistent Cart Bar</div>
+          <div class="decision-body">A sticky bottom bar showing item count and total throughout browsing reduces
+            cognitive load and acts as a constant nudge toward checkout, without blocking product discovery.</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-title">Modular Checkout Flow</div>
+          <div class="decision-body">Coupons, delivery scheduling, and address selection are distinct, collapsible
+            sections — not one overwhelming long form. Users can edit individual parts without losing their entire
+            checkout state.</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-title">Built-in Wallet</div>
+          <div class="decision-body">A native wallet with transaction history gives repeat customers a faster payment
+            path and builds loyalty without relying on third-party UPI apps for every transaction.</div>
+        </div>
+        <div class="decision-item">
+          <div class="decision-title">Unavailable Items Handling</div>
+          <div class="decision-body">Rather than silently blocking checkout, the app surfaces unavailable items clearly
+            and prompts users to remove or replace — reducing frustration, abandonment, and support queries at scale.
+          </div>
+        </div>
+      </div>
+
+      <!-- Product & Search screens -->
+      <div class="screen-showcase" style="margin-top: 3rem;">
+        <div class="screen-section-label" style="background: rgba(220,53,69,0.07); color: var(--red);">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1" />
+            <path d="M4 6h4M6 4v4" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+          </svg>
+          Product Discovery + Search Screens
+        </div>
+        <div class="screen-row">
+          <div class="screen-frame md" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color: rgba(0,0,0,0.25);">Sub Category</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+          <div class="screen-frame lg" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color: rgba(0,0,0,0.25);">Product Detail</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+          <div class="screen-frame md" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color: rgba(0,0,0,0.25);">Offers</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+          <div class="screen-frame sm" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color: rgba(0,0,0,0.25);">Search — Initial</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+          <div class="screen-frame sm" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color: rgba(0,0,0,0.25);">Search — Typing</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+          <div class="screen-frame md" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color: rgba(0,0,0,0.25);">Search — Results</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 Checkout Flow -->
+  <section class="section" id="checkout">
+    <div class="section-number">07</div>
+    <div class="section-inner">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-dot"></div><span>07 — Checkout Flow</span>
+      </div>
+      <h2 class="section-title">Cart to payment,<br><span class="section-title-script">without friction</span></h2>
+
+      <div class="body-text" style="max-width: 640px; margin-bottom: 2rem;">
+        <p>The checkout flow was the most complex design problem — 10 screens that had to feel effortless. The user
+          journey was broken into digestible steps so no single screen was overwhelming.</p>
+      </div>
+
+      <div class="flow-row">
+        <div class="flow-chip">Cart</div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-chip">Coupons</div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-chip">Delivery Time</div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-chip">Address</div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-chip">Payment</div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-chip">Confirmation</div>
+      </div>
+
+      <!-- Checkout screens -->
+      <div class="screen-showcase">
+        <div class="screen-section-label">Checkout + Payment Screens</div>
+        <div class="screen-row">
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div><span class="screen-label">Coupons</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div><span class="screen-label">Cart</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div><span class="screen-label">Delivery Time</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div><span class="screen-label">Time Selected</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div><span class="screen-label">Address — Empty</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div><span class="screen-label">Address — List</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div><span class="screen-label">Add Address</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div><span class="screen-label">Address Selected</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div><span class="screen-label">Payment Options</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+        </div>
+
+        <!-- Edge cases row -->
+        <div class="screen-section-label" style="margin-top: 1.5rem;">Edge Case Screens</div>
+        <div class="screen-row">
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div><span class="screen-label">Cart — Empty</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+          <div class="screen-frame md">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area"></div><span class="screen-label">Cart — Unavailable Items</span>
+            </div>
+            <span class="screen-hint">Add screen here</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 Account & Orders -->
+  <section class="section section-alt" id="account">
+    <div class="section-number" style="color: rgba(0,0,0,0.04);">08</div>
+    <div class="section-inner">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-dot"></div><span>08 — Account & Orders</span>
+      </div>
+      <h2 class="section-title" style="color: var(--black);">Everything in one<br><span
+          class="section-title-script">account</span></h2>
+
+      <div class="body-text" style="max-width: 640px; margin-bottom: 2.5rem;">
+        <p>The account section brings together order history, saved addresses, the built-in wallet, and profile
+          management. The goal was a single hub that felt personal and organised — not an afterthought.</p>
+      </div>
+
+      <div class="screen-showcase">
+        <div class="screen-section-label" style="background: rgba(220,53,69,0.07); color: var(--red);">Account, Orders +
+          Wallet Screens</div>
+        <div class="screen-row">
+          <div class="screen-frame md" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color:rgba(0,0,0,0.25);">Profile</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+          <div class="screen-frame md" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color:rgba(0,0,0,0.25);">Order History</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+          <div class="screen-frame lg" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color:rgba(0,0,0,0.25);">Order Details</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+          <div class="screen-frame md" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color:rgba(0,0,0,0.25);">Saved Addresses</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+          <div class="screen-frame sm" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color:rgba(0,0,0,0.25);">Edit Address</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+          <div class="screen-frame md" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color:rgba(0,0,0,0.25);">Wallet</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+          <div class="screen-frame md" style="background: rgba(0,0,0,0.04); border-color: rgba(0,0,0,0.1);">
+            <div class="screen-placeholder">
+              <div class="screen-icon-area" style="border-color:rgba(0,0,0,0.1);"></div><span class="screen-label"
+                style="color:rgba(0,0,0,0.25);">Wallet — Add Money</span>
+            </div>
+            <span class="screen-hint" style="color: rgba(0,0,0,0.18);">Add screen here</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 Outcomes -->
+  <section class="section" id="outcomes">
+    <div class="section-number">09</div>
+    <div class="section-inner">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-dot"></div><span>09 — Outcomes</span>
+      </div>
+      <h2 class="section-title">Early traction,<br><span class="section-title-script">strong signals</span></h2>
+
+      <div class="body-text" style="max-width: 620px; margin-bottom: 0.5rem;">
+        <p>AlignCart shipped to both App Store and Google Play within the 1.5-month window. Early reviews from real
+          users are encouraging — a 4.7 rating with no paid acquisition is a meaningful signal.</p>
+      </div>
+
+      <div class="stat-row" style="margin-top: 2rem;">
+        <div class="stat-cell">
+          <div class="stat-label">App Store Rating</div>
+          <div class="stat-value">4.7</div>
+          <div class="stat-note">Out of 5 · 14 early reviews across iOS & Android</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Downloads</div>
+          <div class="stat-value">100+</div>
+          <div class="stat-note">Organic, within weeks of launch — no paid acquisition</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Time to Ship</div>
+          <div class="stat-value">1.5mo</div>
+          <div class="stat-note">Full cycle: ideation → design → dev → App Store & Play Store</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 Learnings -->
+  <section class="section section-alt">
+    <div class="section-number" style="color: rgba(0,0,0,0.04);">10</div>
+    <div class="section-inner">
+      <div class="section-eyebrow">
+        <div class="section-eyebrow-dot"></div><span>10 — Reflections</span>
+      </div>
+      <h2 class="section-title" style="color: var(--black);">What I<br><span class="section-title-script">learnt</span>
+      </h2>
+
+      <div class="learnings-grid">
+        <div class="learning-card">
+          <div class="learning-num">01</div>
+          <div class="learning-title">Speed Forces Clarity</div>
+          <div class="learning-body">A 1.5-month timeline for a 23-screen app left no room for indecision. Committing to
+            a design direction early — and trusting it — was the only way to ship without cutting corners on quality.
+          </div>
+        </div>
+        <div class="learning-card">
+          <div class="learning-num">02</div>
+          <div class="learning-title">Constraints Are Creative Fuel</div>
+          <div class="learning-body">Designing for low-powered devices and non-tech users pushed me toward cleaner,
+            simpler patterns — which ultimately made the app better for everyone, not just the constrained users.</div>
+        </div>
+        <div class="learning-card">
+          <div class="learning-num">03</div>
+          <div class="learning-title">Know Your Two Users</div>
+          <div class="learning-body">AlignCart has a vendor and a customer. Keeping both mental models simultaneously
+            prevented design decisions that optimised for one at the real expense of the other.</div>
+        </div>
+        <div class="learning-card">
+          <div class="learning-num">04</div>
+          <div class="learning-title">Systems Pay Off Fast</div>
+          <div class="learning-body">Building a component library in Figma upfront let me iterate quickly and gave
+            developers a single source of truth — absolutely critical when working at this pace with a lean team.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-left">Align<span>Cart</span> · 2025</div>
+    <div class="footer-right">Align Info Solutions Pvt Ltd · alignbooks.com/aligncart</div>
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .challenge-card, .decision-item, .stat-cell, .outcome-card, .learning-card, .screen-frame').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '18px';
+        cursor.style.height = '18px';
+        ring.style.width = '50px';
+        ring.style.height = '50px';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '10px';
+        cursor.style.height = '10px';
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.challenge-card, .decision-item, .process-step, .learning-card, .stat-cell, .outcome-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+
+</html>

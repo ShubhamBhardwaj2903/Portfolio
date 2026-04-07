@@ -15,7 +15,7 @@ const Footer = () => {
             <img src="assets/skype.svg" alt="Skype"/>
           </Link>
           <Link to="https://www.instagram.com/shubhambhardwaj257" target="_blank">
-            <img src="assets/instagram.svg" alt="Instagram"/>
+            <img src="assets/newvideo.mp4" alt="Instagram"/>
           </Link>
         </div>
       </div>
