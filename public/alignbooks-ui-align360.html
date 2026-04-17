@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlignBooks UI Redesign & Align360 Launch — Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=New+Amsterdam&family=Pinyon+Script&family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #dc3545;
+    --red-dim: #b02030;
+    --red-glow: rgba(220,53,69,0.1);
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --off-white: #f6f5f1;
+    --warm: #f0ede6;
+    --gray-100: #eceae5;
+    --gray-200: #d5d3cd;
+    --gray-400: #9a9a94;
+    --gray-600: #606060;
+    --accent: #c8a97e;
+    --accent-light: #f2e8d9;
+    --navy: #1b3a6b;
+    --navy-glow: rgba(27,58,107,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Urbanist', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; cursor: none; overflow-x: hidden; }
+
+  /* Cursor */
+  .cursor { width: 10px; height: 10px; background: var(--red); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s; }
+  .cursor-ring { width: 36px; height: 36px; border: 1px solid rgba(220,53,69,0.4); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .25s, height .25s; }
+
+  /* Nav */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 4rem; border-bottom: 1px solid rgba(255,255,255,0.055); background: rgba(10,10,10,0.9); backdrop-filter: blur(14px); }
+  .nav-logo { font-family: 'New Amsterdam', sans-serif; font-size: 1.45rem; letter-spacing: 0.04em; color: var(--white); text-decoration: none; }
+  .nav-logo span { color: var(--red); }
+  .nav-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-400); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 4px 14px; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-size: 12.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-400); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--white); }
+
+  /* Hero — split dark/light */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    position: relative; overflow: hidden;
+  }
+
+  .hero-left {
+    padding: 9rem 3rem 5rem 4rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    position: relative;
+  }
+
+  .hero-right {
+    padding: 9rem 4rem 5rem 3rem;
+    background: #0f0f0f;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    position: relative;
+  }
+
+  /* Vertical accent line */
+  .hero-left::before { content: ''; position: absolute; top: 0; right: 0; width: 1px; height: 40%; background: linear-gradient(to bottom, transparent, rgba(220,53,69,0.3), transparent); }
+
+  .hero-bg-word { position: absolute; bottom: -2rem; left: -1rem; font-family: 'New Amsterdam', sans-serif; font-size: clamp(5rem, 12vw, 11rem); color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.03); pointer-events: none; user-select: none; white-space: nowrap; }
+  .hero-bg-word-r { position: absolute; bottom: -2rem; right: -1rem; font-family: 'New Amsterdam', sans-serif; font-size: clamp(5rem, 12vw, 11rem); color: transparent; -webkit-text-stroke: 1px rgba(220,53,69,0.05); pointer-events: none; user-select: none; white-space: nowrap; }
+
+  .hero-eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+  .hero-eyebrow-line { width: 32px; height: 1px; background: var(--red); }
+  .hero-eyebrow span { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); }
+
+  .hero-title { font-family: 'New Amsterdam', sans-serif; font-size: clamp(2.5rem, 5.5vw, 5rem); line-height: 0.95; letter-spacing: -0.01em; margin-bottom: 0.3rem; }
+  .hero-script { font-family: 'Pinyon Script', cursive; font-size: clamp(2rem, 4vw, 3.8rem); color: var(--accent); display: block; line-height: 1.15; margin-bottom: 1.25rem; }
+  .hero-script-red { color: var(--red); }
+
+  .hero-desc { font-size: 15px; color: var(--gray-400); line-height: 1.75; font-weight: 300; max-width: 380px; }
+
+  .hero-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 2rem 0; }
+
+  .hero-meta-row { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .hero-pill { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 100px; padding: 6px 16px; font-size: 12.5px; font-weight: 500; color: rgba(255,255,255,0.55); }
+  .hero-pill-red { background: rgba(220,53,69,0.1); border-color: rgba(220,53,69,0.25); color: rgba(220,53,69,0.85); }
+
+  /* Sections */
+  .section { padding: 6rem 4rem; border-bottom: 1px solid rgba(255,255,255,0.055); position: relative; overflow: hidden; }
+  .section-light { background: var(--off-white); color: var(--black); }
+  .section-warm { background: var(--warm); color: var(--black); }
+  .section-dark2 { background: #0d0d0d; }
+  .section-navy { background: #060e1a; }
+
+  .sec-num { font-family: 'New Amsterdam', sans-serif; font-size: 10rem; color: rgba(255,255,255,0.02); position: absolute; top: -1rem; right: 3rem; line-height: 1; pointer-events: none; user-select: none; }
+  .section-light .sec-num, .section-warm .sec-num { color: rgba(0,0,0,0.03); }
+  .section-navy .sec-num { color: rgba(255,255,255,0.015); }
+
+  .sec-inner { max-width: 1100px; margin: 0 auto; }
+
+  .eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+  .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+  .eyebrow span { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); }
+
+  .sec-title { font-family: 'New Amsterdam', sans-serif; font-size: clamp(2rem, 4.5vw, 3.5rem); line-height: 1.05; letter-spacing: 0.01em; }
+  .sec-script { font-family: 'Pinyon Script', cursive; font-size: clamp(1.6rem, 3.5vw, 2.8rem); color: var(--accent); display: block; margin-top: -0.1rem; margin-bottom: 0.1rem; }
+  .section-light .sec-script, .section-warm .sec-script { color: var(--red-dim); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 2.5rem; }
+  .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 2rem; }
+
+  .body-text { font-size: 15.5px; line-height: 1.85; font-weight: 300; color: rgba(255,255,255,0.6); }
+  .body-text p + p { margin-top: 1rem; }
+  .section-light .body-text, .section-warm .body-text { color: rgba(0,0,0,0.58); }
+
+  .divider { height: 1px; background: rgba(255,255,255,0.07); margin: 2.5rem 0; }
+  .section-light .divider, .section-warm .divider { background: rgba(0,0,0,0.08); }
+
+  /* Pull quote */
+  .pull-quote { border-left: 3px solid var(--red); padding: 1.25rem 1.75rem; margin: 2rem 0; background: var(--red-glow); }
+  .pull-quote p { font-family: 'Pinyon Script', cursive; font-size: 1.9rem; line-height: 1.4; color: var(--accent); }
+  .section-light .pull-quote, .section-warm .pull-quote { background: rgba(220,53,69,0.06); }
+  .section-light .pull-quote p, .section-warm .pull-quote p { color: var(--red-dim); }
+
+  /* Insight list */
+  .insight-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 1.25rem; }
+  .insight-list li { display: flex; gap: 13px; align-items: flex-start; font-size: 14.5px; color: rgba(255,255,255,0.58); line-height: 1.7; font-weight: 300; }
+  .insight-list li::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--red); margin-top: 9px; flex-shrink: 0; }
+  .section-light .insight-list li, .section-warm .insight-list li { color: rgba(0,0,0,0.6); }
+
+  /* Before/After UI panels */
+  .ui-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: 16px; overflow: hidden; margin-top: 2rem; border: 1px solid rgba(255,255,255,0.07); }
+  .ui-col { padding: 2rem; }
+  .ui-before { background: rgba(255,255,255,0.025); }
+  .ui-after { background: rgba(220,53,69,0.07); }
+  .ui-col-tag { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 100px; padding: 4px 14px; margin-bottom: 1.25rem; }
+  .ui-before .ui-col-tag { border: 1px solid rgba(255,255,255,0.1); color: var(--gray-600); }
+  .ui-after .ui-col-tag { border: 1px solid rgba(220,53,69,0.3); color: var(--red); background: rgba(220,53,69,0.1); }
+  .ui-col-title { font-family: 'New Amsterdam', sans-serif; font-size: 1.3rem; letter-spacing: 0.02em; margin-bottom: 1rem; }
+  .ui-change-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .ui-change-list li { display: flex; gap: 11px; align-items: flex-start; font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.5); font-weight: 300; }
+  .ui-change-list li::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+  .ui-before .ui-change-list li::before { background: var(--gray-600); }
+  .ui-after .ui-change-list li { color: rgba(255,255,255,0.75); }
+  .ui-after .ui-change-list li::before { background: var(--red); }
+
+  /* UI change cards */
+  .ui-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 2rem; }
+  .ui-card {
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; overflow: hidden;
+    background: rgba(255,255,255,0.02); transition: transform .3s, border-color .3s;
+    position: relative;
+  }
+  .ui-card:hover { transform: translateY(-4px); border-color: rgba(220,53,69,0.3); }
+  .ui-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--red); transition: height .4s; }
+  .ui-card:hover::before { height: 100%; }
+  .ui-card-top { height: 90px; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+  .ui-card-body { padding: 1rem 1.25rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.05); }
+  .ui-card-title { font-size: 13.5px; font-weight: 600; color: var(--white); margin-bottom: 5px; }
+  .ui-card-desc { font-size: 12px; color: var(--gray-400); line-height: 1.6; font-weight: 300; }
+
+  /* Screen placeholders */
+  .screen-label { display: inline-flex; align-items: center; gap: 8px; background: rgba(220,53,69,0.09); border: 1px solid rgba(220,53,69,0.2); border-radius: 100px; padding: 5px 14px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; }
+  .section-light .screen-label, .section-warm .screen-label { background: rgba(220,53,69,0.07); }
+
+  .screen-row { display: flex; gap: 14px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 12px; }
+  .screen-row::-webkit-scrollbar { height: 3px; }
+  .screen-row::-webkit-scrollbar-thumb { background: rgba(220,53,69,0.3); border-radius: 10px; }
+
+  .sf { flex-shrink: 0; border-radius: 12px; overflow: hidden; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; transition: transform .3s, border-color .3s; }
+  .sf:hover { transform: translateY(-4px); }
+  .sf-d { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
+  .sf-d:hover { border-color: rgba(220,53,69,0.3); }
+  .sf-l { background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.09); }
+  .sf-l:hover { border-color: rgba(220,53,69,0.35); }
+  .sf-red { background: rgba(220,53,69,0.06); border: 1px solid rgba(220,53,69,0.15); }
+  .sf-red:hover { border-color: rgba(220,53,69,0.4); }
+
+  .sf-lg { width: 380px; height: 220px; }
+  .sf-md { width: 280px; height: 180px; }
+  .sf-sm { width: 200px; height: 150px; }
+  .sf-xs { width: 160px; height: 130px; }
+  .sf-tall { width: 220px; height: 320px; }
+  .sf-email { width: 280px; height: 360px; }
+  .sf-square { width: 200px; height: 200px; }
+
+  .sf-label { font-size: 10px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; text-align: center; padding: 0 1rem; color: rgba(255,255,255,0.18); }
+  .sf-l .sf-label { color: rgba(0,0,0,0.2); }
+  .sf-red .sf-label { color: rgba(220,53,69,0.35); }
+  .sf-hint { position: absolute; bottom: 8px; font-size: 8.5px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.1); }
+  .sf-l .sf-hint { color: rgba(0,0,0,0.14); }
+  .sf-red .sf-hint { color: rgba(220,53,69,0.25); }
+
+  .add-hint { width: 100%; border: 1px dashed rgba(220,53,69,0.22); border-radius: 10px; padding: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 10.5px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(220,53,69,0.38); margin-top: 8px; transition: all .2s; }
+  .add-hint:hover { border-color: var(--red); color: var(--red); }
+
+  /* Stat strip */
+  .stat-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden; margin-top: 2rem; }
+  .stat-cell { background: var(--black); padding: 2.25rem 2rem; position: relative; transition: background .3s; }
+  .stat-cell:hover { background: rgba(220,53,69,0.05); }
+  .stat-cell::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+  .stat-cell:hover::after { transform: scaleX(1); }
+  .stat-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-600); font-weight: 600; margin-bottom: .65rem; }
+  .stat-value { font-family: 'New Amsterdam', sans-serif; font-size: 2.8rem; line-height: 1; color: var(--white); margin-bottom: .4rem; }
+  .stat-note { font-size: 12.5px; color: var(--gray-600); font-weight: 300; line-height: 1.5; }
+
+  /* Align360 launch section — navy bg */
+  .a360-hero {
+    background: #060e1a;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 6rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .a360-hero::before { content: ''; position: absolute; top: -20%; right: -10%; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(27,58,107,0.3) 0%, transparent 70%); pointer-events: none; }
+  .a360-hero::after { content: ''; position: absolute; bottom: -20%; left: -5%; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(220,53,69,0.08) 0%, transparent 70%); pointer-events: none; }
+
+  .a360-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+
+  .a360-product-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(27,58,107,0.4); border: 1px solid rgba(27,58,107,0.6); border-radius: 100px; padding: 6px 18px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #7ba3d4; margin-bottom: 1.5rem; }
+  .a360-dot { width: 7px; height: 7px; border-radius: 50%; background: #378add; }
+
+  .a360-title { font-family: 'New Amsterdam', sans-serif; font-size: clamp(2.5rem, 6vw, 5.5rem); line-height: 0.95; letter-spacing: -0.01em; margin-bottom: 0.4rem; }
+  .a360-title-script { font-family: 'Pinyon Script', cursive; font-size: clamp(2rem, 5vw, 4.2rem); color: #7ba3d4; display: block; line-height: 1.1; margin-bottom: 1.5rem; }
+
+  .a360-desc { font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.8; font-weight: 300; max-width: 600px; margin-bottom: 2rem; }
+
+  .a360-stat-row { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 2rem; }
+  .a360-stat { border-left: 2px solid rgba(27,58,107,0.6); padding-left: 1.25rem; }
+  .a360-stat .num { font-family: 'New Amsterdam', sans-serif; font-size: 2.5rem; line-height: 1; color: var(--white); }
+  .a360-stat .sub { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.3); font-weight: 600; margin-top: 4px; }
+
+  /* Campaign timeline */
+  .timeline { margin-top: 2.5rem; position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 28px; top: 28px; bottom: 28px; width: 1px; background: rgba(255,255,255,0.07); }
+
+  .tl-item { display: grid; grid-template-columns: 56px 1fr; gap: 1.5rem; margin-bottom: 2rem; align-items: start; }
+  .tl-dot-wrap { display: flex; justify-content: center; }
+  .tl-dot { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-align: center; line-height: 1.3; }
+  .tl-dot-teaser { background: rgba(220,53,69,0.1); border: 1px solid rgba(220,53,69,0.25); color: var(--red); }
+  .tl-dot-sneak { background: rgba(27,58,107,0.2); border: 1px solid rgba(27,58,107,0.4); color: #7ba3d4; }
+  .tl-dot-date { background: rgba(200,169,126,0.15); border: 1px solid rgba(200,169,126,0.3); color: var(--accent); }
+  .tl-dot-launch { background: rgba(220,53,69,0.15); border: 1px solid rgba(220,53,69,0.4); color: var(--red); }
+  .tl-dot-post { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color: var(--gray-400); }
+
+  .tl-content { padding-top: 8px; }
+  .tl-phase { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+  .tl-title { font-family: 'New Amsterdam', sans-serif; font-size: 1.35rem; letter-spacing: 0.02em; margin-bottom: 8px; }
+  .tl-desc { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; font-weight: 300; }
+  .tl-channels { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .tl-chip { font-size: 11px; font-weight: 500; border-radius: 100px; padding: 4px 12px; }
+  .tl-chip-gmail { background: rgba(220,53,69,0.1); border: 1px solid rgba(220,53,69,0.2); color: rgba(220,53,69,0.8); }
+  .tl-chip-wa { background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.2); color: rgba(37,211,102,0.8); }
+  .tl-chip-web { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+  .tl-chip-social { background: rgba(200,169,126,0.1); border: 1px solid rgba(200,169,126,0.2); color: rgba(200,169,126,0.8); }
+
+  /* Campaign asset placeholders */
+  .campaign-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-top: 1.5rem; }
+  .camp-card { border-radius: 14px; overflow: hidden; border: 1px dashed rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.25rem; min-height: 180px; gap: 10px; transition: border-color .2s; cursor: default; }
+  .camp-card:hover { border-color: rgba(220,53,69,0.3); }
+  .camp-card .camp-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .camp-card .camp-label { font-size: 11px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-align: center; }
+  .camp-card .camp-sub { font-size: 10px; color: rgba(255,255,255,0.12); text-align: center; line-height: 1.5; }
+
+  /* Email mockup */
+  .email-mockup { border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); }
+  .email-top { padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .email-top-row { display: flex; justify-content: space-between; align-items: center; }
+  .email-top-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); }
+  .email-top-chips { display: flex; gap: 6px; }
+  .email-top-chip { width: 8px; height: 8px; border-radius: 50%; }
+  .email-body-area { padding: 1.5rem; display: flex; flex-direction: column; gap: 8px; }
+  .email-subject-bar { height: 12px; border-radius: 6px; background: rgba(255,255,255,0.08); width: 70%; }
+  .email-line { height: 8px; border-radius: 4px; background: rgba(255,255,255,0.05); }
+  .email-cta { margin-top: 8px; height: 30px; border-radius: 8px; background: rgba(220,53,69,0.15); border: 1px solid rgba(220,53,69,0.2); width: 50%; }
+
+  /* Align360 feature grid */
+  .a360-feat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 2rem; }
+  .a360-feat-card { border: 1px solid rgba(27,58,107,0.3); border-radius: 14px; padding: 1.5rem; background: rgba(27,58,107,0.08); transition: border-color .3s, background .3s; }
+  .a360-feat-card:hover { border-color: rgba(27,58,107,0.6); background: rgba(27,58,107,0.15); }
+  .a360-feat-num { font-family: 'New Amsterdam', sans-serif; font-size: 1.8rem; color: rgba(27,58,107,0.5); line-height: 1; margin-bottom: 10px; }
+  .a360-feat-title { font-size: 13.5px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+  .a360-feat-desc { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.6; font-weight: 300; }
+
+  /* Learnings */
+  .learn-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-top: 2rem; }
+  .learn-card { border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; padding: 2rem; background: var(--white); transition: box-shadow .3s, border-color .3s; }
+  .learn-card:hover { box-shadow: 0 8px 28px rgba(220,53,69,0.08); border-color: rgba(220,53,69,0.18); }
+  .learn-num { font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: var(--red); opacity: 0.13; line-height: 1; margin-bottom: .4rem; }
+  .learn-title { font-family: 'New Amsterdam', sans-serif; font-size: 1.3rem; color: var(--black); letter-spacing: 0.02em; margin-bottom: .5rem; }
+  .learn-body { font-size: 13.5px; color: rgba(0,0,0,0.55); line-height: 1.7; font-weight: 300; }
+
+  /* Role badges */
+  .role-badges { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 1.5rem; }
+  .role-badge { display: flex; align-items: center; gap: 7px; border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 7px 15px; font-size: 12.5px; font-weight: 500; color: rgba(255,255,255,0.6); transition: border-color .2s, color .2s; }
+  .role-badge:hover { border-color: var(--red); color: var(--white); }
+  .role-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+
+  /* Footer */
+  footer { padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-logo { font-family: 'New Amsterdam', sans-serif; font-size: 1.4rem; letter-spacing: 0.04em; color: rgba(255,255,255,0.25); }
+  .footer-logo span { color: var(--red); }
+  .footer-right { font-size: 13px; color: rgba(255,255,255,0.16); font-weight: 300; }
+
+  /* Animations */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { opacity: 0; animation: fadeUp .7s ease forwards; }
+  .d1 { animation-delay: .1s; } .d2 { animation-delay: .25s; } .d3 { animation-delay: .4s; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { border-top: 1px solid rgba(255,255,255,0.07); }
+    .section, .a360-hero { padding: 4rem 1.5rem; }
+    .two-col { grid-template-columns: 1fr; gap: 2rem; }
+    .three-col { grid-template-columns: 1fr 1fr; }
+    .ui-compare { grid-template-columns: 1fr; }
+    .stat-strip { grid-template-columns: 1fr; }
+    .learn-grid { grid-template-columns: 1fr; }
+    .tl-item { grid-template-columns: 40px 1fr; gap: 1rem; }
+    footer { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Nav -->
+<nav>
+  <a class="nav-logo" href="#">Align<span>Books</span></a>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#ui">UI Redesign</a>
+    <a href="#align360">Align360</a>
+    <a href="#campaign">Campaign</a>
+    <a href="#impact">Impact</a>
+  </div>
+  <div class="nav-tag">UI Redesign · Align360 Launch</div>
+</nav>
+
+<!-- Hero — Split -->
+<section class="hero">
+  <!-- Left: UI Redesign -->
+  <div class="hero-left">
+    <div class="hero-bg-word">REDESIGN</div>
+
+    <div class="hero-eyebrow fade-up">
+      <div class="hero-eyebrow-line"></div>
+      <span>Product UI Redesign</span>
+    </div>
+
+    <h1 class="hero-title fade-up d1">
+      A NEW<br>EXPERIENCE
+      <span class="hero-script">built for every user.</span>
+    </h1>
+
+    <p class="hero-desc fade-up d2">A complete overhaul of the AlignBooks product interface — standardising transaction UIs, reorganising navigation, redesigning reports, and creating a unified design language across all modules.</p>
+
+    <div class="hero-divider" style="margin-top: 2rem;"></div>
+
+    <div class="hero-meta-row fade-up d3">
+      <div class="hero-pill">Transaction UI Standardisation</div>
+      <div class="hero-pill">Button & Controls Revamp</div>
+      <div class="hero-pill">Reports Redesign</div>
+      <div class="hero-pill">Dashboard Updates</div>
+    </div>
+  </div>
+
+  <!-- Right: Align360 -->
+  <div class="hero-right">
+    <div class="hero-bg-word-r">ALIGN360</div>
+
+    <div class="hero-eyebrow fade-up">
+      <div class="hero-eyebrow-line" style="background: #378add;"></div>
+      <span style="color: #7ba3d4;">Enterprise Product Launch</span>
+    </div>
+
+    <h1 class="hero-title fade-up d1">
+      ALIGN<br>360
+      <span class="hero-script" style="color: #7ba3d4;">enterprise, redefined.</span>
+    </h1>
+
+    <p class="hero-desc fade-up d2">A brand-new enterprise ERP solution launched with a full go-to-market campaign — teasers, sneak peeks, date announcements, and launch — all orchestrated across Gmail and WhatsApp.</p>
+
+    <div class="hero-divider" style="margin-top: 2rem;"></div>
+
+    <div class="hero-meta-row fade-up d3">
+      <div class="hero-pill hero-pill-red">Teaser Campaign</div>
+      <div class="hero-pill hero-pill-red">Sneak Peeks</div>
+      <div class="hero-pill hero-pill-red">Gmail · WhatsApp</div>
+      <div class="hero-pill hero-pill-red">Product Launch</div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 Overview -->
+<section class="section" id="overview">
+  <div class="sec-num">01</div>
+  <div class="sec-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>01 — Overview</span></div>
+    <h2 class="sec-title">Two launches.<br><span class="sec-script">One designer.</span></h2>
+
+    <div class="two-col">
+      <div>
+        <div class="body-text">
+          <p>This project had two parallel tracks running simultaneously. The first was an internal product design challenge — redesigning the AlignBooks application UI to create a unified, consistent, and modern experience across all modules for existing users.</p>
+          <p>The second was an outward-facing launch moment — the introduction of Align360, a dedicated enterprise ERP tier positioned above AlignBooks, targeting medium-to-large businesses and MNCs. It needed its own brand identity, landing page, and a full go-to-market campaign.</p>
+          <p>As the sole designer, I owned both — from the micro-detail of reorganising button placements in transaction screens, to the macro-level of crafting a launch narrative and campaign assets delivered to thousands of users via Gmail and WhatsApp.</p>
+        </div>
+
+        <div class="role-badges">
+          <div class="role-badge"><div class="role-dot"></div>Product UI Design</div>
+          <div class="role-badge"><div class="role-dot"></div>Design System</div>
+          <div class="role-badge"><div class="role-dot"></div>Brand Identity</div>
+          <div class="role-badge"><div class="role-dot"></div>GTM Campaign Design</div>
+          <div class="role-badge"><div class="role-dot"></div>Email Design</div>
+          <div class="role-badge"><div class="role-dot"></div>WhatsApp Campaigns</div>
+          <div class="role-badge"><div class="role-dot"></div>Landing Page</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="pull-quote">
+          <p>"Redesign the product for the customers who use it daily. Then launch the next chapter for those who need more."</p>
+        </div>
+
+        <div class="stat-strip" style="margin-top: 1.5rem;">
+          <div class="stat-cell">
+            <div class="stat-label">Product</div>
+            <div class="stat-value" style="font-size: 1.6rem;">AlignBooks</div>
+            <div class="stat-note">Full UI overhaul across all modules</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-label">New Product</div>
+            <div class="stat-value" style="font-size: 1.6rem;">Align360</div>
+            <div class="stat-note">Enterprise ERP — full launch campaign</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-label">Channels</div>
+            <div class="stat-value" style="font-size: 1.6rem;">Gmail + WA</div>
+            <div class="stat-note">Staged campaign across email & WhatsApp</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 UI Redesign -->
+<section class="section section-dark2" id="ui">
+  <div class="sec-num">02</div>
+  <div class="sec-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>02 — UI Redesign</span></div>
+    <h2 class="sec-title">Rebuilding the product<br><span class="sec-script">screen by screen.</span></h2>
+
+    <div class="two-col">
+      <div class="body-text">
+        <p>The AlignBooks UI had grown organically over years — each module added features independently, leading to a fragmented experience. Buttons were in different positions across screens. Toolbars were crowded. The item table in transaction screens was cluttered and required heavy horizontal scrolling.</p>
+        <p>The redesign wasn't a visual rebrand — it was a systematic decluttering. Every action was audited: is it frequent? Is it where users expect it? Does it compete with more important actions for visual weight?</p>
+      </div>
+      <div class="body-text">
+        <p>The result was a unified interface language that applies consistently from Sales & Billing to HR & Payroll — same button hierarchy, same dropdown patterns, same grid behaviour, same icon set.</p>
+        <p>The goal was that a user who learned one module would feel immediately at home in any other — reducing training time and improving daily efficiency for the thousands of users who touch AlignBooks every day.</p>
+      </div>
+    </div>
+
+    <!-- Before After breakdown -->
+    <div class="ui-compare" style="margin-top: 3rem;">
+      <div class="ui-col ui-before">
+        <span class="ui-col-tag">Before</span>
+        <div class="ui-col-title">The old interface</div>
+        <ul class="ui-change-list">
+          <li>Open, Delete, Copy, Cancel, Restore, Calculator, Help, Configuration all crammed in a single top toolbar — no hierarchy</li>
+          <li>Item table options (Add Rows, Search, Barcode, Copy Row) scattered across the table width, requiring horizontal scroll</li>
+          <li>Serial, Dimensions, and Bundle taking up permanent item table columns — reducing visible item data</li>
+          <li>Logistics, Shipping, E-Way Bill and E-Invoice all mixed together in the bottom section without grouping</li>
+          <li>Print Configuration and Schedule buried at the bottom-left — hard to find, frequently needed</li>
+          <li>Reports listed as a flat, unsearchable long list — no organisation by type or frequency</li>
+          <li>Dashboard icons inconsistent in size and style across modules</li>
+          <li>Help icon generic — linked to a homepage, not the current screen's documentation</li>
+          <li>Module menu: a long flat list with no grouping or search</li>
+        </ul>
+      </div>
+      <div class="ui-col ui-after">
+        <span class="ui-col-tag">After</span>
+        <div class="ui-col-title">The redesigned interface</div>
+        <ul class="ui-change-list">
+          <li>Top-right: Open, Delete, Copy, Help, Calculator. Secondary actions (Cancel, Recall, Restore, Schedule, Config) moved into a clean dropdown</li>
+          <li>All item table row actions grouped under a single ⋮ menu — freeing up visible item columns</li>
+          <li>Serial, Dimensions, Bundle moved to a dedicated ⋮ submenu — item table now fits more data per screen without scrolling</li>
+          <li>Bottom section reorganised into dedicated, expandable groups: Logistics, Shipping, E-Way/E-Invoice — each with relevant options only</li>
+          <li>Print Configuration moved to top-right dropdown; less-used actions consistently deprioritised across all screens</li>
+          <li>Reports completely redesigned: searchable, organised by chips (Primary, Category, Document, Industry, Role), with count badges and recently visited</li>
+          <li>Dashboard icons updated with consistent sizing, spacing, and a unified style guide</li>
+          <li>Help icon now links directly to the documentation for the current active screen</li>
+          <li>Module menu: searchable, grouped into expandable submenus — structured navigation replacing the long list</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- UI Change cards -->
+    <div class="divider" style="margin-top: 3rem;"></div>
+    <h3 style="font-family:'New Amsterdam',sans-serif; font-size:1.8rem; letter-spacing:0.02em; margin-bottom: 0.25rem;">Key Changes at a Glance</h3>
+    <p style="font-size:14px; color:var(--gray-400); font-weight:300; margin-bottom:0;">Every change had a clear rationale — reduce clutter, improve discoverability, or create consistency.</p>
+
+    <div class="ui-card-grid">
+      <div class="ui-card">
+        <div class="ui-card-top" style="background:rgba(220,53,69,0.06);">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="10" width="28" height="4" rx="2" fill="rgba(220,53,69,0.4)"/><rect x="4" y="16" width="20" height="4" rx="2" fill="rgba(220,53,69,0.2)"/><rect x="4" y="22" width="24" height="4" rx="2" fill="rgba(220,53,69,0.2)"/></svg>
+        </div>
+        <div class="ui-card-body">
+          <div class="ui-card-title">Transaction Toolbar</div>
+          <div class="ui-card-desc">Primary actions stay visible. Secondary and rare actions move into a clean dropdown — reducing cognitive load without hiding functionality.</div>
+        </div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-card-top" style="background:rgba(220,53,69,0.06);">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="6" width="28" height="18" rx="2" stroke="rgba(220,53,69,0.4)" stroke-width="1.5"/><circle cx="18" cy="29" r="3" fill="rgba(220,53,69,0.4)"/><line x1="8" y1="11" x2="28" y2="11" stroke="rgba(220,53,69,0.3)" stroke-width="1"/><line x1="8" y1="15" x2="28" y2="15" stroke="rgba(220,53,69,0.3)" stroke-width="1"/><line x1="8" y1="19" x2="20" y2="19" stroke="rgba(220,53,69,0.3)" stroke-width="1"/></svg>
+        </div>
+        <div class="ui-card-body">
+          <div class="ui-card-title">Item Table Redesign</div>
+          <div class="ui-card-desc">Collapsed Serial, Dimensions, Bundle into a ⋮ submenu. Grouped row-level actions into a single three-dot menu. More data visible, no horizontal scroll.</div>
+        </div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-card-top" style="background:rgba(220,53,69,0.06);">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="3" stroke="rgba(220,53,69,0.4)" stroke-width="1.5"/><path d="M12 14h12M12 19h8M12 24h10" stroke="rgba(220,53,69,0.35)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="ui-card-body">
+          <div class="ui-card-title">Bottom Section Grouping</div>
+          <div class="ui-card-desc">Logistics, Shipping, and E-Way/E-Invoice now live in labelled, expandable sections — eliminating the visual noise of mixed fields at the bottom of every transaction.</div>
+        </div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-card-top" style="background:rgba(220,53,69,0.06);">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="10" r="6" stroke="rgba(220,53,69,0.4)" stroke-width="1.5"/><rect x="4" y="20" width="28" height="12" rx="2" stroke="rgba(220,53,69,0.3)" stroke-width="1.5"/><line x1="18" y1="20" x2="18" y2="32" stroke="rgba(220,53,69,0.2)" stroke-width="1"/></svg>
+        </div>
+        <div class="ui-card-body">
+          <div class="ui-card-title">Reports Redesign</div>
+          <div class="ui-card-desc">Searchable, chip-filtered (Primary, Category, Document, Industry, Role). Report counts per section, recently visited, action buttons moved to top.</div>
+        </div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-card-top" style="background:rgba(220,53,69,0.06);">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="28" height="28" rx="3" stroke="rgba(220,53,69,0.4)" stroke-width="1.5"/><path d="M12 14l4 4 8-8" stroke="rgba(220,53,69,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ui-card-body">
+          <div class="ui-card-title">Module Menu Navigation</div>
+          <div class="ui-card-desc">Long flat link lists replaced with a searchable, grouped sidebar — expandable submenus per module category. Navigation that scales with product depth.</div>
+        </div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-card-top" style="background:rgba(220,53,69,0.06);">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M18 8v3M18 25v3M8 18H5M31 18h-3" stroke="rgba(220,53,69,0.4)" stroke-width="1.5" stroke-linecap="round"/><circle cx="18" cy="18" r="6" stroke="rgba(220,53,69,0.4)" stroke-width="1.5"/><circle cx="18" cy="18" r="2" fill="rgba(220,53,69,0.4)"/></svg>
+        </div>
+        <div class="ui-card-body">
+          <div class="ui-card-title">Privacy Eye Icon</div>
+          <div class="ui-card-desc">New dashboard control to instantly hide financial data during screen sharing or meetings — a small feature that addresses a very real daily concern for business users.</div>
+        </div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-card-top" style="background:rgba(220,53,69,0.06);">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="8" stroke="rgba(220,53,69,0.4)" stroke-width="1.5"/><path d="M18 14v4l3 3" stroke="rgba(220,53,69,0.4)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="ui-card-body">
+          <div class="ui-card-title">Contextual Help</div>
+          <div class="ui-card-desc">The help icon in every module now links directly to documentation for the current screen — no searching. Also surfaces Tickets, Tutorials, FAQs, and Release Notes.</div>
+        </div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-card-top" style="background:rgba(220,53,69,0.06);">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="4" y="4" width="12" height="12" rx="2" fill="rgba(220,53,69,0.2)"/><rect x="20" y="4" width="12" height="12" rx="2" fill="rgba(220,53,69,0.15)"/><rect x="4" y="20" width="12" height="12" rx="2" fill="rgba(220,53,69,0.15)"/><rect x="20" y="20" width="12" height="12" rx="2" fill="rgba(220,53,69,0.1)"/></svg>
+        </div>
+        <div class="ui-card-body">
+          <div class="ui-card-title">Enterprise Dashboard</div>
+          <div class="ui-card-desc">Fully customisable dashboard widgets redesigned with a modern layout and better data visualisations — role-based insights for decision-makers at a glance.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screen placeholders -->
+    <div class="divider" style="margin-top: 3rem;"></div>
+    <div class="screen-label">Transaction UI — Before vs After</div>
+    <div class="screen-row">
+      <div class="sf sf-d sf-lg"><div class="sf-label">Old Transaction Screen<br>Crowded toolbar, scattered actions</div><span class="sf-hint">Add screenshot here</span></div>
+      <div class="sf sf-red sf-lg"><div class="sf-label" style="color:rgba(220,53,69,0.3);">New Transaction Screen<br>Organised top-right + dropdowns</div><span class="sf-hint" style="color:rgba(220,53,69,0.22);">Add screenshot here</span></div>
+    </div>
+
+    <div class="screen-label" style="margin-top: 2rem;">Item Table — Before vs After</div>
+    <div class="screen-row">
+      <div class="sf sf-d sf-md"><div class="sf-label">Old Item Table<br>Wide with horizontal scroll</div><span class="sf-hint">Add screenshot here</span></div>
+      <div class="sf sf-red sf-md"><div class="sf-label" style="color:rgba(220,53,69,0.3);">New Item Table<br>Compact, more data per screen</div><span class="sf-hint" style="color:rgba(220,53,69,0.22);">Add screenshot here</span></div>
+    </div>
+
+    <div class="screen-label" style="margin-top: 2rem;">Reports, Dashboard & Module Menu</div>
+    <div class="screen-row">
+      <div class="sf sf-d sf-md"><div class="sf-label">Reports — Redesigned</div><span class="sf-hint">Add screenshot here</span></div>
+      <div class="sf sf-d sf-md"><div class="sf-label">Enterprise Dashboard</div><span class="sf-hint">Add screenshot here</span></div>
+      <div class="sf sf-d sf-md"><div class="sf-label">Module Menu — Grouped</div><span class="sf-hint">Add screenshot here</span></div>
+      <div class="sf sf-d sf-sm"><div class="sf-label">Privacy Eye Icon</div><span class="sf-hint">Add screenshot here</span></div>
+    </div>
+    <div class="add-hint">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Replace all placeholders with your Figma screens from learn.alignbooks.com/whats-new/ui-update
+    </div>
+  </div>
+</section>
+
+<!-- 03 Align360 Brand & Product -->
+<section class="a360-hero" id="align360">
+  <div class="sec-num" style="color:rgba(27,58,107,0.15); right:3rem; top:-1rem; position:absolute;">03</div>
+  <div class="a360-inner">
+    <div class="eyebrow"><div class="eyebrow-dot" style="background:#378add;"></div><span style="color:#7ba3d4;">03 — Align360</span></div>
+    <h2 class="a360-title">THE ENTERPRISE<br>TIER
+      <span class="a360-title-script">a new chapter for AlignBooks.</span>
+    </h2>
+
+    <p class="a360-desc">Align360 is a dedicated enterprise ERP solution positioned above AlignBooks — targeting medium-to-large businesses, multi-location operations, and MNCs who need the full power of a modern cloud ERP without the complexity and cost of legacy systems.</p>
+
+    <div class="a360-stat-row">
+      <div class="a360-stat"><div class="num">10M+</div><div class="sub">Invoices Annually</div></div>
+      <div class="a360-stat"><div class="num">10K+</div><div class="sub">Clients on Platform</div></div>
+      <div class="a360-stat"><div class="num">75K+</div><div class="sub">Users & Growing</div></div>
+      <div class="a360-stat"><div class="num">12+</div><div class="sub">Industries Served</div></div>
+    </div>
+
+    <!-- Align360 feature grid -->
+    <div class="divider" style="margin-top: 2.5rem; background: rgba(27,58,107,0.3);"></div>
+    <p style="font-family:'New Amsterdam',sans-serif; font-size:1.8rem; letter-spacing:0.02em; margin-bottom:0.25rem;">What Align360 Brings</p>
+    <p style="font-size:14px; color:rgba(255,255,255,0.35); font-weight:300;">Designed for businesses that outgrow standard ERP — true cloud, modern design, plug-and-play integrations.</p>
+
+    <div class="a360-feat-grid">
+      <div class="a360-feat-card"><div class="a360-feat-num">01</div><div class="a360-feat-title">Sales to Settlement</div><div class="a360-feat-desc">Auto-reconciled e-Invoice, reminders, and full payment tracking from lead to close.</div></div>
+      <div class="a360-feat-card"><div class="a360-feat-num">02</div><div class="a360-feat-title">Procurement Automation</div><div class="a360-feat-desc">Vendor portal, onboarding to payment workflows, fully connected procurement.</div></div>
+      <div class="a360-feat-card"><div class="a360-feat-num">03</div><div class="a360-feat-title">Finance & Compliance</div><div class="a360-feat-desc">GST, TDS, bank sync, real-time dashboards — month-end closings in hours, not days.</div></div>
+      <div class="a360-feat-card"><div class="a360-feat-num">04</div><div class="a360-feat-title">Payroll + HR</div><div class="a360-feat-desc">Multi-branch HRM, shift logs, leaves, and payslips — built-in, no extra tools.</div></div>
+      <div class="a360-feat-card"><div class="a360-feat-num">05</div><div class="a360-feat-title">CRM & Sales Pipeline</div><div class="a360-feat-desc">Lead capture, follow-ups, task assignment, collaborators, and CRM dashboards.</div></div>
+      <div class="a360-feat-card"><div class="a360-feat-num">06</div><div class="a360-feat-title">Visual Workflow Automation</div><div class="a360-feat-desc">Low-code configuration, custom approval hierarchies, and automated business flows.</div></div>
+      <div class="a360-feat-card"><div class="a360-feat-num">07</div><div class="a360-feat-title">Plug & Play Integrations</div><div class="a360-feat-desc">Amazon, Razorpay, HDFC, Shopify, WhatsApp, Gemini AI, PowerBI — all native.</div></div>
+      <div class="a360-feat-card"><div class="a360-feat-num">08</div><div class="a360-feat-title">Customisable Dashboards</div><div class="a360-feat-desc">Role-based data widgets, live insights, and real-time multi-location monitoring.</div></div>
+    </div>
+
+    <!-- Align360 screens -->
+    <div class="divider" style="margin-top: 2.5rem; background: rgba(27,58,107,0.3);"></div>
+    <div class="screen-label" style="background:rgba(27,58,107,0.2); border-color:rgba(27,58,107,0.4); color:#7ba3d4;">Align360 Landing Page & Dashboard Screens</div>
+    <div class="screen-row">
+      <div class="sf sf-d sf-lg" style="background:rgba(27,58,107,0.08); border-color:rgba(27,58,107,0.2);"><div class="sf-label" style="color:rgba(27,58,107,0.5);">Align360 Landing Page — Hero</div><span class="sf-hint" style="color:rgba(27,58,107,0.3);">Add screenshot here</span></div>
+      <div class="sf sf-d sf-lg" style="background:rgba(27,58,107,0.08); border-color:rgba(27,58,107,0.2);"><div class="sf-label" style="color:rgba(27,58,107,0.5);">Enterprise Dashboard</div><span class="sf-hint" style="color:rgba(27,58,107,0.3);">Add screenshot here</span></div>
+      <div class="sf sf-d sf-md" style="background:rgba(27,58,107,0.08); border-color:rgba(27,58,107,0.2);"><div class="sf-label" style="color:rgba(27,58,107,0.5);">Feature Section</div><span class="sf-hint" style="color:rgba(27,58,107,0.3);">Add screenshot here</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 Launch Campaign -->
+<section class="section" id="campaign">
+  <div class="sec-num">04</div>
+  <div class="sec-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>04 — Go-to-Market Campaign</span></div>
+    <h2 class="sec-title">Building hype before<br><span class="sec-script">the curtain rose.</span></h2>
+
+    <div class="two-col">
+      <div class="body-text">
+        <p>Launching a new enterprise product isn't just a design problem — it's a storytelling and sequencing challenge. Simply announcing Align360 on launch day would waste the opportunity to build anticipation within AlignBooks' existing user base of thousands.</p>
+        <p>I designed a staged, multi-touch campaign across Gmail and WhatsApp — starting weeks before launch — that took users on a deliberate journey from curiosity to excitement to conversion.</p>
+      </div>
+      <div class="body-text">
+        <p>Each phase had a distinct visual language and a specific goal. Teasers were intentionally minimal and mysterious — enough to intrigue, not enough to explain. Sneak peeks revealed specific features one at a time. The date announcement created urgency. The launch itself was the payoff moment.</p>
+        <p>Post-launch, follow-up campaigns targeted users who had engaged with earlier touchpoints but hadn't yet explored the new product — keeping the conversation alive beyond day one.</p>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="divider" style="margin-top: 2.5rem;"></div>
+    <h3 style="font-family:'New Amsterdam',sans-serif; font-size:1.8rem; letter-spacing:0.02em; margin-bottom:0.25rem;">Campaign Timeline</h3>
+    <p style="font-size:14px; color:var(--gray-400); font-weight:300; margin-bottom:0;">A staged sequence designed to build momentum, not just announce.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot-wrap"><div class="tl-dot tl-dot-teaser">Phase<br>1</div></div>
+        <div class="tl-content">
+          <div class="tl-phase">Phase 1 — Teaser</div>
+          <div class="tl-title">Something is coming.</div>
+          <div class="tl-desc">Minimal, mysterious campaign assets — no product name, no features. Just a visual identity shift and a sense that something significant was about to change. Designed to spark conversation and curiosity among existing AlignBooks users.</div>
+          <div class="tl-channels">
+            <span class="tl-chip tl-chip-gmail">Gmail Campaign</span>
+            <span class="tl-chip tl-chip-wa">WhatsApp Broadcast</span>
+            <span class="tl-chip tl-chip-web">Website Banner</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot-wrap"><div class="tl-dot tl-dot-sneak">Phase<br>2</div></div>
+        <div class="tl-content">
+          <div class="tl-phase">Phase 2 — Sneak Peeks</div>
+          <div class="tl-title">A glimpse at what's inside.</div>
+          <div class="tl-desc">Sequential reveals — one feature or screen shared at a time across multiple touchpoints. Each sneak peek was designed as a standalone visual that rewarded the curious while deepening anticipation for the full product. Dashboard UI, the new module menu, workflow automation previews.</div>
+          <div class="tl-channels">
+            <span class="tl-chip tl-chip-gmail">Gmail Series</span>
+            <span class="tl-chip tl-chip-wa">WhatsApp Updates</span>
+            <span class="tl-chip tl-chip-social">Social Posts</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot-wrap"><div class="tl-dot tl-dot-date">Phase<br>3</div></div>
+        <div class="tl-content">
+          <div class="tl-phase">Phase 3 — Date Announcement</div>
+          <div class="tl-title">Mark the date.</div>
+          <div class="tl-desc">A bold, date-forward communication — naming Align360 for the first time alongside its launch date. Designed to create urgency and a concrete moment to look forward to. Included a clear CTA to register interest or request a demo before launch.</div>
+          <div class="tl-channels">
+            <span class="tl-chip tl-chip-gmail">Gmail Announcement</span>
+            <span class="tl-chip tl-chip-wa">WhatsApp Broadcast</span>
+            <span class="tl-chip tl-chip-web">Landing Page Live</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot-wrap"><div class="tl-dot tl-dot-launch">Phase<br>4</div></div>
+        <div class="tl-content">
+          <div class="tl-phase">Phase 4 — Launch</div>
+          <div class="tl-title">Align360 is live.</div>
+          <div class="tl-desc">The launch email and WhatsApp message were the centrepiece — full product reveal, key features, a bold hero visual, and a primary CTA to explore or request a demo. The tone shifted from mysterious to confident: this is what we built, and here's why it matters for your business.</div>
+          <div class="tl-channels">
+            <span class="tl-chip tl-chip-gmail">Launch Email</span>
+            <span class="tl-chip tl-chip-wa">WhatsApp Push</span>
+            <span class="tl-chip tl-chip-web">Website Updated</span>
+            <span class="tl-chip tl-chip-social">Social Announcement</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot-wrap"><div class="tl-dot tl-dot-post">Phase<br>5</div></div>
+        <div class="tl-content">
+          <div class="tl-phase">Phase 5 — Post-Launch Follow-up</div>
+          <div class="tl-title">Keeping the conversation alive.</div>
+          <div class="tl-desc">Follow-up campaigns targeting users who had engaged with earlier touchpoints. Feature-specific deep-dives, testimonial-forward messaging, and re-engagement flows for users who had visited the landing page but not yet requested a demo.</div>
+          <div class="tl-channels">
+            <span class="tl-chip tl-chip-gmail">Follow-up Series</span>
+            <span class="tl-chip tl-chip-wa">Re-engagement</span>
+            <span class="tl-chip tl-chip-social">Feature Spotlights</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Campaign asset placeholders -->
+    <div class="divider" style="margin-top: 2.5rem;"></div>
+    <div class="screen-label">Gmail Campaign Designs — Add your assets below</div>
+    <div class="screen-row">
+      <div class="sf sf-d sf-email">
+        <div class="sf-label">Teaser Email</div>
+        <div style="width:80%; margin-top:12px; display:flex; flex-direction:column; gap:8px; opacity:0.5;">
+          <div style="height:10px; background:rgba(255,255,255,0.07); border-radius:5px; width:60%;"></div>
+          <div style="height:60px; background:rgba(220,53,69,0.06); border-radius:6px;"></div>
+          <div style="height:8px; background:rgba(255,255,255,0.04); border-radius:4px;"></div>
+          <div style="height:8px; background:rgba(255,255,255,0.04); border-radius:4px; width:80%;"></div>
+          <div style="height:24px; background:rgba(220,53,69,0.12); border-radius:6px; width:50%; margin-top:4px;"></div>
+        </div>
+        <span class="sf-hint">Add email design here</span>
+      </div>
+      <div class="sf sf-d sf-email">
+        <div class="sf-label">Sneak Peek Email</div>
+        <div style="width:80%; margin-top:12px; display:flex; flex-direction:column; gap:8px; opacity:0.5;">
+          <div style="height:10px; background:rgba(255,255,255,0.07); border-radius:5px; width:70%;"></div>
+          <div style="height:80px; background:rgba(27,58,107,0.15); border-radius:6px;"></div>
+          <div style="height:8px; background:rgba(255,255,255,0.04); border-radius:4px;"></div>
+          <div style="height:8px; background:rgba(255,255,255,0.04); border-radius:4px; width:85%;"></div>
+          <div style="height:24px; background:rgba(220,53,69,0.12); border-radius:6px; width:50%; margin-top:4px;"></div>
+        </div>
+        <span class="sf-hint">Add email design here</span>
+      </div>
+      <div class="sf sf-d sf-email">
+        <div class="sf-label">Date Announcement Email</div>
+        <div style="width:80%; margin-top:12px; display:flex; flex-direction:column; gap:8px; opacity:0.5;">
+          <div style="height:10px; background:rgba(255,255,255,0.07); border-radius:5px; width:55%;"></div>
+          <div style="height:70px; background:rgba(200,169,126,0.1); border-radius:6px;"></div>
+          <div style="height:8px; background:rgba(255,255,255,0.04); border-radius:4px;"></div>
+          <div style="height:8px; background:rgba(255,255,255,0.04); border-radius:4px; width:75%;"></div>
+          <div style="height:24px; background:rgba(220,53,69,0.12); border-radius:6px; width:50%; margin-top:4px;"></div>
+        </div>
+        <span class="sf-hint">Add email design here</span>
+      </div>
+      <div class="sf sf-d sf-email">
+        <div class="sf-label">Launch Email</div>
+        <div style="width:80%; margin-top:12px; display:flex; flex-direction:column; gap:8px; opacity:0.5;">
+          <div style="height:10px; background:rgba(220,53,69,0.12); border-radius:5px; width:65%;"></div>
+          <div style="height:90px; background:rgba(220,53,69,0.08); border-radius:6px;"></div>
+          <div style="height:8px; background:rgba(255,255,255,0.04); border-radius:4px;"></div>
+          <div style="height:8px; background:rgba(255,255,255,0.04); border-radius:4px; width:90%;"></div>
+          <div style="height:28px; background:rgba(220,53,69,0.2); border-radius:6px; width:60%; margin-top:4px;"></div>
+        </div>
+        <span class="sf-hint">Add email design here</span>
+      </div>
+    </div>
+
+    <div class="screen-label" style="margin-top: 2rem;">WhatsApp Campaign Designs</div>
+    <div class="screen-row">
+      <div class="sf sf-d sf-tall"><div class="sf-label">Teaser<br>WhatsApp Visual</div><span class="sf-hint">Add asset here</span></div>
+      <div class="sf sf-d sf-tall"><div class="sf-label">Sneak Peek<br>WhatsApp Visual</div><span class="sf-hint">Add asset here</span></div>
+      <div class="sf sf-d sf-tall"><div class="sf-label">Date Announcement<br>WhatsApp Visual</div><span class="sf-hint">Add asset here</span></div>
+      <div class="sf sf-red sf-tall"><div class="sf-label" style="color:rgba(220,53,69,0.3);">Launch Day<br>WhatsApp Visual</div><span class="sf-hint" style="color:rgba(220,53,69,0.22);">Add asset here</span></div>
+      <div class="sf sf-d sf-tall"><div class="sf-label">Post-Launch<br>Follow-up Visual</div><span class="sf-hint">Add asset here</span></div>
+    </div>
+    <div class="add-hint">Add all Gmail and WhatsApp campaign assets from your Figma files</div>
+  </div>
+</section>
+
+<!-- 05 Impact -->
+<section class="section section-light" id="impact">
+  <div class="sec-num">05</div>
+  <div class="sec-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>05 — Impact & Scope</span></div>
+    <h2 class="sec-title" style="color:var(--black);">The scale of<br><span class="sec-script">what was built.</span></h2>
+
+    <div class="two-col">
+      <div>
+        <div class="body-text">
+          <p>This was one of the most expansive solo design undertakings of this portfolio — touching both the internal product experience (thousands of daily users) and the outward brand narrative (a new enterprise product launch reaching the full AlignBooks customer base).</p>
+          <p>The UI redesign touched every module in the product — Sales, Finance, Inventory, POS, HR & Payroll, Production, Job Work, Asset Management — ensuring consistency not just on one screen, but across the entire application surface area.</p>
+        </div>
+        <ul class="insight-list">
+          <li>Every transaction screen across all 9 modules received the standardised toolbar and item table redesign</li>
+          <li>Reports, Dashboards, and Module Menu redesigned — the three highest-frequency areas of the product</li>
+          <li>Align360 brand identity designed from scratch — separate from AlignBooks but within the same design family</li>
+          <li>A full 5-phase campaign executed across two high-reach channels: Gmail and WhatsApp</li>
+          <li>Each campaign touchpoint individually designed — not repurposed templates but purpose-built assets per phase and channel</li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="pull-quote">
+          <p>"Every design decision had two audiences — the users who log in daily, and the businesses we hadn't yet won."</p>
+        </div>
+
+        <div class="stat-strip stat-strip-light" style="margin-top: 1.5rem; border-color: rgba(0,0,0,0.08);">
+          <div class="stat-cell" style="background: var(--white);">
+            <div class="stat-label">Modules Redesigned</div>
+            <div class="stat-value" style="color:var(--black);">9+</div>
+            <div class="stat-note" style="color:var(--gray-600);">Every transaction UI standardised</div>
+          </div>
+          <div class="stat-cell" style="background: var(--white);">
+            <div class="stat-label">Campaign Phases</div>
+            <div class="stat-value" style="color:var(--black);">5</div>
+            <div class="stat-note" style="color:var(--gray-600);">Teaser → Sneak peek → Date → Launch → Follow-up</div>
+          </div>
+          <div class="stat-cell" style="background: var(--white);">
+            <div class="stat-label">Channels</div>
+            <div class="stat-value" style="color:var(--black);">Gmail + WA</div>
+            <div class="stat-note" style="color:var(--gray-600);">Reaching the full existing user base</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 Reflections -->
+<section class="section section-warm">
+  <div class="sec-num">06</div>
+  <div class="sec-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>06 — Reflections</span></div>
+    <h2 class="sec-title" style="color:var(--black);">What this project<br><span class="sec-script">taught me.</span></h2>
+
+    <div class="learn-grid">
+      <div class="learn-card">
+        <div class="learn-num">01</div>
+        <div class="learn-title">UX Is About Frequency, Not Just Usability</div>
+        <div class="learn-body">The biggest insight from the UI redesign was distinguishing between features by how often they're used. Moving rare actions into dropdowns and promoting frequent ones to persistent toolbars made the interface faster for daily users — not by adding anything, but by getting out of the way.</div>
+      </div>
+      <div class="learn-card">
+        <div class="learn-num">02</div>
+        <div class="learn-title">A Launch Is a Narrative, Not an Event</div>
+        <div class="learn-body">Designing the Align360 campaign taught me that a product launch is most effective when it's treated as a story with chapters — not a single announcement. The teaser-to-launch arc turned passive existing users into an engaged audience who felt like they were part of something unfolding.</div>
+      </div>
+      <div class="learn-card">
+        <div class="learn-num">03</div>
+        <div class="learn-title">Channel Context Shapes the Design</div>
+        <div class="learn-body">Gmail and WhatsApp have completely different consumption contexts — email is opened with intent and held for longer; WhatsApp is scanned in seconds on mobile. The same campaign message required a fundamentally different visual approach per channel, not just a resize.</div>
+      </div>
+      <div class="learn-card">
+        <div class="learn-num">04</div>
+        <div class="learn-title">Consistency Is a Product Feature</div>
+        <div class="learn-body">After the UI redesign, the most common feedback from users was that the product felt "cleaner" — not that any specific feature was better. Consistency itself is experienced as quality. When everything behaves predictably and looks like it belongs together, users feel more confident and capable.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Align<span>Books</span> · UI Redesign & Align360 Launch</div>
+  <div class="footer-right">Align Info Solutions Pvt Ltd · alignbooks.com · enterprise.alignbooks.com</div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+
+  (function tick() {
+    rx += (mx - rx) * 0.11; ry += (my - ry) * 0.11;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(tick);
+  })();
+
+  document.querySelectorAll('a, .ui-card, .a360-feat-card, .learn-card, .tl-item, .stat-cell, .sf, .camp-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width = '18px'; cursor.style.height = '18px'; ring.style.width = '50px'; ring.style.height = '50px'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; ring.style.width = '36px'; ring.style.height = '36px'; });
+  });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.07 });
+
+  document.querySelectorAll('.ui-card, .a360-feat-card, .learn-card, .stat-cell, .tl-item, .tl-content').forEach((el, i) => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(16px)';
+    el.style.transition = `opacity 0.55s ease ${i * 0.035}s, transform 0.55s ease ${i * 0.035}s`;
+    io.observe(el);
+  });
+</script>
+</body>
+</html>

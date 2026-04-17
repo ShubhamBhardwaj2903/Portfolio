@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mumbai.rent — Mumbai's Anonymous Rent Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sea: #006994;
+    --sea-light: #e0f4fd;
+    --sea-mid: #3a9abf;
+    --gold: #c8922a;
+    --gold-light: #fff3dc;
+    --ink: #0f1f2e;
+    --ink-mid: #2d4a5e;
+    --muted: #6b8394;
+    --surface: #f5f9fc;
+    --white: #ffffff;
+    --border: rgba(0,105,148,0.15);
+    --pin-gated: #006994;
+    --pin-open: #e07b39;
+    --radius: 10px;
+    --shadow: 0 4px 24px rgba(0,105,148,0.12);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ink);
+    color: var(--ink);
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ===== MAP ===== */
+  #map-container {
+    position: absolute; inset: 0;
+    background: #dce8f0;
+    overflow: hidden;
+  }
+
+  #map-svg {
+    width: 100%; height: 100%;
+  }
+
+  /* ===== TOP BAR ===== */
+  #topbar {
+    position: absolute; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.97);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--sea);
+    white-space: nowrap;
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--gold); }
+
+  #search {
+    flex: 1;
+    height: 38px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 0 14px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    background: var(--surface);
+    color: var(--ink);
+    transition: border-color 0.2s;
+  }
+  #search:focus { border-color: var(--sea); }
+  #search::placeholder { color: var(--muted); }
+
+  .topbar-btn {
+    height: 38px;
+    padding: 0 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink-mid);
+    cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .topbar-btn:hover { background: var(--sea-light); border-color: var(--sea-mid); color: var(--sea); }
+  .topbar-btn.active { background: var(--sea); color: #fff; border-color: var(--sea); }
+
+  /* ===== SIDE PANEL ===== */
+  #side-panel {
+    position: absolute; right: 0; top: 63px; bottom: 0;
+    width: 320px;
+    background: rgba(255,255,255,0.97);
+    border-left: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    overflow-y: auto;
+    z-index: 90;
+    display: flex; flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+  #side-panel.open { transform: translateX(0); }
+
+  .panel-header {
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .panel-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700;
+    color: var(--ink);
+  }
+  .close-btn {
+    width: 28px; height: 28px;
+    border-radius: 50%; border: none;
+    background: var(--surface); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: var(--muted);
+  }
+  .close-btn:hover { background: #fee2e2; color: #dc2626; }
+
+  /* ===== FILTER PANEL ===== */
+  .filter-section { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .filter-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 10px; display: block;
+  }
+
+  .area-select {
+    width: 100%; padding: 8px 12px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: 14px; font-family: 'DM Sans', sans-serif;
+    color: var(--ink); background: var(--surface); outline: none;
+  }
+  .area-select:focus { border-color: var(--sea); }
+
+  .bhk-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill {
+    padding: 5px 14px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--white);
+    font-size: 13px; color: var(--ink-mid); cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pill:hover { border-color: var(--sea-mid); color: var(--sea); }
+  .pill.active { background: var(--sea); color: #fff; border-color: var(--sea); }
+
+  .range-row { display: flex; gap: 8px; align-items: center; }
+  .range-input {
+    flex: 1; padding: 7px 10px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: 13px; font-family: 'DM Sans', sans-serif;
+    color: var(--ink); background: var(--surface); outline: none;
+  }
+  .range-sep { font-size: 13px; color: var(--muted); }
+
+  .toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .toggle-btn {
+    padding: 7px 10px; border-radius: 8px;
+    border: 1.5px solid var(--border); background: var(--white);
+    font-size: 13px; color: var(--ink-mid); cursor: pointer;
+    text-align: center; transition: all 0.15s;
+  }
+  .toggle-btn:hover { border-color: var(--sea-mid); }
+  .toggle-btn.active { background: var(--sea); color: #fff; border-color: var(--sea); }
+
+  .apply-btn {
+    margin: 16px 20px;
+    width: calc(100% - 40px);
+    padding: 11px;
+    background: var(--sea);
+    color: #fff; border: none; border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .apply-btn:hover { background: var(--ink-mid); }
+
+  /* ===== STATS PANEL ===== */
+  .stat-card {
+    margin: 12px 20px;
+    padding: 16px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .stat-bhk { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .stat-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--sea);
+  }
+  .stat-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .leaderboard { padding: 0 20px 16px; }
+  .lb-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .lb-area { color: var(--ink-mid); font-weight: 500; }
+  .lb-rent { color: var(--sea); font-weight: 600; font-family: 'Syne', sans-serif; }
+
+  /* ===== PIN POPUP ===== */
+  #pin-popup {
+    position: absolute;
+    background: var(--white);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 18px 20px;
+    min-width: 240px;
+    z-index: 200;
+    display: none;
+    pointer-events: all;
+  }
+  .popup-rent {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 800;
+    color: var(--sea);
+  }
+  .popup-meta { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .popup-tag {
+    display: inline-block; padding: 3px 10px; border-radius: 20px;
+    font-size: 11px; font-weight: 500; margin-top: 8px;
+  }
+  .tag-gated { background: var(--sea-light); color: var(--sea); }
+  .tag-open { background: #fff3e8; color: #b85d1c; }
+  .tag-avail { background: #dcfce7; color: #166534; }
+  .popup-actions { display: flex; gap: 8px; margin-top: 12px; }
+  .popup-btn {
+    flex: 1; padding: 7px; border-radius: 8px; border: 1.5px solid var(--border);
+    font-size: 12px; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; background: var(--surface); color: var(--ink-mid);
+    transition: all 0.15s; text-align: center;
+  }
+  .popup-btn:hover { background: var(--sea-light); color: var(--sea); border-color: var(--sea); }
+  .popup-close {
+    position: absolute; top: 10px; right: 12px;
+    background: none; border: none; font-size: 18px; cursor: pointer; color: var(--muted);
+  }
+
+  /* ===== MAP PINS ===== */
+  .map-pin {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .map-pin:hover { transform: translate(-50%, -100%) scale(1.15); }
+
+  .pin-body {
+    background: var(--pin-gated);
+    color: #fff;
+    border-radius: 8px 8px 0 8px;
+    padding: 5px 8px;
+    font-size: 11px; font-weight: 600;
+    font-family: 'Syne', sans-serif;
+    white-space: nowrap;
+    border: 2px solid rgba(255,255,255,0.4);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    position: relative;
+  }
+  .pin-body::after {
+    content: '';
+    position: absolute; bottom: -8px; left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: var(--pin-gated);
+  }
+  .pin-body.open-pin { background: var(--pin-open); }
+  .pin-body.open-pin::after { border-top-color: var(--pin-open); }
+  .pin-body.available-pin { outline: 2px solid #22c55e; outline-offset: 2px; }
+
+  .pin-bhk {
+    position: absolute; top: -8px; right: -8px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #fff; font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid #fff;
+  }
+
+  /* ===== RIGHT SIDE BUTTONS ===== */
+  #side-btns {
+    position: absolute; right: 12px; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 8px;
+    z-index: 80;
+  }
+  .side-icon-btn {
+    width: 42px; height: 42px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.15s;
+    backdrop-filter: blur(8px);
+  }
+  .side-icon-btn:hover { background: var(--sea); border-color: var(--sea); }
+  .side-icon-btn:hover svg { stroke: #fff; }
+  .side-icon-btn svg { width: 20px; height: 20px; stroke: var(--sea); fill: none; stroke-width: 1.8; }
+
+  /* ===== PIN FORM ===== */
+  #pin-form-overlay {
+    position: fixed; inset: 0;
+    background: rgba(15,31,46,0.6);
+    z-index: 300; display: none;
+    align-items: center; justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  #pin-form-overlay.show { display: flex; }
+
+  .form-modal {
+    background: var(--white);
+    border-radius: 18px;
+    padding: 28px;
+    width: 100%; max-width: 420px;
+    max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .form-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .form-sub { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block; font-size: 12px; font-weight: 500;
+    color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 10px 14px;
+    border: 1.5px solid var(--border); border-radius: 8px;
+    font-size: 14px; font-family: 'DM Sans', sans-serif;
+    color: var(--ink); background: var(--surface); outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--sea); }
+  .form-group textarea { resize: vertical; min-height: 70px; }
+
+  .form-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .form-pill {
+    padding: 6px 14px; border-radius: 20px;
+    border: 1.5px solid var(--border); background: var(--white);
+    font-size: 13px; cursor: pointer; transition: all 0.15s;
+  }
+  .form-pill:hover, .form-pill.sel { background: var(--sea); color: #fff; border-color: var(--sea); }
+
+  .form-actions { display: flex; gap: 10px; margin-top: 22px; }
+  .form-cancel {
+    flex: 1; padding: 11px; border-radius: 10px;
+    border: 1.5px solid var(--border); background: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; color: var(--muted);
+  }
+  .form-submit {
+    flex: 2; padding: 11px; border-radius: 10px;
+    border: none; background: var(--sea); color: #fff;
+    font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .form-submit:hover { background: var(--ink-mid); }
+
+  /* ===== ONBOARDING ===== */
+  #welcome {
+    position: fixed; inset: 0;
+    background: rgba(10,24,35,0.88);
+    z-index: 400; display: flex; align-items: center; justify-content: center;
+    padding: 20px; backdrop-filter: blur(6px);
+  }
+  .welcome-box {
+    background: var(--white);
+    border-radius: 22px;
+    padding: 36px 32px;
+    max-width: 440px; width: 100%;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+  }
+  .welcome-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 32px; font-weight: 800;
+    color: var(--sea); letter-spacing: -1px;
+    margin-bottom: 4px;
+  }
+  .welcome-logo span { color: var(--gold); }
+  .welcome-tagline {
+    font-size: 15px; color: var(--muted); margin-bottom: 24px;
+  }
+  .welcome-stat {
+    background: var(--sea-light);
+    border-radius: 12px; padding: 14px 20px;
+    margin-bottom: 20px;
+  }
+  .welcome-stat strong {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px; color: var(--sea); display: block;
+  }
+  .welcome-stat small { font-size: 13px; color: var(--ink-mid); }
+  .welcome-features { text-align: left; margin-bottom: 24px; }
+  .feat-row { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; font-size: 14px; color: var(--ink-mid); }
+  .feat-icon { font-size: 16px; margin-top: 1px; }
+  .welcome-cta {
+    width: 100%; padding: 14px;
+    background: var(--sea); color: #fff; border: none;
+    border-radius: 12px; font-family: 'Syne', sans-serif;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .welcome-cta:hover { background: var(--ink-mid); }
+  .welcome-legal { font-size: 11px; color: var(--muted); margin-top: 12px; }
+
+  /* ===== BOTTOM BAR ===== */
+  #bottom-bar {
+    position: absolute; bottom: 16px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 8px;
+    background: rgba(255,255,255,0.97);
+    border: 1px solid var(--border);
+    border-radius: 40px; padding: 6px 8px;
+    z-index: 80;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    backdrop-filter: blur(12px);
+  }
+  .bottom-btn {
+    padding: 8px 16px; border-radius: 30px;
+    border: none; background: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; color: var(--ink-mid);
+    cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .bottom-btn:hover { background: var(--sea-light); color: var(--sea); }
+  .bottom-btn.active { background: var(--sea); color: #fff; }
+
+  /* ===== MAP BACKGROUND (stylized) ===== */
+  #map-bg { position: absolute; inset: 0; }
+
+  /* Legend */
+  #legend {
+    position: absolute; bottom: 70px; left: 14px;
+    background: rgba(255,255,255,0.95); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 14px; font-size: 12px;
+    z-index: 80; backdrop-filter: blur(8px);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .legend-title { font-weight: 600; color: var(--ink); margin-bottom: 8px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; }
+  .legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: var(--ink-mid); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+  /* Notification */
+  #notif {
+    position: fixed; bottom: 80px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: #fff; padding: 12px 22px; border-radius: 30px;
+    font-size: 14px; z-index: 500;
+    opacity: 0; transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  #notif.show { opacity: 1; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    #side-panel { width: 100%; }
+    .topbar-btn span { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- WELCOME SCREEN -->
+<div id="welcome">
+  <div class="welcome-box">
+    <div class="welcome-logo">mumbai<span>.rent</span></div>
+    <div class="welcome-tagline">Mumbai's Anonymous Rent Map — real rents from real renters</div>
+    <div class="welcome-stat">
+      <strong id="w-count">1,200+</strong>
+      <small>real rents pinned across Mumbai. No brokers. No BS.</small>
+    </div>
+    <div class="welcome-features">
+      <div class="feat-row"><span class="feat-icon">📍</span><span>Pin your rent anonymously — no account needed</span></div>
+      <div class="feat-row"><span class="feat-icon">📊</span><span>Area Stats — draw any zone, see avg rent by BHK</span></div>
+      <div class="feat-row"><span class="feat-icon">🚇</span><span>Mumbai Metro lines overlay for commute planning</span></div>
+      <div class="feat-row"><span class="feat-icon">🤝</span><span>Flatmate matching — get connected, no middleman</span></div>
+      <div class="feat-row"><span class="feat-icon">🛰️</span><span>Satellite green cover — see trees vs concrete</span></div>
+    </div>
+    <button class="welcome-cta" onclick="closeWelcome()">View the Map →</button>
+    <div class="welcome-legal">By continuing you agree to our Privacy Policy & Terms. All data is user-reported.</div>
+  </div>
+</div>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <div class="logo">mumbai<span>.rent</span></div>
+  <input id="search" type="text" placeholder="Search area, society, locality…" oninput="filterSearch(this.value)">
+  <button class="topbar-btn" id="filter-btn" onclick="togglePanel('filter')">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    <span>Filter</span>
+  </button>
+  <button class="topbar-btn" id="stats-btn" onclick="togglePanel('stats')">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>
+    <span>Live Stats</span>
+  </button>
+  <button class="topbar-btn" id="metro-btn" onclick="toggleMetro()">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+    <span>Metro</span>
+  </button>
+</div>
+
+<!-- MAP -->
+<div id="map-container">
+  <svg id="map-svg" viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+    <!-- Stylized Mumbai map background -->
+    <!-- Sea/ocean -->
+    <rect width="900" height="700" fill="#b8d8e8"/>
+    
+    <!-- Arabian Sea west -->
+    <polygon points="0,0 220,0 180,100 150,200 120,300 100,400 80,500 60,600 0,700" fill="#8fc4d8"/>
+    
+    <!-- Mumbai island / peninsula shape -->
+    <polygon points="200,60 380,40 420,80 440,160 450,250 440,340 420,420 400,490 370,550 330,600 290,640 260,660 230,640 210,600 200,550 190,480 180,400 175,320 180,240 185,160 195,100" fill="#d4e8c2"/>
+    
+    <!-- Navi Mumbai east -->
+    <polygon points="520,200 680,180 750,220 780,300 760,380 740,460 700,520 650,560 600,580 550,560 520,520 500,460 490,380 500,300 510,240" fill="#d4e8c2"/>
+    
+    <!-- Thane / mainland area -->
+    <polygon points="550,50 900,0 900,400 750,380 700,320 680,240 620,180 560,160" fill="#d1e6c0"/>
+    
+    <!-- Bandra-Worli Sea Link (iconic bridge) -->
+    <line x1="265" y1="370" x2="280" y2="290" stroke="#c0c8d0" stroke-width="4" stroke-dasharray="6,3"/>
+    
+    <!-- Roads / arteries -->
+    <!-- Western Express Highway -->
+    <line x1="280" y1="60" x2="260" y2="650" stroke="#e8dcc8" stroke-width="5"/>
+    <!-- Eastern Express Highway -->
+    <line x1="420" y1="80" x2="440" y2="560" stroke="#e8dcc8" stroke-width="4"/>
+    <!-- LBS Marg -->
+    <line x1="500" y1="200" x2="520" y2="560" stroke="#e8dcc8" stroke-width="3"/>
+    <!-- NH-48 -->
+    <line x1="600" y1="50" x2="700" y2="400" stroke="#e8dcc8" stroke-width="3"/>
+
+    <!-- Area labels on map -->
+    <text x="235" y="155" font-family="DM Sans" font-size="10" fill="#6b8394" font-weight="500">Andheri</text>
+    <text x="230" y="220" font-family="DM Sans" font-size="10" fill="#6b8394" font-weight="500">Bandra</text>
+    <text x="220" y="310" font-family="DM Sans" font-size="10" fill="#6b8394" font-weight="500">Worli</text>
+    <text x="215" y="420" font-family="DM Sans" font-size="10" fill="#6b8394" font-weight="500">Parel</text>
+    <text x="210" y="500" font-family="DM Sans" font-size="10" fill="#6b8394" font-weight="500">Dadar</text>
+    <text x="205" y="570" font-family="DM Sans" font-size="10" fill="#6b8394" font-weight="500">South Mumbai</text>
+    <text x="540" y="340" font-family="DM Sans" font-size="10" fill="#6b8394" font-weight="500">Navi Mumbai</text>
+    <text x="590" y="220" font-family="DM Sans" font-size="10" fill="#6b8394" font-weight="500">Thane</text>
+    <text x="310" y="120" font-family="DM Sans" font-size="10" fill="#6b8394" font-weight="500">Goregaon</text>
+    <text x="360" y="80" font-family="DM Sans" font-size="10" fill="#6b8394" font-weight="500">Borivali</text>
+
+    <!-- Sea label -->
+    <text x="55" y="380" font-family="Syne" font-size="13" fill="#5a8ea0" font-style="italic" font-weight="600">Arabian Sea</text>
+
+    <!-- Metro lines (hidden by default) -->
+    <g id="metro-layer" style="display:none">
+      <!-- Line 1 (red): Versova-Andheri-Ghatkopar -->
+      <polyline points="170,170 210,180 250,190 300,195 350,200 400,210 440,230 480,260 520,290" stroke="#e53935" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Line 2 (blue): DN Nagar-Mandale -->
+      <polyline points="195,190 235,230 255,270 260,310 265,360 270,400 275,440" stroke="#1565c0" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Line 7 (purple): Dahisar-Andheri -->
+      <polyline points="250,80 260,110 265,140 265,170 260,200" stroke="#7b1fa2" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Station dots -->
+      <circle cx="210" cy="180" r="5" fill="#fff" stroke="#e53935" stroke-width="2"/>
+      <circle cx="300" cy="195" r="5" fill="#fff" stroke="#e53935" stroke-width="2"/>
+      <circle cx="400" cy="210" r="5" fill="#fff" stroke="#e53935" stroke-width="2"/>
+      <circle cx="480" cy="260" r="5" fill="#fff" stroke="#e53935" stroke-width="2"/>
+      <circle cx="265" cy="310" r="5" fill="#fff" stroke="#1565c0" stroke-width="2"/>
+      <circle cx="265" cy="170" r="5" fill="#fff" stroke="#7b1fa2" stroke-width="2"/>
+      <text x="216" y="174" font-family="DM Sans" font-size="8" fill="#e53935">Andheri</text>
+      <text x="406" y="204" font-family="DM Sans" font-size="8" fill="#e53935">Ghatkopar</text>
+      <text x="270" y="308" font-family="DM Sans" font-size="8" fill="#1565c0">Bandra</text>
+    </g>
+  </svg>
+
+  <!-- Pins rendered as HTML over map -->
+  <div id="pins-layer"></div>
+</div>
+
+<!-- SIDE PANEL (Filter / Stats) -->
+<div id="side-panel">
+  <!-- Filter View -->
+  <div id="filter-view">
+    <div class="panel-header">
+      <div class="panel-title">Filter Flats</div>
+      <button class="close-btn" onclick="closePanel()">×</button>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Area / Neighbourhood</span>
+      <select class="area-select" id="area-filter">
+        <option>All Mumbai</option>
+        <option>Bandra West</option><option>Bandra East</option>
+        <option>Andheri West</option><option>Andheri East</option>
+        <option>Juhu</option>
+        <option>Versova</option>
+        <option>Goregaon West</option><option>Goregaon East</option>
+        <option>Borivali West</option><option>Borivali East</option>
+        <option>Kandivali</option>
+        <option>Malad</option>
+        <option>Dahisar</option>
+        <option>Powai</option>
+        <option>Vikhroli</option>
+        <option>Ghatkopar</option>
+        <option>Mulund</option>
+        <option>Thane</option>
+        <option>Worli</option>
+        <option>Lower Parel</option>
+        <option>Prabhadevi</option>
+        <option>Dadar</option>
+        <option>Mahim</option>
+        <option>Chembur</option>
+        <option>Kurla</option>
+        <option>Sion</option>
+        <option>Wadala</option>
+        <option>Colaba</option>
+        <option>Cuffe Parade</option>
+        <option>Fort</option>
+        <option>Churchgate</option>
+        <option>Navi Mumbai - Vashi</option>
+        <option>Navi Mumbai - Belapur</option>
+        <option>Kharghar</option>
+        <option>Panvel</option>
+        <option>Mira Road</option>
+        <option>Vasai</option>
+        <option>Virar</option>
+      </select>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Bedrooms (BHK)</span>
+      <div class="bhk-pills" id="bhk-filter">
+        <div class="pill" onclick="togglePill(this)">1</div>
+        <div class="pill" onclick="togglePill(this)">2</div>
+        <div class="pill" onclick="togglePill(this)">3</div>
+        <div class="pill" onclick="togglePill(this)">4</div>
+        <div class="pill" onclick="togglePill(this)">5+</div>
+      </div>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Rent Range (₹/month)</span>
+      <div class="range-row">
+        <input class="range-input" type="number" placeholder="Min ₹" id="min-rent">
+        <span class="range-sep">to</span>
+        <input class="range-input" type="number" placeholder="Max ₹" id="max-rent">
+      </div>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Furnishing</span>
+      <div class="toggle-grid">
+        <div class="toggle-btn" onclick="toggleFilter(this)">🛋 Furnished</div>
+        <div class="toggle-btn" onclick="toggleFilter(this)">📦 Unfurnished</div>
+      </div>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Society Type</span>
+      <div class="toggle-grid">
+        <div class="toggle-btn" onclick="toggleFilter(this)">🏘 Society</div>
+        <div class="toggle-btn" onclick="toggleFilter(this)">🚪 Independent</div>
+      </div>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Near Metro</span>
+      <div class="toggle-btn" onclick="toggleFilter(this)" style="width: fit-content; padding: 7px 16px;">🚇 Near Metro Station</div>
+    </div>
+    <div class="filter-section">
+      <span class="filter-label">Who Lives Here</span>
+      <div class="toggle-grid">
+        <div class="toggle-btn" onclick="toggleFilter(this)">👨‍👩‍👧 Family</div>
+        <div class="toggle-btn" onclick="toggleFilter(this)">🎓 Bachelor</div>
+      </div>
+    </div>
+    <button class="apply-btn" onclick="applyFilter()">Apply Filters</button>
+  </div>
+
+  <!-- Stats View (hidden by default, shown via JS) -->
+  <div id="stats-view" style="display:none">
+    <div class="panel-header">
+      <div class="panel-title">Live Stats</div>
+      <button class="close-btn" onclick="closePanel()">×</button>
+    </div>
+    <div style="padding: 12px 20px 0; display: flex; gap: 8px; border-bottom: 1px solid var(--border);">
+      <button class="bottom-btn active" style="font-size: 12px; padding: 6px 12px;" onclick="switchStat('overall',this)">Overall</button>
+      <button class="bottom-btn" style="font-size: 12px; padding: 6px 12px;" onclick="switchStat('near',this)">Near You</button>
+    </div>
+    <div style="padding: 14px 20px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--muted); font-weight: 500;">Average Rents by BHK</div>
+    <div id="stat-cards"></div>
+    <div style="padding: 14px 20px 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.7px; color: var(--muted); font-weight: 500;">🏆 Top Areas by Avg Rent</div>
+    <div class="leaderboard" id="leaderboard"></div>
+  </div>
+</div>
+
+<!-- RIGHT SIDE BUTTONS -->
+<div id="side-btns">
+  <button class="side-icon-btn" title="My Location" onclick="showNotif('Locating you…')">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7" stroke-dasharray="3 2"/></svg>
+  </button>
+  <button class="side-icon-btn" title="Area Stats" onclick="showNotif('Tap two points on map to draw area')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  </button>
+  <button class="side-icon-btn" title="Green Cover" onclick="showNotif('Satellite vegetation overlay — coming soon!')">
+    <svg viewBox="0 0 24 24"><path d="M12 22V12"/><path d="M12 12C12 12 7 8 7 4a5 5 0 0 1 10 0c0 4-5 8-5 8z"/></svg>
+  </button>
+  <button class="side-icon-btn" title="Share" onclick="showNotif('Link copied to clipboard!')">
+    <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+  </button>
+</div>
+
+<!-- LEGEND -->
+<div id="legend">
+  <div class="legend-title">Map Legend</div>
+  <div class="legend-row"><div class="legend-dot" style="background: var(--pin-gated);"></div>Society / Gated</div>
+  <div class="legend-row"><div class="legend-dot" style="background: var(--pin-open);"></div>Independent / Open</div>
+  <div class="legend-row"><div class="legend-dot" style="background:#22c55e;"></div>Available Now</div>
+</div>
+
+<!-- BOTTOM BUTTONS -->
+<div id="bottom-bar">
+  <button class="bottom-btn active" id="btn-pin" onclick="openPinForm()">📍 Pin Rent Here</button>
+  <button class="bottom-btn" onclick="showNotif('Flat Hunt mode — drop a seeker pin!')">🏠 Find Flat / Tenants</button>
+  <button class="bottom-btn" onclick="showNotif('Use the creator button below to give feedback!')">💬 How to Use</button>
+  <button class="bottom-btn" onclick="showNotif('Built for Mumbai renters. No brokers. No BS.')">👋 About</button>
+</div>
+
+<!-- PIN POPUP -->
+<div id="pin-popup">
+  <button class="popup-close" onclick="closePopup()">×</button>
+  <div class="popup-rent" id="popup-rent">₹45,000/mo</div>
+  <div class="popup-meta" id="popup-meta">2 BHK · Furnished · Andheri West</div>
+  <div>
+    <span class="popup-tag tag-gated" id="popup-type">🏘 Society</span>
+    <span class="popup-tag tag-avail" id="popup-avail" style="display:none">AVAILABLE</span>
+  </div>
+  <div id="popup-note" style="font-size: 13px; color: var(--muted); margin-top: 8px;"></div>
+  <div class="popup-actions">
+    <button class="popup-btn" onclick="showNotif('Thanks! Report submitted.')">🚩 Report</button>
+    <button class="popup-btn" onclick="showNotif('Rating submitted. Thanks!')">⭐ Rate</button>
+    <button class="popup-btn" onclick="showNotif('Connecting you with owner via email!')">📧 Contact</button>
+  </div>
+</div>
+
+<!-- PIN FORM -->
+<div id="pin-form-overlay">
+  <div class="form-modal">
+    <div class="form-title">📍 Pin Your Rent</div>
+    <div class="form-sub">Anonymous — no account needed. Help others know what's real.</div>
+    <div class="form-group">
+      <label>Bedrooms (BHK) *</label>
+      <div class="form-pills" id="bhk-sel">
+        <div class="form-pill sel" onclick="selPill(this,'bhk')">1</div>
+        <div class="form-pill" onclick="selPill(this,'bhk')">2</div>
+        <div class="form-pill" onclick="selPill(this,'bhk')">3</div>
+        <div class="form-pill" onclick="selPill(this,'bhk')">4</div>
+        <div class="form-pill" onclick="selPill(this,'bhk')">5+</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Monthly Rent (₹) *</label>
+      <input type="number" placeholder="e.g. 45000" id="f-rent">
+    </div>
+    <div class="form-group">
+      <label>Furnishing *</label>
+      <div class="form-pills" id="furn-sel">
+        <div class="form-pill sel" onclick="selPill(this,'furn')">🛋 Furnished</div>
+        <div class="form-pill" onclick="selPill(this,'furn')">📦 Unfurnished</div>
+        <div class="form-pill" onclick="selPill(this,'furn')">🪑 Semi-furnished</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Area / Neighbourhood *</label>
+      <select id="f-area">
+        <option>Bandra West</option><option>Bandra East</option>
+        <option>Andheri West</option><option>Andheri East</option>
+        <option>Juhu</option><option>Versova</option>
+        <option>Goregaon West</option><option>Goregaon East</option>
+        <option>Borivali West</option><option>Borivali East</option>
+        <option>Kandivali</option><option>Malad</option>
+        <option>Dahisar</option><option>Powai</option>
+        <option>Vikhroli</option><option>Ghatkopar</option>
+        <option>Mulund</option><option>Thane</option>
+        <option>Worli</option><option>Lower Parel</option>
+        <option>Prabhadevi</option><option>Dadar</option>
+        <option>Mahim</option><option>Chembur</option>
+        <option>Kurla</option><option>Sion</option>
+        <option>Wadala</option><option>Colaba</option>
+        <option>Cuffe Parade</option><option>Fort</option>
+        <option>Churchgate</option>
+        <option>Navi Mumbai - Vashi</option>
+        <option>Navi Mumbai - Belapur</option>
+        <option>Kharghar</option><option>Panvel</option>
+        <option>Mira Road</option><option>Vasai</option><option>Virar</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Society Type *</label>
+      <div class="form-pills" id="soc-sel">
+        <div class="form-pill sel" onclick="selPill(this,'soc')">🏘 Society/Gated</div>
+        <div class="form-pill" onclick="selPill(this,'soc')">🚪 Independent</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Deposit Paid</label>
+      <select id="f-dep">
+        <option value="">— Select —</option>
+        <option>1 month</option><option>2 months</option><option>3 months</option>
+        <option>4 months</option><option>5 months</option><option>6+ months</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Society / Building Name</label>
+      <input type="text" placeholder="e.g. Hiranandani Gardens" id="f-society">
+    </div>
+    <div class="form-group">
+      <label>Who Lives Here? (optional)</label>
+      <div class="form-pills" id="occ-sel">
+        <div class="form-pill" onclick="selPill(this,'occ')">👨‍👩‍👧 Family</div>
+        <div class="form-pill" onclick="selPill(this,'occ')">🎓 Bachelor/PG</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>One-liner on the stay (optional)</label>
+      <textarea id="f-note" placeholder="e.g. Quiet society, great sea breeze, 5 min from metro…"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Looking for a flatmate?</label>
+      <div class="form-pills" id="flat-sel">
+        <div class="form-pill" onclick="selPill(this,'flat')">🤝 Yes</div>
+        <div class="form-pill" onclick="selPill(this,'flat')">✖ No</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Your email (optional)</label>
+      <input type="email" placeholder="For flatmate connections — never shown publicly" id="f-email">
+    </div>
+    <div class="form-actions">
+      <button class="form-cancel" onclick="closePinForm()">Cancel</button>
+      <button class="form-submit" onclick="submitPin()">Pin It →</button>
+    </div>
+  </div>
+</div>
+
+<div id="notif"></div>
+
+<script>
+// ===== DATA =====
+const PINS = [
+  { id:1, x:250, y:220, rent:75000, bhk:2, area:'Bandra West', gated:true, furnished:true, avail:false, note:'Fab sea-facing flat, 3 min walk to Linking Road' },
+  { id:2, x:270, y:200, rent:55000, bhk:1, area:'Bandra East', gated:false, furnished:true, avail:true, note:'PG-friendly, near metro' },
+  { id:3, x:240, y:160, rent:38000, bhk:2, area:'Andheri West', gated:true, furnished:false, avail:false, note:'Spacious 2BHK in society' },
+  { id:4, x:255, y:175, rent:28000, bhk:1, area:'Andheri East', gated:true, furnished:false, avail:true, note:'Near Metro Line 1' },
+  { id:5, x:220, y:140, rent:32000, bhk:2, area:'Goregaon West', gated:true, furnished:false, avail:false, note:'Good connectivity, peaceful' },
+  { id:6, x:230, y:130, rent:22000, bhk:1, area:'Kandivali', gated:false, furnished:false, avail:true, note:'Budget option, ground floor' },
+  { id:7, x:290, y:210, rent:110000, bhk:3, area:'Juhu', gated:true, furnished:true, avail:false, note:'Premium Juhu — 10 min from beach' },
+  { id:8, x:265, y:300, rent:95000, bhk:2, area:'Worli', gated:true, furnished:true, avail:true, note:'Sea Link view, luxury tower' },
+  { id:9, x:245, y:390, rent:70000, bhk:2, area:'Lower Parel', gated:true, furnished:true, avail:false, note:'Corporate hub proximity' },
+  { id:10, x:240, y:460, rent:55000, bhk:2, area:'Dadar', gated:false, furnished:false, avail:false, note:'Central location, Shivaji Park nearby' },
+  { id:11, x:330, y:200, rent:48000, bhk:2, area:'Powai', gated:true, furnished:true, avail:true, note:'Lake view, IT hub, great for techies' },
+  { id:12, x:375, y:225, rent:36000, bhk:2, area:'Ghatkopar', gated:false, furnished:false, avail:false, note:'Metro connectivity, budget' },
+  { id:13, x:540, y:340, rent:30000, bhk:2, area:'Navi Mumbai - Vashi', gated:true, furnished:false, avail:true, note:'Well-planned city, affordable' },
+  { id:14, x:570, y:380, rent:24000, bhk:1, area:'Kharghar', gated:true, furnished:false, avail:false, note:'Hills, nature, new township' },
+  { id:15, x:600, y:200, rent:27000, bhk:2, area:'Thane', gated:true, furnished:false, avail:true, note:'Big flats, cheaper than Mumbai' },
+  { id:16, x:260, y:490, rent:35000, bhk:1, area:'Sion', gated:false, furnished:false, avail:false, note:'Central, convenient' },
+  { id:17, x:215, y:540, rent:85000, bhk:2, area:'Colaba', gated:false, furnished:true, avail:false, note:'South Mumbai charm, heritage area' },
+  { id:18, x:350, y:170, rent:19000, bhk:1, area:'Vikhroli', gated:false, furnished:false, avail:true, note:'Affordable, near Powai' },
+];
+
+const AVG_RENTS = {
+  '1 BHK': { avg: 29000, count: 320, gated: 32000, open: 22000 },
+  '2 BHK': { avg: 58000, count: 540, gated: 68000, open: 44000 },
+  '3 BHK': { avg: 110000, count: 220, gated: 125000, open: 88000 },
+  '4 BHK': { avg: 185000, count: 80, gated: 195000, open: 160000 },
+};
+
+const LEADERBOARD = [
+  { area: 'Cuffe Parade', rent: '₹2,40,000' },
+  { area: 'Worli / Sea Link', rent: '₹1,80,000' },
+  { area: 'Bandra West', rent: '₹1,25,000' },
+  { area: 'Juhu', rent: '₹1,10,000' },
+  { area: 'Lower Parel', rent: '₹95,000' },
+];
+
+// ===== STATE =====
+let metroVisible = false;
+let currentPanel = null;
+let userPins = [];
+
+// ===== INIT =====
+function init() {
+  renderPins(PINS);
+  renderStatCards();
+  renderLeaderboard();
+}
+
+function closeWelcome() {
+  document.getElementById('welcome').style.display = 'none';
+}
+
+// ===== PINS =====
+function renderPins(pins) {
+  const layer = document.getElementById('pins-layer');
+  layer.innerHTML = '';
+  pins.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'map-pin';
+    div.style.left = p.x + 'px';
+    div.style.top = p.y + 'px';
+    const isOpen = !p.gated;
+    div.innerHTML = `
+      <div class="pin-body ${isOpen ? 'open-pin' : ''} ${p.avail ? 'available-pin' : ''}" onclick="showPopup(${p.id}, ${p.x}, ${p.y})">
+        ₹${formatRent(p.rent)}
+        <div class="pin-bhk">${p.bhk}</div>
+      </div>`;
+    layer.appendChild(div);
+  });
+}
+
+function formatRent(r) {
+  if (r >= 100000) return (r/100000).toFixed(1) + 'L';
+  if (r >= 1000) return Math.round(r/1000) + 'k';
+  return r;
+}
+
+// ===== POPUP =====
+function showPopup(id, x, y) {
+  const p = [...PINS, ...userPins].find(p => p.id === id);
+  if (!p) return;
+  const popup = document.getElementById('pin-popup');
+  document.getElementById('popup-rent').textContent = '₹' + p.rent.toLocaleString('en-IN') + '/mo';
+  document.getElementById('popup-meta').textContent = `${p.bhk} BHK · ${p.furnished ? 'Furnished' : 'Unfurnished'} · ${p.area}`;
+  document.getElementById('popup-type').textContent = p.gated ? '🏘 Society' : '🚪 Independent';
+  document.getElementById('popup-type').className = 'popup-tag ' + (p.gated ? 'tag-gated' : 'tag-open');
+  const av = document.getElementById('popup-avail');
+  av.style.display = p.avail ? 'inline-block' : 'none';
+  document.getElementById('popup-note').textContent = p.note || '';
+
+  const rect = document.getElementById('map-container').getBoundingClientRect();
+  let px = x; let py = y - 130;
+  if (px + 260 > rect.width) px = rect.width - 270;
+  if (py < 70) py = y + 20;
+  popup.style.left = px + 'px';
+  popup.style.top = py + 'px';
+  popup.style.display = 'block';
+}
+
+function closePopup() { document.getElementById('pin-popup').style.display = 'none'; }
+
+// ===== PANEL =====
+function togglePanel(type) {
+  const panel = document.getElementById('side-panel');
+  const fv = document.getElementById('filter-view');
+  const sv = document.getElementById('stats-view');
+  if (currentPanel === type) { closePanel(); return; }
+  currentPanel = type;
+  fv.style.display = type === 'filter' ? 'block' : 'none';
+  sv.style.display = type === 'stats' ? 'block' : 'none';
+  panel.classList.add('open');
+  document.getElementById('filter-btn').classList.toggle('active', type === 'filter');
+  document.getElementById('stats-btn').classList.toggle('active', type === 'stats');
+}
+
+function closePanel() {
+  document.getElementById('side-panel').classList.remove('open');
+  document.getElementById('filter-btn').classList.remove('active');
+  document.getElementById('stats-btn').classList.remove('active');
+  currentPanel = null;
+}
+
+// ===== STATS =====
+function renderStatCards() {
+  const c = document.getElementById('stat-cards');
+  c.innerHTML = Object.entries(AVG_RENTS).map(([k,v]) => `
+    <div class="stat-card">
+      <div class="stat-bhk">${k} — ${v.count} pins</div>
+      <div class="stat-val">₹${v.avg.toLocaleString('en-IN')}</div>
+      <div class="stat-sub">Gated: ₹${v.gated.toLocaleString('en-IN')} · Open: ₹${v.open.toLocaleString('en-IN')}</div>
+    </div>`).join('');
+}
+
+function renderLeaderboard() {
+  document.getElementById('leaderboard').innerHTML = LEADERBOARD.map(l => `
+    <div class="lb-row">
+      <span class="lb-area">${l.area}</span>
+      <span class="lb-rent">${l.rent}</span>
+    </div>`).join('');
+}
+
+function switchStat(type, btn) {
+  document.querySelectorAll('#stats-view .bottom-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ===== METRO =====
+function toggleMetro() {
+  metroVisible = !metroVisible;
+  document.getElementById('metro-layer').style.display = metroVisible ? 'block' : 'none';
+  document.getElementById('metro-btn').classList.toggle('active', metroVisible);
+  showNotif(metroVisible ? 'Mumbai Metro lines shown' : 'Metro hidden');
+}
+
+// ===== FILTER =====
+function togglePill(el) { el.classList.toggle('active'); }
+function toggleFilter(el) { el.classList.toggle('active'); }
+
+function applyFilter() {
+  closePanel();
+  showNotif('Filters applied!');
+}
+
+function filterSearch(val) {
+  if (!val) { renderPins(PINS); return; }
+  const filtered = PINS.filter(p => p.area.toLowerCase().includes(val.toLowerCase()) || (p.note || '').toLowerCase().includes(val.toLowerCase()));
+  renderPins(filtered);
+}
+
+// ===== PIN FORM =====
+function openPinForm() { document.getElementById('pin-form-overlay').classList.add('show'); }
+function closePinForm() { document.getElementById('pin-form-overlay').classList.remove('show'); }
+
+function selPill(el, group) {
+  el.closest('.form-pills').querySelectorAll('.form-pill').forEach(p => p.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+function submitPin() {
+  const rent = parseInt(document.getElementById('f-rent').value);
+  const area = document.getElementById('f-area').value;
+  const bhkEl = document.querySelector('#bhk-sel .form-pill.sel');
+  const bhk = bhkEl ? parseInt(bhkEl.textContent) || 1 : 1;
+  const gatedEl = document.querySelector('#soc-sel .form-pill.sel');
+  const gated = gatedEl ? gatedEl.textContent.includes('Society') : true;
+  const note = document.getElementById('f-note').value;
+  const flatEl = document.querySelector('#flat-sel .form-pill.sel');
+  const avail = flatEl ? flatEl.textContent.includes('Yes') : false;
+
+  if (!rent || rent < 1000) { showNotif('Please enter a valid rent amount'); return; }
+
+  const newPin = {
+    id: Date.now(),
+    x: 220 + Math.random() * 200,
+    y: 150 + Math.random() * 300,
+    rent, bhk, area, gated, avail, note,
+    furnished: true,
+    userPin: true
+  };
+  userPins.push(newPin);
+  renderPins([...PINS, ...userPins]);
+  closePinForm();
+  showNotif('📍 Pin added! Help others find honest rents.');
+}
+
+// ===== NOTIF =====
+function showNotif(msg) {
+  const n = document.getElementById('notif');
+  n.textContent = msg;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 2800);
+}
+
+// Close popup on map click
+document.getElementById('map-container').addEventListener('click', function(e) {
+  if (!e.target.closest('.pin-body') && !e.target.closest('#pin-popup')) closePopup();
+});
+
+init();
+</script>
+</body>
+</html>

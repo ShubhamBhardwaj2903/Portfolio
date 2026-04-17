@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlignBooks — Brand Revamp Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=New+Amsterdam&family=Pinyon+Script&family=Urbanist:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #dc3545;
+    --red-dim: #b02030;
+    --red-glow: rgba(220,53,69,0.12);
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --off-white: #f6f5f1;
+    --warm-gray: #f0ede6;
+    --gray-100: #eeece8;
+    --gray-200: #d8d6d0;
+    --gray-400: #9a9a94;
+    --gray-600: #606060;
+    --accent: #c8a97e;
+    --accent-light: #f2e8d9;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Urbanist', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    font-size: 16px;
+    line-height: 1.7;
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* Cursor */
+  .cursor { width: 10px; height: 10px; background: var(--red); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s; }
+  .cursor-ring { width: 36px; height: 36px; border: 1px solid rgba(220,53,69,0.45); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .25s, height .25s; }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 4rem;
+    border-bottom: 1px solid rgba(255,255,255,0.055);
+    background: rgba(10,10,10,0.88);
+    backdrop-filter: blur(14px);
+  }
+  .nav-logo { font-family: 'New Amsterdam', sans-serif; font-size: 1.45rem; letter-spacing: 0.04em; color: var(--white); text-decoration: none; }
+  .nav-logo span { color: var(--red); }
+  .nav-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-400); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 4px 14px; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-size: 12.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-400); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--white); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 4rem 5rem;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .hero-bg-word {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -52%);
+    font-family: 'New Amsterdam', sans-serif;
+    font-size: clamp(6rem, 18vw, 16rem);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.035);
+    white-space: nowrap; pointer-events: none; user-select: none;
+    letter-spacing: -0.01em;
+  }
+
+  /* Diagonal red line accent */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 15%;
+    width: 1px; height: 60%;
+    background: linear-gradient(to bottom, transparent, var(--red), transparent);
+    opacity: 0.25;
+  }
+
+  .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; }
+  .hero-eyebrow-line { width: 36px; height: 1px; background: var(--red); }
+  .hero-eyebrow span { font-size: 11.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); }
+
+  .hero-title { font-family: 'New Amsterdam', sans-serif; font-size: clamp(3.2rem, 8.5vw, 7.5rem); line-height: 0.95; letter-spacing: -0.01em; margin-bottom: 0.4rem; }
+  .hero-title-script { font-family: 'Pinyon Script', cursive; font-size: clamp(2.6rem, 7vw, 6rem); color: var(--accent); display: block; line-height: 1.1; margin-left: 0.4rem; }
+
+  .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.07); }
+  .hero-desc { max-width: 500px; font-size: 16px; color: var(--gray-400); line-height: 1.75; font-weight: 300; }
+  .hero-meta { display: flex; gap: 2.5rem; }
+  .hero-meta-item .label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-600); font-weight: 500; margin-bottom: 4px; }
+  .hero-meta-item .value { font-size: 14px; font-weight: 600; color: var(--white); text-align: right; }
+
+  /* Bounce rate hero stat */
+  .bounce-hero {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-top: 2rem; padding: 1.5rem 2rem;
+    border: 1px solid rgba(220,53,69,0.2);
+    border-radius: 16px;
+    background: var(--red-glow);
+    max-width: 480px;
+  }
+  .bounce-hero .b-from { font-family: 'New Amsterdam', sans-serif; font-size: 3rem; color: rgba(255,255,255,0.2); line-height: 1; }
+  .bounce-hero .b-arrow { font-size: 1.8rem; color: var(--red); }
+  .bounce-hero .b-to { font-family: 'New Amsterdam', sans-serif; font-size: 3rem; color: var(--red); line-height: 1; }
+  .bounce-hero .b-label { font-size: 12px; color: var(--gray-400); font-weight: 300; line-height: 1.5; margin-top: 4px; }
+
+  /* Sections */
+  .section { padding: 6rem 4rem; border-bottom: 1px solid rgba(255,255,255,0.055); position: relative; overflow: hidden; }
+  .section-light { background: var(--off-white); color: var(--black); }
+  .section-warm { background: var(--warm-gray); color: var(--black); }
+
+  .section-number { font-family: 'New Amsterdam', sans-serif; font-size: 10rem; color: rgba(255,255,255,0.025); position: absolute; top: -1rem; right: 3rem; line-height: 1; pointer-events: none; user-select: none; }
+  .section-light .section-number, .section-warm .section-number { color: rgba(0,0,0,0.04); }
+
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+  .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+  .eyebrow span { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); }
+
+  .sec-title { font-family: 'New Amsterdam', sans-serif; font-size: clamp(2rem, 4.5vw, 3.5rem); line-height: 1.05; letter-spacing: 0.01em; margin-bottom: 0.2rem; }
+  .sec-title-script { font-family: 'Pinyon Script', cursive; font-size: clamp(1.7rem, 3.5vw, 2.8rem); color: var(--accent); display: block; margin-top: -0.15rem; }
+  .section-light .sec-title-script, .section-warm .sec-title-script { color: var(--red-dim); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 2.5rem; }
+  .three-col { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2rem; }
+
+  .body-text { font-size: 15.5px; line-height: 1.85; font-weight: 300; color: rgba(255,255,255,0.62); }
+  .body-text p + p { margin-top: 1rem; }
+  .section-light .body-text, .section-warm .body-text { color: rgba(0,0,0,0.6); }
+
+  /* Before / After comparison */
+  .compare-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; margin-top: 2.5rem;
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .compare-col { padding: 2rem; }
+  .compare-col.before { background: rgba(255,255,255,0.02); }
+  .compare-col.after { background: rgba(220,53,69,0.07); }
+
+  .compare-tag {
+    display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: 100px; padding: 4px 14px; margin-bottom: 1.25rem;
+  }
+  .compare-tag.before-tag { border: 1px solid rgba(255,255,255,0.1); color: var(--gray-400); }
+  .compare-tag.after-tag { border: 1px solid rgba(220,53,69,0.35); color: var(--red); background: rgba(220,53,69,0.1); }
+
+  .compare-title { font-family: 'New Amsterdam', sans-serif; font-size: 1.4rem; letter-spacing: 0.02em; margin-bottom: 1rem; }
+  .compare-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .compare-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.55); font-weight: 300; }
+  .compare-list li::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; margin-top: 9px; flex-shrink: 0; }
+  .before .compare-list li::before { background: var(--gray-600); }
+  .after .compare-list li::before { background: var(--red); }
+  .after .compare-list li { color: rgba(255,255,255,0.72); }
+
+  /* Stat strip */
+  .stat-strip {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1px; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; overflow: hidden;
+    margin-top: 2rem;
+  }
+  .stat-cell { background: var(--black); padding: 2.5rem 2rem; position: relative; overflow: hidden; transition: background .3s; }
+  .stat-cell:hover { background: rgba(220,53,69,0.05); }
+  .stat-cell::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform .4s ease; }
+  .stat-cell:hover::after { transform: scaleX(1); }
+  .stat-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray-600); font-weight: 600; margin-bottom: .75rem; }
+  .stat-value { font-family: 'New Amsterdam', sans-serif; font-size: 3.2rem; line-height: 1; color: var(--white); margin-bottom: .5rem; }
+  .stat-note { font-size: 13px; color: var(--gray-600); font-weight: 300; line-height: 1.5; }
+
+  /* Light section stat */
+  .stat-strip-light { background: rgba(0,0,0,0.06); border-color: rgba(0,0,0,0.08); }
+  .stat-strip-light .stat-cell { background: var(--white); }
+  .stat-strip-light .stat-label { color: var(--gray-600); }
+  .stat-strip-light .stat-value { color: var(--black); }
+  .stat-strip-light .stat-note { color: var(--gray-600); }
+  .stat-strip-light .stat-cell::after { background: var(--red); }
+
+  /* Pull quote */
+  .pull-quote { border-left: 3px solid var(--red); padding: 1.25rem 1.75rem; margin: 2rem 0; background: var(--red-glow); }
+  .pull-quote p { font-family: 'Pinyon Script', cursive; font-size: 1.9rem; line-height: 1.4; color: var(--accent); }
+  .section-light .pull-quote, .section-warm .pull-quote { background: rgba(220,53,69,0.06); }
+  .section-light .pull-quote p, .section-warm .pull-quote p { color: var(--red-dim); }
+
+  /* Screen placeholder */
+  .screen-label-strip {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(220,53,69,0.09); border: 1px solid rgba(220,53,69,0.2);
+    border-radius: 100px; padding: 5px 14px;
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red);
+    margin-bottom: 1rem;
+  }
+  .section-light .screen-label-strip, .section-warm .screen-label-strip { background: rgba(220,53,69,0.07); }
+
+  .screen-row { display: flex; gap: 14px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px; }
+  .screen-row::-webkit-scrollbar { height: 3px; }
+  .screen-row::-webkit-scrollbar-track { background: transparent; }
+  .screen-row::-webkit-scrollbar-thumb { background: rgba(220,53,69,0.3); border-radius: 10px; }
+
+  .screen-frame {
+    flex-shrink: 0; border-radius: 14px; overflow: hidden; position: relative;
+    transition: transform .3s ease, border-color .3s ease;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  }
+  .screen-frame:hover { transform: translateY(-5px); }
+
+  .sf-dark { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
+  .sf-dark:hover { border-color: rgba(220,53,69,0.35); }
+  .sf-light { background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.1); }
+  .sf-light:hover { border-color: rgba(220,53,69,0.4); }
+
+  .sf-sm { width: 160px; height: 290px; }
+  .sf-md { width: 185px; height: 330px; }
+  .sf-lg { width: 210px; height: 370px; }
+  .sf-xl { width: 320px; height: 200px; border-radius: 14px; }
+  .sf-wide { width: 420px; height: 240px; }
+  .sf-banner { width: 380px; height: 180px; }
+
+  .sf-inner-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); text-align: center; padding: 0 1rem; }
+  .sf-light .sf-inner-label { color: rgba(0,0,0,0.22); }
+  .sf-hint { position: absolute; bottom: 10px; left: 0; right: 0; text-align: center; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.12); }
+  .sf-light .sf-hint { color: rgba(0,0,0,0.15); }
+
+  .add-hint { width: 100%; border: 1px dashed rgba(220,53,69,0.25); border-radius: 10px; padding: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(220,53,69,0.4); margin-top: 10px; transition: border-color .2s, color .2s; }
+  .add-hint:hover { border-color: var(--red); color: var(--red); }
+
+  /* Typography comparison */
+  .type-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: 16px; overflow: hidden; margin-top: 2rem; border: 1px solid rgba(255,255,255,0.07); }
+  .type-col { padding: 2.5rem 2rem; }
+  .type-before { background: rgba(255,255,255,0.02); }
+  .type-after { background: rgba(220,53,69,0.06); }
+  .type-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-600); margin-bottom: 1.5rem; display: block; }
+  .type-after .type-tag { color: var(--red); }
+  .type-heading-old { font-family: serif; font-size: 1.8rem; font-weight: 700; color: rgba(255,255,255,0.35); line-height: 1.2; margin-bottom: 0.75rem; }
+  .type-heading-new { font-family: 'New Amsterdam', sans-serif; font-size: 2rem; letter-spacing: 0.02em; color: var(--white); line-height: 1.1; margin-bottom: 0.75rem; }
+  .type-body-old { font-size: 13px; color: rgba(255,255,255,0.25); line-height: 1.6; font-family: Arial, sans-serif; }
+  .type-body-new { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.75; font-family: 'Urbanist', sans-serif; font-weight: 300; }
+  .type-note { font-size: 11px; color: var(--gray-600); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1rem; }
+  .type-after .type-note { border-color: rgba(220,53,69,0.15); color: rgba(220,53,69,0.55); }
+
+  /* Festival cards */
+  .festival-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 14px; margin-top: 2rem; }
+  .festival-card {
+    border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; overflow: hidden;
+    background: var(--white); position: relative;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .festival-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(220,53,69,0.1); }
+  .festival-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; transform: scaleX(0); transform-origin: left; transition: transform .4s ease; }
+  .festival-card:hover::after { transform: scaleX(1); }
+
+  .fc-diwali::after { background: #ff9500; }
+  .fc-holi::after { background: #e91e8c; }
+  .fc-independence::after { background: #138808; }
+  .fc-christmas::after { background: #2d7a3a; }
+  .fc-ganesh::after { background: #ff6b00; }
+  .fc-navratri::after { background: #9c27b0; }
+  .fc-anniversary::after { background: var(--red); }
+  .fc-valentine::after { background: #e91e63; }
+
+  .fc-visual {
+    height: 100px; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    position: relative; overflow: hidden;
+  }
+  .fc-diwali .fc-visual { background: linear-gradient(135deg, #1a0a00, #3d1f00); color: #ff9500; }
+  .fc-holi .fc-visual { background: linear-gradient(135deg, #1a001a, #2d0038); color: #e91e8c; }
+  .fc-independence .fc-visual { background: linear-gradient(135deg, #001a00, #003d00); color: #4caf50; }
+  .fc-christmas .fc-visual { background: linear-gradient(135deg, #001a07, #003d14); color: #66bb6a; }
+  .fc-ganesh .fc-visual { background: linear-gradient(135deg, #1a0800, #3d1c00); color: #ff8c42; }
+  .fc-navratri .fc-visual { background: linear-gradient(135deg, #100020, #260046); color: #ce93d8; }
+  .fc-anniversary .fc-visual { background: linear-gradient(135deg, #1a0003, #3d0009); color: #ef9a9a; }
+  .fc-valentine .fc-visual { background: linear-gradient(135deg, #1a0010, #3d0026); color: #f48fb1; }
+
+  .fc-label { padding: 12px 14px; }
+  .fc-label .fc-name { font-size: 13px; font-weight: 600; color: var(--black); margin-bottom: 3px; }
+  .fc-label .fc-desc { font-size: 11px; color: var(--gray-600); line-height: 1.4; font-weight: 300; }
+
+  /* Add screen placeholder in festival section */
+  .festival-placeholder {
+    border: 1px dashed rgba(0,0,0,0.12); border-radius: 14px; overflow: hidden;
+    background: rgba(0,0,0,0.02); display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; min-height: 185px; padding: 1rem;
+    transition: border-color .2s;
+  }
+  .festival-placeholder:hover { border-color: rgba(220,53,69,0.35); }
+  .festival-placeholder span { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(0,0,0,0.2); text-align: center; }
+
+  /* Nav restructure visual */
+  .nav-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: 16px; overflow: hidden; margin-top: 2rem; border: 1px solid rgba(255,255,255,0.07); }
+  .nav-col { padding: 2rem; }
+  .nav-before { background: rgba(255,255,255,0.02); }
+  .nav-after { background: rgba(220,53,69,0.06); }
+  .nav-col-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1.25rem; display: block; }
+  .nav-before .nav-col-tag { color: var(--gray-600); }
+  .nav-after .nav-col-tag { color: var(--red); }
+
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13.5px; color: rgba(255,255,255,0.5); font-weight: 300; }
+  .nav-after .nav-item { color: rgba(255,255,255,0.75); border-color: rgba(220,53,69,0.1); }
+  .nav-item:last-child { border-bottom: none; }
+  .nav-item-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gray-600); flex-shrink: 0; }
+  .nav-after .nav-item-dot { background: var(--red); }
+  .nav-item-cross { width: 14px; height: 14px; border-radius: 50%; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; font-size: 9px; color: rgba(255,255,255,0.3); flex-shrink: 0; }
+  .nav-item-check { width: 14px; height: 14px; border-radius: 50%; background: rgba(220,53,69,0.15); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--red); flex-shrink: 0; }
+
+  /* Landing page section */
+  .lp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 2rem; }
+  .lp-card {
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; overflow: hidden;
+    background: rgba(255,255,255,0.02); transition: transform .3s, border-color .3s;
+    position: relative;
+  }
+  .lp-card:hover { transform: translateY(-4px); border-color: rgba(220,53,69,0.3); }
+  .lp-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform .4s; }
+  .lp-card:hover::before { transform: scaleX(1); }
+  .lp-visual { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+  .lp-visual-1 { background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.18); }
+  .lp-visual-2 { background: rgba(220,53,69,0.06); color: rgba(220,53,69,0.3); }
+  .lp-visual-3 { background: rgba(200,169,126,0.06); color: rgba(200,169,126,0.3); }
+  .lp-visual-4 { background: rgba(255,255,255,0.02); color: rgba(255,255,255,0.18); }
+  .lp-info { padding: 1.25rem; }
+  .lp-title { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+  .lp-body { font-size: 12.5px; color: var(--gray-400); line-height: 1.6; font-weight: 300; }
+
+  /* Insight list */
+  .insight-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 1.5rem; }
+  .insight-list li { display: flex; gap: 14px; align-items: flex-start; font-size: 15px; color: rgba(255,255,255,0.58); line-height: 1.7; font-weight: 300; }
+  .insight-list li::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--red); margin-top: 9px; flex-shrink: 0; }
+  .section-light .insight-list li, .section-warm .insight-list li { color: rgba(0,0,0,0.6); }
+  .section-light .insight-list li::before, .section-warm .insight-list li::before { background: var(--red); }
+
+  /* Role badges */
+  .role-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1.5rem; }
+  .role-badge { display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 7px 16px; font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); transition: border-color .2s, color .2s; }
+  .role-badge:hover { border-color: var(--red); color: var(--white); }
+  .role-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+
+  /* Learnings */
+  .learn-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 2rem; }
+  .learn-card { border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; padding: 2rem; background: var(--white); position: relative; overflow: hidden; transition: box-shadow .3s, border-color .3s; }
+  .learn-card:hover { box-shadow: 0 8px 28px rgba(220,53,69,0.1); border-color: rgba(220,53,69,0.2); }
+  .learn-num { font-family: 'Pinyon Script', cursive; font-size: 3.8rem; color: var(--red); opacity: 0.14; line-height: 1; margin-bottom: .5rem; }
+  .learn-title { font-family: 'New Amsterdam', sans-serif; font-size: 1.35rem; color: var(--black); letter-spacing: 0.02em; margin-bottom: .5rem; }
+  .learn-body { font-size: 14px; color: rgba(0,0,0,0.55); line-height: 1.7; font-weight: 300; }
+
+  /* Color palette display */
+  .palette-row { display: flex; gap: 10px; margin-top: 1.5rem; flex-wrap: wrap; }
+  .palette-chip { flex: 1; min-width: 80px; height: 80px; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 10px; position: relative; overflow: hidden; }
+  .palette-chip .chip-name { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .palette-chip .chip-hex { font-size: 10px; font-weight: 300; opacity: 0.7; }
+  .pc-1 { background: #1b3a6b; }
+  .pc-1 .chip-name, .pc-1 .chip-hex { color: rgba(255,255,255,0.9); }
+  .pc-2 { background: #dc3545; }
+  .pc-2 .chip-name, .pc-2 .chip-hex { color: rgba(255,255,255,0.9); }
+  .pc-3 { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1); }
+  .pc-3 .chip-name, .pc-3 .chip-hex { color: rgba(255,255,255,0.9); }
+  .pc-4 { background: #f6f5f1; border: 1px solid rgba(0,0,0,0.08); }
+  .pc-4 .chip-name, .pc-4 .chip-hex { color: rgba(0,0,0,0.7); }
+  .pc-5 { background: #c8a97e; }
+  .pc-5 .chip-name, .pc-5 .chip-hex { color: rgba(255,255,255,0.9); }
+
+  /* Old palette */
+  .pc-old-1 { background: #003399; border: 1px solid rgba(255,255,255,0.08); }
+  .pc-old-1 .chip-name, .pc-old-1 .chip-hex { color: rgba(255,255,255,0.7); }
+  .pc-old-2 { background: #f5f5f5; border: 1px solid rgba(0,0,0,0.08); }
+  .pc-old-2 .chip-name, .pc-old-2 .chip-hex { color: rgba(0,0,0,0.5); }
+  .pc-old-3 { background: #333333; }
+  .pc-old-3 .chip-name, .pc-old-3 .chip-hex { color: rgba(255,255,255,0.6); }
+
+  .palette-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-600); margin-bottom: .5rem; margin-top: 1.5rem; }
+
+  /* Divider */
+  .divider { height: 1px; background: rgba(255,255,255,0.06); margin: 2.5rem 0; }
+  .section-light .divider, .section-warm .divider { background: rgba(0,0,0,0.08); }
+
+  /* Impact callout */
+  .impact-callout {
+    display: flex; align-items: center; gap: 2.5rem;
+    padding: 2rem 2.5rem; border: 1px solid rgba(220,53,69,0.25);
+    border-radius: 16px; background: var(--red-glow); margin-top: 2rem;
+  }
+  .ic-stat { text-align: center; flex-shrink: 0; }
+  .ic-stat .num { font-family: 'New Amsterdam', sans-serif; font-size: 3.5rem; line-height: 1; color: var(--red); }
+  .ic-stat .sub { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-600); font-weight: 600; margin-top: 4px; }
+  .ic-divider { width: 1px; height: 80px; background: rgba(220,53,69,0.2); flex-shrink: 0; }
+  .ic-text { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.75; font-weight: 300; }
+
+  /* Footer */
+  footer { padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-logo { font-family: 'New Amsterdam', sans-serif; font-size: 1.45rem; letter-spacing: 0.04em; color: rgba(255,255,255,0.28); }
+  .footer-logo span { color: var(--red); }
+  .footer-right { font-size: 13px; color: rgba(255,255,255,0.18); font-weight: 300; }
+
+  /* Fade up */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-up { opacity: 0; animation: fadeUp .7s ease forwards; }
+  .d1 { animation-delay: .1s; } .d2 { animation-delay: .25s; } .d3 { animation-delay: .4s; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, .section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero { padding-bottom: 3.5rem; }
+    .section { padding-top: 4rem; padding-bottom: 4rem; }
+    .hero-bottom { flex-direction: column; gap: 2rem; }
+    .hero-meta { gap: 1.5rem; }
+    .hero-meta-item .value { text-align: left; }
+    .two-col, .compare-grid, .type-compare, .nav-compare { grid-template-columns: 1fr; }
+    .three-col { grid-template-columns: 1fr 1fr; }
+    .stat-strip { grid-template-columns: 1fr; }
+    .learn-grid { grid-template-columns: 1fr; }
+    .impact-callout { flex-direction: column; gap: 1.5rem; text-align: center; }
+    .ic-divider { width: 80px; height: 1px; }
+    footer { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Nav -->
+<nav>
+  <a class="nav-logo" href="#">Align<span>Books</span></a>
+  <div class="nav-links">
+    <a href="#context">Context</a>
+    <a href="#audit">Audit</a>
+    <a href="#revamp">Revamp</a>
+    <a href="#festive">Festive</a>
+    <a href="#landing">Landing Pages</a>
+    <a href="#impact">Impact</a>
+  </div>
+  <div class="nav-tag">Brand Revamp</div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg-word">ALIGNBOOKS</div>
+
+  <div class="hero-eyebrow fade-up">
+    <div class="hero-eyebrow-line"></div>
+    <span>Brand Revamp · Website Redesign · Case Study</span>
+  </div>
+
+  <h1 class="hero-title fade-up d1">
+    ALIGN<br>BOOKS
+    <span class="hero-title-script">A brand reborn.</span>
+  </h1>
+
+  <div class="hero-bottom fade-up d2">
+    <div>
+      <p class="hero-desc">A full brand overhaul for India's leading ERP & accounting software — new visual identity, website redesign, festive campaign themes, and conversion-optimised landing pages. Designed end-to-end as the sole designer.</p>
+
+      <div class="bounce-hero" style="margin-top: 2rem;">
+        <div class="ic-stat">
+          <div class="num" style="color: rgba(255,255,255,0.25);">70%</div>
+          <div class="sub">Bounce Before</div>
+        </div>
+        <div class="b-arrow" style="font-size:2rem; color: var(--red);">→</div>
+        <div class="ic-stat">
+          <div class="num" style="color: var(--red);">30%</div>
+          <div class="sub">Bounce After</div>
+        </div>
+        <div style="width:1px; height:60px; background:rgba(220,53,69,0.2); flex-shrink:0;"></div>
+        <div>
+          <div style="font-size:1.6rem; font-family:'New Amsterdam',sans-serif; color:var(--red);">−57%</div>
+          <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gray-600); font-weight:600;">Bounce Rate Drop</div>
+          <div style="font-size:12px; color:var(--gray-400); font-weight:300; margin-top:4px; line-height:1.4;">Organic, post-revamp</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="label">Role</div>
+        <div class="value">Sole Designer</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Scope</div>
+        <div class="value">Brand + Web + Campaigns</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Platform</div>
+        <div class="value">Web · Desktop · Mobile</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 Context -->
+<section class="section" id="context">
+  <div class="section-number">01</div>
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>01 — Context</span></div>
+    <h2 class="sec-title">What AlignBooks is,<br><span class="sec-title-script">and where it stood.</span></h2>
+
+    <div class="two-col">
+      <div>
+        <div class="body-text">
+          <p>AlignBooks is India's leading ERP and cloud accounting software for MSMEs — covering everything from GST billing and inventory to payroll, HR, POS, and production management. It serves thousands of businesses across retail, manufacturing, pharmacy, hospitality, and more.</p>
+          <p>Despite the product's depth and market position, the website and brand identity hadn't kept pace. The visual language felt dated — mismatched typography, an inconsistent colour palette, a cluttered navigation structure, and no seasonal or campaign-oriented design presence.</p>
+          <p>For a software brand competing with funded players like Zoho and Tally, first impressions matter enormously. The website was the primary acquisition channel — and it wasn't doing the product justice.</p>
+        </div>
+
+        <div class="role-badges">
+          <div class="role-badge"><div class="role-dot"></div>Brand Identity</div>
+          <div class="role-badge"><div class="role-dot"></div>Website Redesign</div>
+          <div class="role-badge"><div class="role-dot"></div>Typography System</div>
+          <div class="role-badge"><div class="role-dot"></div>Colour Scheme</div>
+          <div class="role-badge"><div class="role-dot"></div>Festive Themes</div>
+          <div class="role-badge"><div class="role-dot"></div>Landing Pages</div>
+          <div class="role-badge"><div class="role-dot"></div>Nav Architecture</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="pull-quote">
+          <p>"The product was India's best. The brand didn't look like it yet."</p>
+        </div>
+
+        <div class="stat-strip" style="margin-top: 1.5rem;">
+          <div class="stat-cell">
+            <div class="stat-label">Target Market</div>
+            <div class="stat-value" style="font-size:2rem;">MSMEs</div>
+            <div class="stat-note">Startups to enterprises across India</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-label">Product Depth</div>
+            <div class="stat-value" style="font-size:2rem;">9+</div>
+            <div class="stat-note">Core modules, 20+ integrations</div>
+          </div>
+          <div class="stat-cell">
+            <div class="stat-label">Industries</div>
+            <div class="stat-value" style="font-size:2rem;">12+</div>
+            <div class="stat-note">Retail, pharma, manufacturing & more</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 Brand Audit -->
+<section class="section section-light" id="audit">
+  <div class="section-number">02</div>
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>02 — Brand Audit</span></div>
+    <h2 class="sec-title" style="color:var(--black);">What the old brand<br><span class="sec-title-script">was getting wrong.</span></h2>
+
+    <div class="two-col">
+      <div>
+        <div class="body-text">
+          <p>Before touching a single pixel, I audited the existing site (<a href="https://test.alignbooks.com" style="color:var(--red-dim); text-decoration:none;">test.alignbooks.com</a>) against the new design (<a href="https://alignbooks.com" style="color:var(--red-dim); text-decoration:none;">alignbooks.com</a>) to identify what was working and what wasn't.</p>
+          <p>The old site had the skeleton of a good product website but suffered from a lack of visual intentionality — everything from typography choices to colour usage felt arbitrary rather than designed.</p>
+        </div>
+
+        <ul class="insight-list">
+          <li>Heavy serif and system fonts made headlines feel corporate and stiff — poor for an aspirational SaaS brand</li>
+          <li>The blue-dominant palette was safe and expected — it failed to differentiate AlignBooks from dozens of identical ERP competitors</li>
+          <li>Navigation was dense and unstructured — users reported difficulty finding features, pricing, and modules</li>
+          <li>The hero section led with a product name instead of a user benefit — no clear value proposition above the fold</li>
+          <li>No consistent design system — spacing, card styles, button shapes, and section layouts were inconsistent across pages</li>
+          <li>Zero campaign or seasonal design presence — the brand went dark during peak Indian festive shopping seasons</li>
+        </ul>
+      </div>
+
+      <div>
+        <!-- Old palette -->
+        <p class="palette-label">Old colour palette</p>
+        <div class="palette-row">
+          <div class="palette-chip pc-old-1"><span class="chip-name">Primary</span><span class="chip-hex">#003399</span></div>
+          <div class="palette-chip pc-old-2"><span class="chip-name">Background</span><span class="chip-hex">#F5F5F5</span></div>
+          <div class="palette-chip pc-old-3"><span class="chip-name">Text</span><span class="chip-hex">#333333</span></div>
+        </div>
+
+        <!-- Type comparison -->
+        <div class="type-compare" style="margin-top: 2rem; border-color: rgba(0,0,0,0.08);">
+          <div class="type-col type-before" style="background: rgba(0,0,0,0.02);">
+            <span class="type-tag" style="color: rgba(0,0,0,0.35);">Before</span>
+            <div class="type-heading-old" style="color: rgba(0,0,0,0.4);">AlignBooks ERP</div>
+            <div class="type-body-old" style="color: rgba(0,0,0,0.35);">India's accounting software for MSMEs.</div>
+            <div class="type-note" style="border-color: rgba(0,0,0,0.08); color: rgba(0,0,0,0.3);">Generic serif + system body</div>
+          </div>
+          <div class="type-col type-after" style="background: rgba(220,53,69,0.05);">
+            <span class="type-tag">After</span>
+            <div class="type-heading-new" style="color: var(--black);">ERP reimagined for today's businesses</div>
+            <div class="type-body-new" style="color: rgba(0,0,0,0.6);">From accounting to payroll — everything in one powerful, intuitive cloud ERP.</div>
+            <div class="type-note" style="border-color: rgba(220,53,69,0.15); color: rgba(220,53,69,0.55);">New Amsterdam + Urbanist</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 The Revamp -->
+<section class="section" id="revamp">
+  <div class="section-number">03</div>
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>03 — The Brand Revamp</span></div>
+    <h2 class="sec-title">A new visual identity,<br><span class="sec-title-script">built to last.</span></h2>
+
+    <!-- Before / After -->
+    <div class="compare-grid">
+      <div class="compare-col before">
+        <span class="compare-tag before-tag">Before · test.alignbooks.com</span>
+        <div class="compare-title">The old brand</div>
+        <ul class="compare-list">
+          <li>Generic serif headlines with no personality — looked like any legacy ERP</li>
+          <li>Flat blue (#003399) as the dominant colour — standard, forgettable, no accent energy</li>
+          <li>Inconsistent card styles and section rhythm across pages</li>
+          <li>Navigation crammed with every link, no hierarchy or grouping</li>
+          <li>Hero section led with product name — zero benefit-first communication</li>
+          <li>No visual system for campaigns, festivals, or seasonal moments</li>
+          <li>Landing pages for lead generation were generic with poor conversion design</li>
+        </ul>
+      </div>
+      <div class="compare-col after">
+        <span class="compare-tag after-tag">After · alignbooks.com</span>
+        <div class="compare-title">The new brand</div>
+        <ul class="compare-list">
+          <li>New Amsterdam display font paired with Urbanist — bold, modern, characterful</li>
+          <li>Deep navy + bold red accent palette — confident, warm, distinctly AlignBooks</li>
+          <li>Consistent design system — spacing scale, card hierarchy, button language, section templates</li>
+          <li>Restructured mega-nav with grouped categories: Features, Modules, Resources, Products, Community</li>
+          <li>Hero redesigned around user benefit: "ERP reimagined for today's businesses"</li>
+          <li>Full festive theme system — 8+ seasonal designs deployed across homepage and campaigns</li>
+          <li>High-conversion landing page templates for marketing and lead-gen campaigns</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- New colour palette -->
+    <div class="divider" style="margin-top: 3rem;"></div>
+    <p class="palette-label" style="color: var(--gray-400);">New colour palette</p>
+    <div class="palette-row">
+      <div class="palette-chip pc-1"><span class="chip-name">Navy</span><span class="chip-hex">#1B3A6B</span></div>
+      <div class="palette-chip pc-2"><span class="chip-name">Red</span><span class="chip-hex">#DC3545</span></div>
+      <div class="palette-chip pc-3"><span class="chip-name">Black</span><span class="chip-hex">#0A0A0A</span></div>
+      <div class="palette-chip pc-4"><span class="chip-name">Off-White</span><span class="chip-hex">#F6F5F1</span></div>
+      <div class="palette-chip pc-5"><span class="chip-name">Accent Gold</span><span class="chip-hex">#C8A97E</span></div>
+    </div>
+
+    <!-- Homepage screenshots -->
+    <div class="divider" style="margin-top: 3rem;"></div>
+    <div class="screen-label-strip" style="margin-top: 0;">Homepage — Before vs After</div>
+    <div class="screen-row">
+      <div class="screen-frame sf-dark sf-wide">
+        <div class="sf-inner-label">Old Homepage<br>(test.alignbooks.com)</div>
+        <span class="sf-hint">Add screenshot here</span>
+      </div>
+      <div class="screen-frame sf-dark sf-wide" style="border-color: rgba(220,53,69,0.2);">
+        <div class="sf-inner-label" style="color:rgba(220,53,69,0.35);">New Homepage<br>(alignbooks.com)</div>
+        <span class="sf-hint">Add screenshot here</span>
+      </div>
+    </div>
+    <div class="add-hint">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><line x1="6.5" y1="1.5" x2="6.5" y2="11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="1.5" y1="6.5" x2="11.5" y2="6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Add full-page screenshots from Figma
+    </div>
+
+    <!-- Interior pages -->
+    <div class="screen-label-strip" style="margin-top: 2rem;">Interior Pages — Features, Modules, Pricing</div>
+    <div class="screen-row">
+      <div class="screen-frame sf-dark sf-banner"><div class="sf-inner-label">Features Page</div><span class="sf-hint">Add screenshot here</span></div>
+      <div class="screen-frame sf-dark sf-banner"><div class="sf-inner-label">Modules Page</div><span class="sf-hint">Add screenshot here</span></div>
+      <div class="screen-frame sf-dark sf-banner"><div class="sf-inner-label">Pricing Page</div><span class="sf-hint">Add screenshot here</span></div>
+      <div class="screen-frame sf-dark sf-banner"><div class="sf-inner-label">Industry Verticals</div><span class="sf-hint">Add screenshot here</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 Navigation Restructure -->
+<section class="section section-warm" id="nav">
+  <div class="section-number">04</div>
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>04 — Navigation Redesign</span></div>
+    <h2 class="sec-title" style="color:var(--black);">From cluttered to<br><span class="sec-title-script">crystal clear.</span></h2>
+
+    <div class="body-text" style="max-width: 620px; margin-bottom: 0;">
+      <p>The old navigation crammed all links into a flat, ungrouped list — making it hard for users to find features, pricing, or modules. With AlignBooks expanding its product ecosystem (AlignCart, Align360, GrowSkills), the nav needed to scale intelligently.</p>
+    </div>
+
+    <div class="nav-compare" style="border-color: rgba(0,0,0,0.08); margin-top: 2rem;">
+      <div class="nav-col nav-before" style="background: rgba(0,0,0,0.03);">
+        <span class="nav-col-tag" style="color:rgba(0,0,0,0.35);">Before — Flat, unstructured</span>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.06); color:rgba(0,0,0,0.4);"><div class="nav-item-cross" style="background:rgba(0,0,0,0.06); color:rgba(0,0,0,0.3);">✕</div> Home</div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.06); color:rgba(0,0,0,0.4);"><div class="nav-item-cross" style="background:rgba(0,0,0,0.06); color:rgba(0,0,0,0.3);">✕</div> GST Compliance</div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.06); color:rgba(0,0,0,0.4);"><div class="nav-item-cross" style="background:rgba(0,0,0,0.06); color:rgba(0,0,0,0.3);">✕</div> Mobile App</div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.06); color:rgba(0,0,0,0.4);"><div class="nav-item-cross" style="background:rgba(0,0,0,0.06); color:rgba(0,0,0,0.3);">✕</div> Desktop App</div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.06); color:rgba(0,0,0,0.4);"><div class="nav-item-cross" style="background:rgba(0,0,0,0.06); color:rgba(0,0,0,0.3);">✕</div> Touch POS</div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.06); color:rgba(0,0,0,0.4);"><div class="nav-item-cross" style="background:rgba(0,0,0,0.06); color:rgba(0,0,0,0.3);">✕</div> Sales & Billing</div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.06); color:rgba(0,0,0,0.4);"><div class="nav-item-cross" style="background:rgba(0,0,0,0.06); color:rgba(0,0,0,0.3);">✕</div> Purchases</div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.06); color:rgba(0,0,0,0.4);"><div class="nav-item-cross" style="background:rgba(0,0,0,0.06); color:rgba(0,0,0,0.3);">✕</div> Downloads</div>
+        <div class="nav-item" style="border-bottom:none; border-color:rgba(0,0,0,0.06); color:rgba(0,0,0,0.4);"><div class="nav-item-cross" style="background:rgba(0,0,0,0.06); color:rgba(0,0,0,0.3);">✕</div> About Us</div>
+      </div>
+      <div class="nav-col nav-after" style="background: rgba(220,53,69,0.04);">
+        <span class="nav-col-tag" style="color:var(--red-dim);">After — Grouped mega-nav</span>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.07); color:rgba(0,0,0,0.75);"><div class="nav-item-check" style="background:rgba(220,53,69,0.12); color:var(--red-dim);">✓</div> <strong style="font-weight:600;">Features</strong> <span style="font-size:11px; color:rgba(0,0,0,0.35); margin-left:auto;">GST, POS, Mobile, Desktop…</span></div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.07); color:rgba(0,0,0,0.75);"><div class="nav-item-check" style="background:rgba(220,53,69,0.12); color:var(--red-dim);">✓</div> <strong style="font-weight:600;">Modules</strong> <span style="font-size:11px; color:rgba(0,0,0,0.35); margin-left:auto;">Sales, Finance, Inventory…</span></div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.07); color:rgba(0,0,0,0.75);"><div class="nav-item-check" style="background:rgba(220,53,69,0.12); color:var(--red-dim);">✓</div> <strong style="font-weight:600;">Products</strong> <span style="font-size:11px; color:rgba(0,0,0,0.35); margin-left:auto;">AlignCart, Align360, Learn…</span></div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.07); color:rgba(0,0,0,0.75);"><div class="nav-item-check" style="background:rgba(220,53,69,0.12); color:var(--red-dim);">✓</div> <strong style="font-weight:600;">Resources</strong> <span style="font-size:11px; color:rgba(0,0,0,0.35); margin-left:auto;">Docs, FAQs, Downloads…</span></div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.07); color:rgba(0,0,0,0.75);"><div class="nav-item-check" style="background:rgba(220,53,69,0.12); color:var(--red-dim);">✓</div> <strong style="font-weight:600;">Community</strong> <span style="font-size:11px; color:rgba(0,0,0,0.35); margin-left:auto;">Partners, CA/CPA…</span></div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.07); color:rgba(0,0,0,0.75);"><div class="nav-item-check" style="background:rgba(220,53,69,0.12); color:var(--red-dim);">✓</div> <strong style="font-weight:600;">Pricing</strong> <span style="font-size:11px; color:rgba(0,0,0,0.35); margin-left:auto;">Always visible in nav</span></div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.07); color:rgba(0,0,0,0.75);"><div class="nav-item-check" style="background:rgba(220,53,69,0.12); color:var(--red-dim);">✓</div> <strong style="font-weight:600;">Industries</strong> <span style="font-size:11px; color:rgba(0,0,0,0.35); margin-left:auto;">12+ verticals</span></div>
+        <div class="nav-item" style="border-color:rgba(0,0,0,0.07); color:rgba(0,0,0,0.75);"><div class="nav-item-check" style="background:rgba(220,53,69,0.12); color:var(--red-dim);">✓</div> <strong style="font-weight:600;">News in Dropdown</strong> <span style="font-size:11px; color:rgba(0,0,0,0.35); margin-left:auto;">Events + blog previews</span></div>
+        <div class="nav-item" style="border-bottom:none; border-color:rgba(0,0,0,0.07); color:rgba(0,0,0,0.75);"><div class="nav-item-check" style="background:rgba(220,53,69,0.12); color:var(--red-dim);">✓</div> <strong style="font-weight:600;">CTA Buttons</strong> <span style="font-size:11px; color:rgba(0,0,0,0.35); margin-left:auto;">Sign Up · Buy Now · Login</span></div>
+      </div>
+    </div>
+
+    <div class="screen-label-strip" style="margin-top: 2.5rem;">Navigation — Before vs After Screenshots</div>
+    <div class="screen-row">
+      <div class="screen-frame sf-light sf-wide"><div class="sf-inner-label" style="color:rgba(0,0,0,0.22);">Old Nav (test.alignbooks.com)</div><span class="sf-hint" style="color:rgba(0,0,0,0.18);">Add screenshot here</span></div>
+      <div class="screen-frame sf-light sf-wide" style="border-color: rgba(220,53,69,0.2);"><div class="sf-inner-label" style="color:rgba(220,53,69,0.3);">New Mega-Nav (alignbooks.com)</div><span class="sf-hint" style="color:rgba(0,0,0,0.18);">Add screenshot here</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 Festive Themes -->
+<section class="section" id="festive">
+  <div class="section-number">05</div>
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>05 — Festive Themes</span></div>
+    <h2 class="sec-title">A brand that celebrates<br><span class="sec-title-script">with India.</span></h2>
+
+    <div class="two-col">
+      <div>
+        <div class="body-text">
+          <p>One of the most unique parts of this brand revamp was building a living, responsive visual identity — one that could adapt to India's rich calendar of festivals and cultural moments without losing brand coherence.</p>
+          <p>I designed seasonal themes for 8+ occasions, each with its own colour palette, visual motifs, and banner compositions — applied across the homepage hero, social media, and marketing campaigns. Every theme was distinct yet unmistakably AlignBooks.</p>
+        </div>
+      </div>
+      <div>
+        <div class="pull-quote">
+          <p>"The brand didn't just update — it came alive across India's entire festive calendar."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="festival-grid">
+      <div class="festival-card fc-diwali">
+        <div class="fc-visual">Diwali</div>
+        <div class="fc-label">
+          <div class="fc-name">Diwali</div>
+          <div class="fc-desc">Warm golds, deep blacks & festive lamp motifs</div>
+        </div>
+      </div>
+      <div class="festival-card fc-holi">
+        <div class="fc-visual">Holi</div>
+        <div class="fc-label">
+          <div class="fc-name">Holi</div>
+          <div class="fc-desc">Vibrant colour splashes on dark base</div>
+        </div>
+      </div>
+      <div class="festival-card fc-independence">
+        <div class="fc-visual">Independence Day</div>
+        <div class="fc-label">
+          <div class="fc-name">Independence Day</div>
+          <div class="fc-desc">Tricolour palette, patriotic pride</div>
+        </div>
+      </div>
+      <div class="festival-card fc-christmas">
+        <div class="fc-visual">Christmas / New Year</div>
+        <div class="fc-label">
+          <div class="fc-name">Christmas & New Year</div>
+          <div class="fc-desc">Pine greens, celebratory gold, winter warmth</div>
+        </div>
+      </div>
+      <div class="festival-card fc-ganesh">
+        <div class="fc-visual">Ganesh Chaturthi</div>
+        <div class="fc-label">
+          <div class="fc-name">Ganesh Chaturthi</div>
+          <div class="fc-desc">Saffron & marigold tones, auspicious energy</div>
+        </div>
+      </div>
+      <div class="festival-card fc-navratri">
+        <div class="fc-visual">Navratri</div>
+        <div class="fc-label">
+          <div class="fc-name">Navratri</div>
+          <div class="fc-desc">Nine-night colour cycle, rich purples & reds</div>
+        </div>
+      </div>
+      <div class="festival-card fc-anniversary">
+        <div class="fc-visual">AB Anniversary</div>
+        <div class="fc-label">
+          <div class="fc-name">AlignBooks Anniversary</div>
+          <div class="fc-desc">Brand-first celebration, offers & milestones</div>
+        </div>
+      </div>
+      <div class="festival-card fc-valentine">
+        <div class="fc-visual">Valentine's Week</div>
+        <div class="fc-label">
+          <div class="fc-name">Valentine's Week</div>
+          <div class="fc-desc">Soft pinks & reds, playful warmth</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Festive screen placeholders -->
+    <div class="screen-label-strip" style="margin-top: 2.5rem;">Festive Theme Designs — Replace with your Figma exports</div>
+    <div class="screen-row">
+      <div class="screen-frame sf-dark sf-banner"><div class="sf-inner-label">Diwali Homepage Banner</div><span class="sf-hint">Add design here</span></div>
+      <div class="screen-frame sf-dark sf-banner"><div class="sf-inner-label">Holi Campaign Banner</div><span class="sf-hint">Add design here</span></div>
+      <div class="screen-frame sf-dark sf-banner"><div class="sf-inner-label">Independence Day</div><span class="sf-hint">Add design here</span></div>
+    </div>
+    <div class="screen-row">
+      <div class="screen-frame sf-dark sf-banner"><div class="sf-inner-label">Ganesh Chaturthi Banner</div><span class="sf-hint">Add design here</span></div>
+      <div class="screen-frame sf-dark sf-banner"><div class="sf-inner-label">Navratri Banner</div><span class="sf-hint">Add design here</span></div>
+      <div class="screen-frame sf-dark sf-banner"><div class="sf-inner-label">AB Anniversary Theme</div><span class="sf-hint">Add design here</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 Landing Pages -->
+<section class="section section-light" id="landing">
+  <div class="section-number">06</div>
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>06 — Landing Pages</span></div>
+    <h2 class="sec-title" style="color:var(--black);">Designed to convert,<br><span class="sec-title-script">not just to impress.</span></h2>
+
+    <div class="two-col">
+      <div>
+        <div class="body-text">
+          <p>AlignBooks runs active paid and organic marketing campaigns targeting MSMEs across India. The old landing pages were generic — the same homepage layout repurposed for every campaign, with no tailoring to intent, audience, or offer.</p>
+          <p>I redesigned the landing page system from scratch — focused on conversion principles: a single strong headline, a benefit-first value proposition, social proof, and a low-friction lead capture form above the fold.</p>
+          <p>The result was a set of modular, campaign-ready templates that the marketing team could deploy quickly across industries, features, and seasonal promotions — each with consistent brand language but tailored messaging.</p>
+        </div>
+      </div>
+      <div>
+        <ul class="insight-list">
+          <li>Single-column, distraction-free layout — no global nav, no exit paths except the CTA</li>
+          <li>Benefit-led headline above the fold — problem → solution → social proof within the first scroll</li>
+          <li>Integrated lead capture form with minimal fields — name, phone, email — reducing friction</li>
+          <li>Industry-specific variants — the same template adapted for pharma, retail, manufacturing, CA/CPA</li>
+          <li>Festive offer integration — landing pages could carry seasonal themes tied to homepage campaigns</li>
+          <li>Mobile-first layout — the majority of AlignBooks' marketing traffic comes from mobile users</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="lp-grid">
+      <div class="lp-card">
+        <div class="lp-visual lp-visual-1">Lead Gen — Generic</div>
+        <div class="lp-info">
+          <div class="lp-title" style="color:var(--black);">General Lead Page</div>
+          <div class="lp-body">Single CTA, benefit-first hero, short form, trust signals. Used for broad campaigns.</div>
+        </div>
+      </div>
+      <div class="lp-card">
+        <div class="lp-visual lp-visual-2">Industry-Specific</div>
+        <div class="lp-info">
+          <div class="lp-title" style="color:var(--black);">Industry Variants</div>
+          <div class="lp-body">Tailored copy and visuals for pharma, retail, manufacturing, CA/CPA audiences.</div>
+        </div>
+      </div>
+      <div class="lp-card">
+        <div class="lp-visual lp-visual-3">Festive Offer Page</div>
+        <div class="lp-info">
+          <div class="lp-title" style="color:var(--black);">Festive Campaign Pages</div>
+          <div class="lp-body">Seasonal theme applied to landing page — Diwali offer, Anniversary deal, etc.</div>
+        </div>
+      </div>
+      <div class="lp-card">
+        <div class="lp-visual lp-visual-4">Feature Spotlight</div>
+        <div class="lp-info">
+          <div class="lp-title" style="color:var(--black);">Feature-Led Pages</div>
+          <div class="lp-body">Dedicated pages for GST compliance, POS, payroll — for bottom-of-funnel campaigns.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen-label-strip" style="margin-top: 2.5rem;">Landing Page Designs — Add Figma exports below</div>
+    <div class="screen-row">
+      <div class="screen-frame sf-light sf-md"><div class="sf-inner-label" style="color:rgba(0,0,0,0.22);">General Lead Page</div><span class="sf-hint" style="color:rgba(0,0,0,0.18);">Add here</span></div>
+      <div class="screen-frame sf-light sf-md"><div class="sf-inner-label" style="color:rgba(0,0,0,0.22);">Industry Variant</div><span class="sf-hint" style="color:rgba(0,0,0,0.18);">Add here</span></div>
+      <div class="screen-frame sf-light sf-md"><div class="sf-inner-label" style="color:rgba(0,0,0,0.22);">Festive Campaign</div><span class="sf-hint" style="color:rgba(0,0,0,0.18);">Add here</span></div>
+      <div class="screen-frame sf-light sf-md"><div class="sf-inner-label" style="color:rgba(0,0,0,0.22);">Feature-Led Page</div><span class="sf-hint" style="color:rgba(0,0,0,0.18);">Add here</span></div>
+      <div class="screen-frame sf-light sf-md"><div class="sf-inner-label" style="color:rgba(0,0,0,0.22);">Mobile View</div><span class="sf-hint" style="color:rgba(0,0,0,0.18);">Add here</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 Impact -->
+<section class="section" id="impact">
+  <div class="section-number">07</div>
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>07 — Impact</span></div>
+    <h2 class="sec-title">The numbers that<br><span class="sec-title-script">spoke for themselves.</span></h2>
+
+    <div class="body-text" style="max-width: 600px; margin-bottom: 1rem;">
+      <p>The revamp's most concrete outcome was a dramatic improvement in website engagement. A bounce rate drop from 70% to 30% — a 57% relative reduction — is a strong indicator that the new experience was resonating with the right audience and giving them reasons to stay.</p>
+    </div>
+
+    <div class="impact-callout">
+      <div class="ic-stat">
+        <div class="num" style="color: rgba(255,255,255,0.2); font-size: 2.8rem;">70%</div>
+        <div class="sub">Old Bounce Rate</div>
+      </div>
+      <div style="font-size: 2.5rem; color: var(--red);">→</div>
+      <div class="ic-stat">
+        <div class="num" style="font-size: 2.8rem;">30%</div>
+        <div class="sub">New Bounce Rate</div>
+      </div>
+      <div class="ic-divider"></div>
+      <div class="ic-text">
+        A 57% relative reduction in bounce rate — meaning significantly more visitors were engaging with content, exploring features, and moving toward conversion rather than leaving immediately after landing. This was achieved through better first-impression design, clearer information hierarchy, and a benefit-led content strategy.
+      </div>
+    </div>
+
+    <div class="stat-strip" style="margin-top: 1.5rem;">
+      <div class="stat-cell">
+        <div class="stat-label">Bounce Rate Reduction</div>
+        <div class="stat-value">−57%</div>
+        <div class="stat-note">From 70% down to 30% post-revamp</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Festive Themes Designed</div>
+        <div class="stat-value">8+</div>
+        <div class="stat-note">Diwali, Holi, Independence Day, Christmas, Ganesh Chaturthi, Navratri, Anniversary, Valentine's</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Scope</div>
+        <div class="stat-value">End-to-end</div>
+        <div class="stat-note">Identity · Web · Campaigns · Landing Pages</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 Reflections -->
+<section class="section section-warm">
+  <div class="section-number">08</div>
+  <div class="section-inner">
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span>08 — Reflections</span></div>
+    <h2 class="sec-title" style="color:var(--black);">What I<br><span class="sec-title-script">took away.</span></h2>
+
+    <div class="learn-grid">
+      <div class="learn-card">
+        <div class="learn-num">01</div>
+        <div class="learn-title">Brand Is a System, Not a Style</div>
+        <div class="learn-body">A rebrand only works when it's a coherent system — type, colour, spacing, motion, and tone all pulling in the same direction. Changing just the colours or fonts in isolation creates a patchwork, not a brand. Building the system first made every subsequent design decision faster and more consistent.</div>
+      </div>
+      <div class="learn-card">
+        <div class="learn-num">02</div>
+        <div class="learn-title">Festive Design Is a Strategic Asset</div>
+        <div class="learn-body">India's festive calendar is one of the most commercially significant in the world. A brand that shows up — that feels alive during Diwali, Holi, and Independence Day — builds emotional connection and trust that generic campaigns can't buy. Building a seasonal design system was one of the highest-leverage things I did.</div>
+      </div>
+      <div class="learn-card">
+        <div class="learn-num">03</div>
+        <div class="learn-title">Navigation Is UX and Business Strategy</div>
+        <div class="learn-body">Restructuring the nav wasn't just a design improvement — it was a business decision. When users can find what they're looking for (features, pricing, industries), they stay longer and convert better. The mega-nav with grouped categories directly contributed to the bounce rate improvement.</div>
+      </div>
+      <div class="learn-card">
+        <div class="learn-num">04</div>
+        <div class="learn-title">Conversion Design Is a Discipline</div>
+        <div class="learn-body">Landing pages for lead generation require a completely different design mode than informational pages. Every element — headline, CTA placement, form length, visual hierarchy — needs to earn its place. Applying conversion principles to the landing page system had a measurable downstream impact on campaign performance.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">Align<span>Books</span> · Brand Revamp</div>
+  <div class="footer-right">Align Info Solutions Pvt Ltd · alignbooks.com</div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+
+  (function animateRing() {
+    rx += (mx - rx) * 0.11; ry += (my - ry) * 0.11;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  })();
+
+  document.querySelectorAll('a, .festival-card, .lp-card, .learn-card, .stat-cell, .compare-col, .screen-frame').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width = '18px'; cursor.style.height = '18px'; ring.style.width = '52px'; ring.style.height = '52px'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; ring.style.width = '36px'; ring.style.height = '36px'; });
+  });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.festival-card, .learn-card, .stat-cell, .lp-card, .compare-col, .nav-item').forEach((el, i) => {
+    el.style.opacity = '0'; el.style.transform = 'translateY(18px)';
+    el.style.transition = `opacity 0.55s ease ${i * 0.04}s, transform 0.55s ease ${i * 0.04}s`;
+    io.observe(el);
+  });
+</script>
+</body>
+</html>
